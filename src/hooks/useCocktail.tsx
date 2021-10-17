@@ -22,6 +22,7 @@ interface CocktailContextData {
   isSelectedDrink: boolean;
   handleSelectedCategory: (category: string) => void;
   handleSelectedDrink: (drink: string) => void;
+  setSearchTerm: any;
 }
 
 const CocktailContext = createContext({} as CocktailContextData);
@@ -35,6 +36,7 @@ const CocktailProvider = ({ children }: Props) => {
   const [selectedDrink, setSelectedDrink] = useState<string>('');
   const [drink, setDrink] = useState<DrinkDTO>({} as DrinkDTO);
   const [isSelectedDrink] = useState<boolean>(!!selectedDrink.length);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const history = useHistory();
 
   const handleSelectedCategory = (category: string) => {
@@ -84,6 +86,25 @@ const CocktailProvider = ({ children }: Props) => {
   }, [selectedCategory]);
 
   useEffect(() => {
+    const fetchSearch = async () => {
+      try {
+        const res = await cocktailService.get<any>('/search.php', {
+          params: {
+            s: searchTerm,
+          },
+        });
+
+        const drinks: DrinkDTO[] = res.data.drinks;
+        setDrinks(drinks ?? []);
+      } catch (error) {
+        throw new Error('Não foi possível efetuar a busca.');
+      }
+    };
+
+    fetchSearch();
+  }, [searchTerm]);
+
+  useEffect(() => {
     const fetchDrink = async (id: string) => {
       try {
         const res = await cocktailService.get<any>('lookup.php', {
@@ -112,6 +133,7 @@ const CocktailProvider = ({ children }: Props) => {
         isSelectedDrink,
         handleSelectedCategory,
         handleSelectedDrink,
+        setSearchTerm,
       }}
     >
       {children}

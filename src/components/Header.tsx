@@ -1,14 +1,21 @@
 import { useCocktail } from '../hooks/useCocktail';
 import CategoryButton from './CategoryButton';
-import { FiCoffee } from 'react-icons/fi';
+import { FiCoffee, FiSearch } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-
+import { useRef } from 'react';
 interface Props {
   title: string;
 }
 
 const Header = ({ title }: Props) => {
   const { categories, handleSelectedCategory } = useCocktail();
+  const searchTerm = useRef<any>('');
+  const { setSearchTerm } = useCocktail();
+
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    setSearchTerm(searchTerm.current.value);
+  };
 
   return (
     <div className="bg-yellow-500 pt-4 pb-48">
@@ -31,6 +38,20 @@ const Header = ({ title }: Props) => {
           ))}
         </ul>
       </nav>
+
+      <div className="flex w-full justify-center pt-6">
+        <form onSubmit={handleSearch} className="">
+          <div className="flex items-center bg-white dark:bg-gray-800 border dark:border-gray-900 p-2 rounded-full shadow-sm text-gray-500 focus-within:text-gray-800 dark:focus-within:text-gray-200 focus-within:shadow-md">
+            <FiSearch className="h-6" />
+            <input
+              type="text"
+              placeholder="buscar..."
+              className="w-full bg-transparent outline-none px-2"
+              ref={searchTerm}
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

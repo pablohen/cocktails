@@ -45,7 +45,7 @@ const Header = ({ title }: Props) => {
             <FiSearch className="h-6" />
             <input
               type="text"
-              placeholder="buscar..."
+              placeholder="search..."
               className="w-full bg-transparent outline-none px-2"
               ref={searchTerm}
             />

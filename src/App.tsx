@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Header from './components/Header';
+import GlobalContext from './context';
+import Routes from './routes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <GlobalContext>
+        <Header title="Cocktails & Drinks" />
+
+        <div className="flex flex-wrap p-4 space-x-4 -mt-44">
+          <main className="flex w-full justify-center">
+            <div className="w-full bg-yellow-200 p-2 rounded">
+              <Routes />
+            </div>
+          </main>
+        </div>
+      </GlobalContext>
+    </BrowserRouter>
   );
 }
 

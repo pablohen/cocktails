@@ -52,6 +52,7 @@ const CocktailProvider = ({ children }: Props) => {
 
   const handleSearchByTerm = (term: string) => {
     setSearchTerm(term);
+    setSelectedCategory('');
     setSelectedDrink('');
     history.push('/');
   };

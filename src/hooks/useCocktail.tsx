@@ -22,7 +22,7 @@ interface CocktailContextData {
   isSelectedDrink: boolean;
   handleSelectedCategory: (category: string) => void;
   handleSelectedDrink: (drink: string) => void;
-  setSearchTerm: any;
+  handleSearchByTerm: (term: string) => void;
 }
 
 const CocktailContext = createContext({} as CocktailContextData);
@@ -48,6 +48,12 @@ const CocktailProvider = ({ children }: Props) => {
   const handleSelectedDrink = (drink: string) => {
     setSelectedDrink(drink);
     history.push('/details');
+  };
+
+  const handleSearchByTerm = (term: string) => {
+    setSearchTerm(term);
+    setSelectedDrink('');
+    history.push('/');
   };
 
   useEffect(() => {
@@ -133,7 +139,7 @@ const CocktailProvider = ({ children }: Props) => {
         isSelectedDrink,
         handleSelectedCategory,
         handleSelectedDrink,
-        setSearchTerm,
+        handleSearchByTerm,
       }}
     >
       {children}

@@ -11,7 +11,9 @@ const DrinksList = ({ drinks }: Props) => {
 
   return (
     <div className="flex justify-center flex-wrap">
-      {!drinks.length && <p>Please select a beverage category above.</p>}
+      {!drinks.length && (
+        <p>Please select a beverage category above or search for its name.</p>
+      )}
       {drinks.map((drink) => (
         <DrinkButton
           key={drink.idDrink}

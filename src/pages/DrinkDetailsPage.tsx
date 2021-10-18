@@ -24,7 +24,7 @@ const DrinkDetailsPage = (props: Props) => {
         {drink.strDrink} ({drink.strCategory})
       </h2>
 
-      <div className="flex flex-col sm:flex-row w-full sm:space-x-4">
+      <div className="flex flex-col sm:flex-row w-full space-y-4 sm:space-x-4 sm:space-y-0">
         <div className="">
           <img
             src={drink.strDrinkThumb}

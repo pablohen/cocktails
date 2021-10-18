@@ -43,6 +43,7 @@ const CocktailProvider = ({ children }: Props) => {
   const handleSelectedCategory = (category: string) => {
     setSelectedCategory(category);
     setSelectedDrink('');
+    setDrink({} as DrinkDTO);
     history.push('/');
   };
 

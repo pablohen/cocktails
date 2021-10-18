@@ -16,7 +16,7 @@ const DrinkDetailsPage = (props: Props) => {
     if (!!drinkId) {
       setSelectedDrink(drinkId);
     }
-  }, [drinkId]);
+  }, [drinkId, setSelectedDrink]);
 
   return (
     <main className="w-full p-4">

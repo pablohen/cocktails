@@ -1,9 +1,22 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
 import { useCocktail } from '../hooks/useCocktail';
+
+interface ParamsProps {
+  drinkId?: string;
+}
 
 interface Props {}
 
 const DrinkDetailsPage = (props: Props) => {
-  const { drink } = useCocktail();
+  const { drinkId } = useParams<ParamsProps>();
+  const { drink, setSelectedDrink } = useCocktail();
+
+  useEffect(() => {
+    if (!!drinkId) {
+      setSelectedDrink(drinkId);
+    }
+  }, [drinkId, setSelectedDrink]);
 
   return (
     <main className="w-full p-4">

@@ -23,6 +23,7 @@ interface CocktailContextData {
   handleSelectedCategory: (category: string) => void;
   handleSelectedDrink: (drink: string) => void;
   handleSearchByTerm: (term: string) => void;
+  setSelectedDrink: (id: string) => void;
 }
 
 const CocktailContext = createContext({} as CocktailContextData);
@@ -47,7 +48,7 @@ const CocktailProvider = ({ children }: Props) => {
 
   const handleSelectedDrink = (drink: string) => {
     setSelectedDrink(drink);
-    history.push('/details');
+    history.push(`/details/${drink}`);
   };
 
   const handleSearchByTerm = (term: string) => {
@@ -141,6 +142,7 @@ const CocktailProvider = ({ children }: Props) => {
         handleSelectedCategory,
         handleSelectedDrink,
         handleSearchByTerm,
+        setSelectedDrink,
       }}
     >
       {children}

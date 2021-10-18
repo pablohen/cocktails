@@ -8,7 +8,7 @@ const AppRoutes = (props: Props) => {
   return (
     <Switch>
       <Route path="/" component={HomePage} exact />
-      <Route path="/details" component={DrinkDetailsPage} />
+      <Route path="/details/:drinkId" component={DrinkDetailsPage} />
       <Route component={NotFoundPage} />
     </Switch>
   );

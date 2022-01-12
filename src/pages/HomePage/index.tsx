@@ -4,16 +4,12 @@ import { useCocktail } from '../../context/drinks';
 interface Props {}
 
 const HomePage = (props: Props) => {
-  const { drinks, drink, isSelectedDrink } = useCocktail();
+  const { loading, drinks } = useCocktail();
 
   return (
-    <>
-      <DrinksList drinks={drinks} />
-
-      <main className="flex flex-grow">
-        {isSelectedDrink && <p>{drink.strDrink}</p>}
-      </main>
-    </>
+    <div className="flex justify-center flex-wrap">
+      {loading ? <p>Loading...</p> : <DrinksList drinks={drinks} />}
+    </div>
   );
 };
 

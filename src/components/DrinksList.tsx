@@ -7,18 +7,10 @@ interface Props {
 }
 
 const DrinksList = ({ drinks }: Props) => {
-  const { loading, handleSelectedDrink } = useCocktail();
-
-  if (loading) {
-    return (
-      <div className="flex justify-center flex-wrap">
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  const { handleSelectedDrink } = useCocktail();
 
   return (
-    <div className="flex justify-center flex-wrap">
+    <>
       {drinks?.length ? (
         drinks.map((drink) => (
           <DrinkButton
@@ -30,7 +22,7 @@ const DrinksList = ({ drinks }: Props) => {
       ) : (
         <p>Please select a beverage category above or search for its name.</p>
       )}
-    </div>
+    </>
   );
 };
 

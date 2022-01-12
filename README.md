@@ -7,9 +7,10 @@ Exemplo do consumo de uma API e uso do Context API [https://cocktails-sage.verce
 - TypeScript
 - React
 - Context API
-- Tailwind CSS
-- React Icons
 - Axios
+- React Icons
+- React Query
+- Tailwind CSS
 
 ## Back-end:
 

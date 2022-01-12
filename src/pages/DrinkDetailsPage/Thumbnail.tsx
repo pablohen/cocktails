@@ -9,7 +9,7 @@ const Thumbnail = ({ drink }: Props) => {
     <img
       src={drink.strDrinkThumb}
       alt={drink.strDrink}
-      className="rounded w-full h-auto max-w-[256px] max-h-[256px]"
+      className="rounded w-full h-auto max-w-[512px] max-h-[512px]"
     />
   );
 };

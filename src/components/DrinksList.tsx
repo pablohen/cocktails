@@ -1,4 +1,4 @@
-import { useCocktail } from '../hooks/useCocktail';
+import { useCocktail } from '../context/drinks';
 import { DrinkDTO } from '../interfaces/DrinkDTO';
 import DrinkButton from './DrinkButton';
 
@@ -7,20 +7,29 @@ interface Props {
 }
 
 const DrinksList = ({ drinks }: Props) => {
-  const { handleSelectedDrink } = useCocktail();
+  const { loading, handleSelectedDrink } = useCocktail();
+
+  if (loading) {
+    return (
+      <div className="flex justify-center flex-wrap">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center flex-wrap">
-      {!drinks.length && (
+      {drinks?.length ? (
+        drinks.map((drink) => (
+          <DrinkButton
+            key={drink.idDrink}
+            drink={drink}
+            onClick={handleSelectedDrink}
+          />
+        ))
+      ) : (
         <p>Please select a beverage category above or search for its name.</p>
       )}
-      {drinks.map((drink) => (
-        <DrinkButton
-          key={drink.idDrink}
-          drink={drink}
-          onClick={handleSelectedDrink}
-        />
-      ))}
     </div>
   );
 };

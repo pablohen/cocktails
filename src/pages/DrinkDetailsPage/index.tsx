@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { useCocktail } from '../../hooks/useCocktail';
+import { useCocktail } from '../../context/drinks';
 import Ingredients from './Ingredients';
 import Instructions from './Instructions';
 import Thumbnail from './Thumbnail';
@@ -13,7 +13,7 @@ interface Props {}
 
 const DrinkDetailsPage = (props: Props) => {
   const { drinkId } = useParams<ParamsProps>();
-  const { drink, setSelectedDrink } = useCocktail();
+  const { loading, drink, setSelectedDrink } = useCocktail();
 
   useEffect(() => {
     if (!!drinkId) {
@@ -21,7 +21,7 @@ const DrinkDetailsPage = (props: Props) => {
     }
   }, [drinkId, setSelectedDrink]);
 
-  if (!drink.idDrink) return <p>Carregando</p>;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <main className="w-full p-4">

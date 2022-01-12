@@ -1,4 +1,4 @@
-import { useCocktail } from '../hooks/useCocktail';
+import { useCocktail } from '../context/drinks';
 import CategoryButton from './CategoryButton';
 import { FiCoffee } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -13,8 +13,7 @@ const Header = ({ title }: Props) => {
   const searchTerm = useRef<any>('');
   const { handleSearchByTerm } = useCocktail();
 
-  const handleSearch = (e: any) => {
-    e.preventDefault();
+  const handleSearch = () => {
     handleSearchByTerm(searchTerm.current.value);
   };
 

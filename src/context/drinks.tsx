@@ -77,7 +77,7 @@ const CocktailProvider = ({ children }: Props) => {
       const drinks = res.data.drinks;
       return drinks;
     } catch (error) {
-      console.log('Could not fetch drinks.');
+      console.error('Could not fetch drinks.');
       return [];
     }
   };
@@ -91,7 +91,7 @@ const CocktailProvider = ({ children }: Props) => {
       const categories = res.data.drinks;
       return categories;
     } catch (error) {
-      console.log('Could not fetch categories.');
+      console.error('Could not fetch categories.');
       return [];
     }
   };
@@ -110,7 +110,7 @@ const CocktailProvider = ({ children }: Props) => {
       const drinks = res.data.drinks;
       return drinks;
     } catch (error) {
-      console.log('Could not search.');
+      console.error('Could not search.');
       return [];
     }
   };
@@ -138,8 +138,7 @@ const CocktailProvider = ({ children }: Props) => {
     fetchCategories,
     {
       onSuccess: (data) => setCategories(data),
-      onError: (data) => console.log(data),
-      useErrorBoundary: true,
+      onError: (data) => console.error(data),
     }
   );
 
@@ -148,8 +147,7 @@ const CocktailProvider = ({ children }: Props) => {
     fetchSearch,
     {
       onSuccess: (data) => setDrinks(data),
-      onError: (data) => console.log(data),
-      useErrorBoundary: true,
+      onError: (data) => console.error(data),
     }
   );
 
@@ -158,8 +156,7 @@ const CocktailProvider = ({ children }: Props) => {
     () => fetchDrinks(selectedCategory),
     {
       onSuccess: (data) => setDrinks(data),
-      onError: (data) => console.log(data),
-      useErrorBoundary: true,
+      onError: (data) => console.error(data),
     }
   );
 
@@ -168,96 +165,22 @@ const CocktailProvider = ({ children }: Props) => {
     () => fetchDrink(selectedDrink),
     {
       onSuccess: (data) => setDrink(data),
-      onError: (data) => console.log(data),
-      useErrorBoundary: true,
+      onError: (data) => console.error(data),
     }
   );
 
   useEffect(() => {
-    setLoading(
+    const currentLoadingState =
       isLoadingCategories ||
-        isLoadingDrink ||
-        isLoadingDrinks ||
-        isLoadingSearch
-    );
+      isLoadingDrink ||
+      isLoadingDrinks ||
+      isLoadingSearch;
+    setLoading(currentLoadingState);
   }, [isLoadingCategories, isLoadingDrink, isLoadingDrinks, isLoadingSearch]);
 
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
-
   // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     try {
-  //       const res = await cocktailService.get<any>('/list.php?c=list');
-  //       const categories: CategoryDTO[] = res.data.drinks;
-  //       setCategories(categories);
-  //     } catch (error) {
-  //       throw new Error('Não foi possível buscar as categorias.');
-  //     }
-  //   };
-
-  //   fetchCategories();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchDrinks = async (category: string) => {
-  //     try {
-  //       const res = await cocktailService.get<any>('/filter.php', {
-  //         params: {
-  //           c: category,
-  //         },
-  //       });
-
-  //       const drinks: DrinkDTO[] = res.data.drinks;
-  //       setDrinks(drinks);
-  //     } catch (error) {
-  //       throw new Error('Não foi possível buscar os drinks.');
-  //     }
-  //   };
-
-  //   if (!!selectedCategory) {
-  //     fetchDrinks(selectedCategory);
-  //   }
-  // }, [selectedCategory]);
-
-  // useEffect(() => {
-  //   const fetchSearch = async () => {
-  //     try {
-  //       const res = await cocktailService.get<any>('/search.php', {
-  //         params: {
-  //           s: searchTerm,
-  //         },
-  //       });
-
-  //       const drinks: DrinkDTO[] = res.data.drinks;
-  //       setDrinks(drinks ?? []);
-  //     } catch (error) {
-  //       throw new Error('Não foi possível efetuar a busca.');
-  //     }
-  //   };
-
-  //   fetchSearch();
-  // }, [searchTerm]);
-
-  // useEffect(() => {
-  //   const fetchDrink = async (id: string) => {
-  //     try {
-  //       const res = await cocktailService.get<any>('lookup.php', {
-  //         params: {
-  //           i: id,
-  //         },
-  //       });
-
-  //       const drink: DrinkDTO[] = res.data.drinks;
-  //       setDrink(drink[0]);
-  //     } catch (error) {
-  //       throw new Error('Não foi possível buscar os detalhes desse drink.');
-  //     }
-  //   };
-
-  //   !!selectedDrink && fetchDrink(selectedDrink);
-  // }, [selectedDrink]);
+  //   console.log(loading);
+  // }, [loading]);
 
   return (
     <CocktailContext.Provider

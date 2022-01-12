@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { CocktailProvider } from '../hooks/useCocktail';
+import { CocktailProvider } from './drinks';
 
 interface Props {
   children: ReactNode;

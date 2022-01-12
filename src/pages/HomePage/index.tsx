@@ -1,5 +1,5 @@
 import DrinksList from '../../components/DrinksList';
-import { useCocktail } from '../../hooks/useCocktail';
+import { useCocktail } from '../../context/drinks';
 
 interface Props {}
 

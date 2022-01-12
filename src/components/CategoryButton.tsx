@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCocktail } from '../hooks/useCocktail';
+import { useCocktail } from '../context/drinks';
 
 interface Props {
   category: string;

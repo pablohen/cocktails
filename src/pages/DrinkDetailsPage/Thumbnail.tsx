@@ -6,7 +6,11 @@ interface Props {
 
 const Thumbnail = ({ drink }: Props) => {
   return (
-    <img src={drink.strDrinkThumb} alt={drink.strDrink} className="rounded" />
+    <img
+      src={drink.strDrinkThumb}
+      alt={drink.strDrink}
+      className="rounded w-full h-auto max-w-[256px] max-h-[256px]"
+    />
   );
 };
 

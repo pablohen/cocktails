@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { useQuery } from 'react-query';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CategoryDTO } from '../interfaces/CategoryDTO';
 import { DrinkDTO } from '../interfaces/DrinkDTO';
 import cocktailService from '../services/cocktail';
@@ -42,25 +42,25 @@ const CocktailProvider = ({ children }: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSelectedCategory = (category: string) => {
     setSelectedCategory(category);
     setSelectedDrink('');
     setDrink({} as DrinkDTO);
-    history.push('/');
+    navigate('/');
   };
 
   const handleSelectedDrink = (drink: string) => {
     setSelectedDrink(drink);
-    history.push(`/details/${drink}`);
+    navigate(`/details/${drink}`);
   };
 
   const handleSearchByTerm = (term: string) => {
     setSelectedCategory('');
     setSelectedDrink('');
     setSearchTerm(term);
-    history.push('/');
+    navigate('/');
   };
 
   const fetchDrinks = async (category: string) => {

@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
-import Header from './components/Header';
 import GlobalContext from './context';
+import DefaultLayout from './layouts/DefaultLayout';
 import Routes from './routes';
 
 function App() {
@@ -11,15 +11,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <GlobalContext>
-          <Header title="Cocktails & Drinks" />
-
-          <div className="flex flex-wrap p-4 space-x-4 -mt-44">
-            <main className="flex w-full justify-center">
-              <div className="w-full bg-yellow-200 p-2 rounded">
-                <Routes />
-              </div>
-            </main>
-          </div>
+          <DefaultLayout>
+            <Routes />
+          </DefaultLayout>
         </GlobalContext>
       </BrowserRouter>
     </QueryClientProvider>

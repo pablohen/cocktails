@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useCocktail } from '../../context/drinks';
 import Ingredients from './Ingredients';
@@ -6,14 +6,8 @@ import Instructions from './Instructions';
 import Thumbnail from './Thumbnail';
 import Title from './Title';
 
-interface ParamsProps {
-  drinkId?: string;
-}
-
-interface Props {}
-
-const DrinkDetailsPage = (props: Props) => {
-  const { drinkId } = useParams<ParamsProps>();
+const DrinkDetailsPage: FC = () => {
+  const { drinkId } = useParams();
   const { loading, drink, setSelectedDrink } = useCocktail();
 
   const pageTitle = `${drink.strDrink} (${drink.strCategory})`;

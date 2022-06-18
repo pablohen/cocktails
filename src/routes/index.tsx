@@ -1,8 +1,7 @@
+import { FC } from 'react';
 import AppRoutes from './app.routes';
 
-interface Props {}
-
-const Routes = (props: Props) => {
+const Routes: FC = () => {
   return <AppRoutes />;
 };
 

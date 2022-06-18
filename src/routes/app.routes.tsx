@@ -1,16 +1,16 @@
-import { Switch, Route } from 'react-router-dom';
+import { FC } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import DrinkDetailsPage from '../pages/DrinkDetailsPage';
 import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/NotFoundPage';
-interface Props {}
 
-const AppRoutes = (props: Props) => {
+const AppRoutes: FC = () => {
   return (
-    <Switch>
-      <Route path="/" component={HomePage} exact />
-      <Route path="/details/:drinkId" component={DrinkDetailsPage} />
-      <Route component={NotFoundPage} />
-    </Switch>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/details/:drinkId" element={<DrinkDetailsPage />} />
+      <Route element={<NotFoundPage />} />
+    </Routes>
   );
 };
 

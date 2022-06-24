@@ -1,21 +1,16 @@
-import { useCocktail } from '../context/drinks';
-import CategoryButton from './CategoryButton';
+import { CategoryButton } from './CategoryButton';
 import { FiCoffee } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
-import SearchBar from './SearchBar';
+import { SearchBar } from './SearchBar';
+import { useCategories } from '../hooks/useCategories';
+import { useUtils } from '../stores/utils';
 interface Props {
   title: string;
 }
 
-const Header = ({ title }: Props) => {
-  const { categories, handleSelectedCategory } = useCocktail();
-  const searchTerm = useRef<any>('');
-  const { handleSearchByTerm } = useCocktail();
-
-  const handleSearch = () => {
-    handleSearchByTerm(searchTerm.current.value);
-  };
+export function Header({ title }: Props) {
+  const { categories } = useCategories();
+  const { handleSelectedCategory, handleSearch } = useUtils();
 
   return (
     <div className="bg-yellow-500 pt-4 pb-48">
@@ -28,10 +23,10 @@ const Header = ({ title }: Props) => {
 
       <nav className="">
         <ul className="flex justify-center items-center flex-wrap w-full px-4">
-          {categories.map((category) => (
-            <li key={category.strCategory} className="">
+          {categories.data?.map((category) => (
+            <li key={category.strCategory}>
               <CategoryButton
-                category={category.strCategory}
+                value={category.strCategory}
                 onClick={handleSelectedCategory}
               />
             </li>
@@ -40,10 +35,8 @@ const Header = ({ title }: Props) => {
       </nav>
 
       <div className="flex w-full justify-center pt-6">
-        <SearchBar reference={searchTerm} onSubmit={handleSearch} />
+        <SearchBar onSubmit={handleSearch} />
       </div>
     </div>
   );
-};
-
-export default Header;
+}

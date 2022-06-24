@@ -1,11 +1,11 @@
-import { FC, ReactNode } from 'react';
-import Header from '../../components/Header';
+import { ReactNode } from 'react';
+import { Header } from '../../components/Header';
 
 interface Props {
   children: ReactNode;
 }
 
-const DefaultLayout: FC<Props> = ({ children }) => {
+export function DefaultLayout({ children }: Props) {
   return (
     <>
       <Header title="Cocktails & Drinks" />
@@ -17,6 +17,4 @@ const DefaultLayout: FC<Props> = ({ children }) => {
       </div>
     </>
   );
-};
-
-export default DefaultLayout;
+}

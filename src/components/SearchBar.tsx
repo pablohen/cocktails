@@ -1,15 +1,16 @@
-import { FormEvent, LegacyRef } from 'react';
+import { FormEvent, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 interface Props {
-  reference: LegacyRef<HTMLInputElement>;
-  onSubmit: () => void;
+  onSubmit: (value: string) => void;
 }
 
-const SearchBar = ({ reference, onSubmit }: Props) => {
-  const handleSubmit = (e: FormEvent) => {
+export function SearchBar({ onSubmit }: Props) {
+  const [value, setValue] = useState('');
+
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    onSubmit();
+    onSubmit(value);
   };
 
   return (
@@ -20,11 +21,10 @@ const SearchBar = ({ reference, onSubmit }: Props) => {
           type="text"
           placeholder="search..."
           className="w-full bg-transparent outline-none px-2"
-          ref={reference}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
       </div>
     </form>
   );
 };
-
-export default SearchBar;

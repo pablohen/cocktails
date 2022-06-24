@@ -1,16 +1,26 @@
-import DrinksList from '../../components/DrinksList';
-import { useCocktail } from '../../context/drinks';
+import { DrinkButton } from '../../components/DrinkButton';
+import { useUtils } from '../../stores/utils';
+import { useDrinks } from '../../hooks/useDrinks';
 
-interface Props {}
-
-const HomePage = (props: Props) => {
-  const { loading, drinks } = useCocktail();
+export function HomePage() {
+  const { drinks } = useDrinks();
+  const { handleSelectedDrink } = useUtils();
 
   return (
     <div className="flex justify-center flex-wrap">
-      {loading ? <p>Loading...</p> : <DrinksList drinks={drinks} />}
+      {drinks.isLoading && <p>Loading...</p>}
+
+      {!drinks.isLoading && !drinks.data ? (
+        <p>Please select a beverage category above or search for its name.</p>
+      ) : (
+        drinks.data?.map((drink) => (
+          <DrinkButton
+            key={drink.idDrink}
+            drink={drink}
+            onClick={handleSelectedDrink}
+          />
+        ))
+      )}
     </div>
   );
-};
-
-export default HomePage;
+}

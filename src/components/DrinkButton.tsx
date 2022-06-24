@@ -5,7 +5,7 @@ interface Props {
   onClick: (id: string) => void;
 }
 
-const DrinkButton = ({ drink, onClick }: Props) => {
+export function DrinkButton({ drink, onClick }: Props) {
   return (
     <button
       type="button"
@@ -23,6 +23,4 @@ const DrinkButton = ({ drink, onClick }: Props) => {
       </div>
     </button>
   );
-};
-
-export default DrinkButton;
+}

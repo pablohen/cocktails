@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
-import GlobalContext from './context';
-import DefaultLayout from './layouts/DefaultLayout';
-import Routes from './routes';
+import { DefaultLayout } from './layouts/DefaultLayout';
+import { Routes } from './routes';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { GlobalContext } from './stores';
 
 function App() {
   const queryClient = new QueryClient();
@@ -16,6 +17,7 @@ function App() {
           </DefaultLayout>
         </GlobalContext>
       </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

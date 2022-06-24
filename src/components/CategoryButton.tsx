@@ -1,27 +1,26 @@
-import React from 'react';
-import { useCocktail } from '../context/drinks';
+import { useUtils } from '../stores/utils';
 
 interface Props {
-  category: string;
+  value: string;
   onClick: (category: string) => void;
 }
 
-const CategoryButton = ({ category, onClick }: Props) => {
-  const { selectedCategory } = useCocktail();
+export function CategoryButton({ value, onClick }: Props) {
+  const { selectedCategory } = useUtils();
 
   return (
     <button
       type="button"
-      onClick={() => onClick(category)}
+      onClick={() => {
+        onClick(value);
+      }}
       className={`text-lg font-bold rounded-lg ${
-        category === selectedCategory
+        value === selectedCategory
           ? 'bg-yellow-400 hover:bg-yellow-300'
           : 'bg-gray-100 hover:bg-white'
       }  text-gray-700 px-4 py-2 m-2 shadow-lg  hover:shadow-xl hover:text-black transition-all duration-200 ease-in-out`}
     >
-      {category}
+      {value}
     </button>
   );
-};
-
-export default CategoryButton;
+}

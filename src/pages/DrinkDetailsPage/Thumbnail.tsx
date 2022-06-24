@@ -4,7 +4,7 @@ interface Props {
   drink: DrinkDTO;
 }
 
-const Thumbnail = ({ drink }: Props) => {
+export function Thumbnail({ drink }: Props) {
   return (
     <img
       src={drink.strDrinkThumb}
@@ -12,6 +12,4 @@ const Thumbnail = ({ drink }: Props) => {
       className="rounded w-full h-auto max-w-[512px] max-h-[512px]"
     />
   );
-};
-
-export default Thumbnail;
+}

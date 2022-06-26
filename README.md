@@ -1,6 +1,6 @@
 # Cocktails
 
-Exemplo do consumo de uma API e uso do Context API [https://cocktails-sage.vercel.app](https://cocktails-sage.vercel.app).
+Exemplo do consumo de uma API e uso do Context API https://cocktails.pablohen.dev.
 
 ## Front-end:
 
@@ -18,5 +18,5 @@ Exemplo do consumo de uma API e uso do Context API [https://cocktails-sage.verce
 
 ### Comentários:
 
-- Instalação das dependências via 'npm i' ou 'yarn install'
+- Instalação das dependências via 'npm ci'
 - Iniciar pelo script 'start', conforme o que está no 'package.json'

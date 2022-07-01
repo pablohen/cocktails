@@ -1,13 +1,11 @@
-import { useParams } from 'react-router';
-import { useDrink } from '../../hooks/useDrink';
-import { Ingredients } from './Ingredients';
-import { Instructions } from './Instructions';
-import { Thumbnail } from './Thumbnail';
-import { Title } from './Title';
+import { useCocktails } from "../../hooks/useCocktails";
+import { Ingredients } from "./Ingredients";
+import { Instructions } from "./Instructions";
+import { Thumbnail } from "./Thumbnail";
+import { Title } from "./Title";
 
 export function DrinkDetailsPage() {
-  const { drinkId } = useParams();
-  const { drink } = useDrink(drinkId!);
+  const { drink } = useCocktails();
 
   return (
     <main className="w-full">

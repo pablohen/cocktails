@@ -1,9 +1,9 @@
-import { DrinkButton } from '../../components/DrinkButton';
-import { useUtils } from '../../stores/utils';
-import { useDrinks } from '../../hooks/useDrinks';
+import { DrinkButton } from "../../components/DrinkButton";
+import { useCocktails } from "../../hooks/useCocktails";
+import { useUtils } from "../../stores/utils";
 
 export function HomePage() {
-  const { drinks } = useDrinks();
+  const { drinks } = useCocktails();
   const { handleSelectedDrink } = useUtils();
 
   return (

@@ -1,9 +1,9 @@
 import { Card } from "../../components/Card";
-import { useDrinks } from "../../hooks/useDrinks";
+import { useCocktails } from "../../hooks/useCocktails";
 import { useUtils } from "../../stores/utils";
 
 export function HomePage() {
-  const { drinks } = useDrinks();
+  const { drinks } = useCocktails();
   const { handleSelectedDrink } = useUtils();
 
   return (

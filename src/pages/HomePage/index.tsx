@@ -1,4 +1,4 @@
-import { DrinkButton } from "../../components/DrinkButton";
+import { Card } from "../../components/Card";
 import { useCocktails } from "../../hooks/useCocktails";
 import { useUtils } from "../../stores/utils";
 
@@ -14,9 +14,11 @@ export function HomePage() {
         <p>Please select a beverage category above or search for its name.</p>
       ) : (
         drinks.data?.map((drink) => (
-          <DrinkButton
+          <Card
             key={drink.idDrink}
-            drink={drink}
+            id={drink.idDrink}
+            name={drink.strDrink}
+            image={drink.strDrinkThumb}
             onClick={handleSelectedDrink}
           />
         ))

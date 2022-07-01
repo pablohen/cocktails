@@ -1,6 +1,6 @@
-import { DrinkButton } from '../../components/DrinkButton';
-import { useUtils } from '../../stores/utils';
-import { useDrinks } from '../../hooks/useDrinks';
+import { Card } from "../../components/Card";
+import { useDrinks } from "../../hooks/useDrinks";
+import { useUtils } from "../../stores/utils";
 
 export function HomePage() {
   const { drinks } = useDrinks();
@@ -14,9 +14,11 @@ export function HomePage() {
         <p>Please select a beverage category above or search for its name.</p>
       ) : (
         drinks.data?.map((drink) => (
-          <DrinkButton
+          <Card
             key={drink.idDrink}
-            drink={drink}
+            id={drink.idDrink}
+            name={drink.strDrink}
+            image={drink.strDrinkThumb}
             onClick={handleSelectedDrink}
           />
         ))

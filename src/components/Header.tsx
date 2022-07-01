@@ -1,15 +1,15 @@
-import { CategoryButton } from './CategoryButton';
-import { FiCoffee } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import { SearchBar } from './SearchBar';
-import { useCategories } from '../hooks/useCategories';
-import { useUtils } from '../stores/utils';
+import { FiCoffee } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { useCocktails } from "../hooks/useCocktails";
+import { useUtils } from "../stores/utils";
+import { CategoryButton } from "./CategoryButton";
+import { SearchBar } from "./SearchBar";
 interface Props {
   title: string;
 }
 
 export function Header({ title }: Props) {
-  const { categories } = useCategories();
+  const { categories } = useCocktails();
   const { handleSelectedCategory, handleSearch } = useUtils();
 
   return (

@@ -1,11 +1,21 @@
+import { useMemo } from "react";
 import { useCocktails } from "../../hooks/useCocktails";
-import { Ingredients } from "./Ingredients";
-import { Instructions } from "./Instructions";
+import { Subtitle } from "./Subtitle";
 import { Thumbnail } from "./Thumbnail";
 import { Title } from "./Title";
 
 export function DrinkDetailsPage() {
   const { drink } = useCocktails();
+
+  const ingredients = useMemo(() => {
+    if (drink.isLoading || drink.isError || !drink.data) {
+      return [];
+    }
+
+    return Object.entries(drink.data).filter((item) =>
+      item[0].startsWith("strIngredient")
+    );
+  }, [drink]);
 
   return (
     <main className="w-full">
@@ -13,7 +23,7 @@ export function DrinkDetailsPage() {
 
       {drink.data && (
         <div>
-          <Title value={`${drink.data.strDrink} (${drink.data.strCategory})`} />
+          <Title value={drink.data.strDrink} />
 
           <div className="flex flex-col sm:flex-row w-full gap-8">
             <div>
@@ -23,9 +33,24 @@ export function DrinkDetailsPage() {
               />
             </div>
 
-            <div className="flex flex-col space-y-4">
-              <Ingredients drink={drink.data} />
-              <Instructions drink={drink.data} />
+            <div className="flex flex-col gap-4">
+              <div>
+                <Subtitle value="Category" />
+                <p>{drink.data.strCategory}</p>
+              </div>
+
+              <div>
+                <Subtitle value="Ingredients" />
+
+                {ingredients.map((ingredient) => {
+                  return <p key={ingredient[0]}>{ingredient[1]}</p>;
+                })}
+              </div>
+
+              <div>
+                <Subtitle value="Instructions" />
+                <p>{drink.data.strInstructions}</p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,14 +1,13 @@
-import { DrinkDTO } from '../../interfaces/DrinkDTO';
-
 interface Props {
-  drink: DrinkDTO;
+  image: string;
+  name: string;
 }
 
-export function Thumbnail({ drink }: Props) {
+export function Thumbnail({ image, name }: Props) {
   return (
     <img
-      src={drink.strDrinkThumb}
-      alt={drink.strDrink}
+      src={image}
+      alt={name}
       className="rounded w-full h-auto max-w-[512px] max-h-[512px]"
     />
   );

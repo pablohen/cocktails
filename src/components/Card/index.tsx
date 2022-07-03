@@ -14,7 +14,7 @@ export function Card({ id, name, image, onClick }: Props) {
     <button
       type="button"
       onClick={handleClick}
-      className="m-2 transition-all duration-400 ease-in-out hover:-translate-y-2 bg-gray-500 rounded relative"
+      className="transition-all duration-400 ease-in-out hover:-translate-y-2 bg-gray-500 rounded relative"
       style={{
         background: `url('${image}')`,
         width: "256px",

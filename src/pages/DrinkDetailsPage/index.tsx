@@ -12,12 +12,15 @@ export function DrinkDetailsPage() {
       {drink.isLoading && <p className="text-center">Loading...</p>}
 
       {drink.data && (
-        <div className="p-4">
+        <div>
           <Title value={`${drink.data.strDrink} (${drink.data.strCategory})`} />
 
-          <div className="flex flex-col sm:flex-row w-full space-y-4 sm:space-x-4 sm:space-y-0">
+          <div className="flex flex-col sm:flex-row w-full gap-8">
             <div>
-              <Thumbnail drink={drink.data} />
+              <Thumbnail
+                image={drink.data.strDrinkThumb}
+                name={drink.data.strDrink}
+              />
             </div>
 
             <div className="flex flex-col space-y-4">

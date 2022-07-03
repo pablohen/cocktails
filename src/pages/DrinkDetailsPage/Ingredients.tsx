@@ -1,4 +1,4 @@
-import { DrinkDTO } from '../../interfaces/DrinkDTO';
+import { DrinkDTO } from "../../interfaces/DrinkDTO";
 
 interface Props {
   drink: DrinkDTO;
@@ -6,12 +6,12 @@ interface Props {
 
 export function Ingredients({ drink }: Props) {
   const ingredients = Object.entries(drink).filter((item) =>
-    item[0].startsWith('strIngredient')
+    item[0].startsWith("strIngredient")
   );
 
   return (
     <div>
-      <h2 className="text-4xl">Ingredients:</h2>
+      <h2 className="text-xl md:text-4xl mb-2">Ingredients:</h2>
 
       <>
         {ingredients.map((ingredient) => {

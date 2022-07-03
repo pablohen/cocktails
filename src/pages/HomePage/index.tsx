@@ -7,7 +7,7 @@ export function HomePage() {
   const { handleSelectedDrink } = useUtils();
 
   return (
-    <div className="flex justify-center flex-wrap">
+    <div className="flex justify-center flex-wrap gap-4">
       {drinks.isLoading && <p>Loading...</p>}
 
       {!drinks.isLoading && !drinks.data ? (

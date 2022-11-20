@@ -1,9 +1,9 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter } from 'react-router-dom';
-import { DefaultLayout } from './layouts/DefaultLayout';
-import { Routes } from './routes';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { GlobalContext } from './stores';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter } from "react-router-dom";
+import { DefaultLayout } from "./layouts/DefaultLayout";
+import { Routes } from "./routes";
+import { GlobalContext } from "./stores";
 
 function App() {
   const queryClient = new QueryClient();

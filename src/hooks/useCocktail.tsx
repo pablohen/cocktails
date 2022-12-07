@@ -1,10 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 import { api } from "../apis/cocktail";
 import { CategoryDTO } from "../interfaces/CategoryDTO";
 import { DrinkDTO } from "../interfaces/DrinkDTO";
 import { useUtils } from "../stores/utils";
+
+interface GetDrink {
+  id: string;
+}
 
 export function useCocktail() {
   function getCategories() {
@@ -43,28 +46,22 @@ export function useCocktail() {
       return drinks;
     }
 
-    return useQuery<DrinkDTO[]>(
-      ["drinks", selectedCategory, searchTerm],
-      () => {
-        if (!!searchTerm) {
+    return useQuery<DrinkDTO[]>({
+      queryKey: ["drinks", selectedCategory, searchTerm],
+      queryFn: () => {
+        if (Boolean(searchTerm)) {
           return fetchSearch(searchTerm);
         }
 
         return fetchDrinks(selectedCategory);
       },
-      {
-        onError: (data) => console.error(data),
-        enabled: !!selectedCategory || !!searchTerm,
-      }
-    );
+      enabled: Boolean(selectedCategory) || Boolean(searchTerm),
+      onError: (data) => console.error(data),
+    });
   }
 
-  function getDrink() {
-    const { drinkId } = useParams();
-
-    const selectedDrink = drinkId as string;
-
-    async function query(id: string) {
+  function getDrink({ id }: GetDrink) {
+    async function query() {
       const res = await api.get<{ drinks: DrinkDTO[] }>("lookup.php", {
         params: {
           i: id,
@@ -76,10 +73,10 @@ export function useCocktail() {
     }
 
     return useQuery<DrinkDTO>({
-      queryKey: ["drink", selectedDrink],
-      queryFn: () => query(selectedDrink),
+      queryKey: ["drink", id],
+      queryFn: query,
+      enabled: Boolean(id),
       onError: (data) => console.error(data),
-      enabled: !!selectedDrink,
     });
   }
 

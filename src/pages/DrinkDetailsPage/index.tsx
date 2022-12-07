@@ -1,44 +1,52 @@
 import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 import { useCocktail } from "../../hooks/useCocktail";
 import { Subtitle } from "./Subtitle";
 import { Thumbnail } from "./Thumbnail";
 import { Title } from "./Title";
 
+interface Params {
+  drinkId: string;
+}
+
 export function DrinkDetailsPage() {
   const { getDrink } = useCocktail();
+  const { drinkId } = useParams() as unknown as Params;
 
-  const drink = getDrink();
+  const drinkQuery = getDrink({
+    id: drinkId,
+  });
 
   const ingredients = useMemo(() => {
-    if (drink.isLoading || drink.isError || !drink.data) {
+    if (drinkQuery.isLoading || drinkQuery.isError || !drinkQuery.data) {
       return [];
     }
 
-    return Object.entries(drink.data).filter((item) =>
+    return Object.entries(drinkQuery.data).filter((item) =>
       item[0].startsWith("strIngredient")
     );
-  }, [drink]);
+  }, [drinkQuery]);
 
   return (
     <main className="w-full">
-      {drink.isLoading && <p className="text-center">Loading...</p>}
+      {drinkQuery.isLoading && <p className="text-center">Loading...</p>}
 
-      {drink.data && (
+      {drinkQuery.data && (
         <div>
-          <Title value={drink.data.strDrink} />
+          <Title value={drinkQuery.data.strDrink} />
 
           <div className="flex flex-col sm:flex-row w-full gap-8">
             <div>
               <Thumbnail
-                image={drink.data.strDrinkThumb}
-                name={drink.data.strDrink}
+                image={drinkQuery.data.strDrinkThumb}
+                name={drinkQuery.data.strDrink}
               />
             </div>
 
             <div className="flex flex-col gap-4">
               <div>
                 <Subtitle value="Category" />
-                <p>{drink.data.strCategory}</p>
+                <p>{drinkQuery.data.strCategory}</p>
               </div>
 
               <div>
@@ -51,7 +59,7 @@ export function DrinkDetailsPage() {
 
               <div>
                 <Subtitle value="Instructions" />
-                <p>{drink.data.strInstructions}</p>
+                <p>{drinkQuery.data.strInstructions}</p>
               </div>
             </div>
           </div>

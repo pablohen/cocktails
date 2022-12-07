@@ -3,8 +3,10 @@ import { useCocktail } from "../../hooks/useCocktail";
 import { useUtils } from "../../stores/utils";
 
 export function HomePage() {
-  const { drinks } = useCocktail();
+  const { getDrinks } = useCocktail();
   const { handleSelectedDrink } = useUtils();
+
+  const drinks = getDrinks();
 
   return (
     <div className="flex justify-center flex-wrap gap-4">

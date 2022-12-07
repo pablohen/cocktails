@@ -5,7 +5,9 @@ import { Thumbnail } from "./Thumbnail";
 import { Title } from "./Title";
 
 export function DrinkDetailsPage() {
-  const { drink } = useCocktail();
+  const { getDrink } = useCocktail();
+
+  const drink = getDrink();
 
   const ingredients = useMemo(() => {
     if (drink.isLoading || drink.isError || !drink.data) {

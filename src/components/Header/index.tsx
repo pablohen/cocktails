@@ -10,8 +10,10 @@ interface Props {
 }
 
 export function Header({ title }: Props) {
-  const { categories } = useCocktail();
+  const { getCategories } = useCocktail();
   const { handleSelectedCategory, handleSearch } = useUtils();
+
+  const categories = getCategories();
 
   return (
     <div className="bg-yellow-500 pt-4 pb-48">

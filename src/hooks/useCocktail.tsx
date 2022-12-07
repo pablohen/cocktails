@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { api } from "../apis/cocktail";
@@ -6,20 +7,18 @@ import { DrinkDTO } from "../interfaces/DrinkDTO";
 import { useUtils } from "../stores/utils";
 
 export function useCocktail() {
-  function Categories() {
-    const fetchCategories = async () => {
+  function getCategories() {
+    async function query() {
       const res = await api.get<{ drinks: CategoryDTO[] }>("/list.php?c=list");
 
       const categories = res.data.drinks;
       return categories;
-    };
+    }
 
-    return useQuery(["categories"], fetchCategories, {
-      onError: (data) => console.error(data),
-    });
+    return useQuery({ queryKey: ["categories"], queryFn: query });
   }
 
-  function Drinks() {
+  function getDrinks() {
     const { selectedCategory, searchTerm } = useUtils();
 
     async function fetchDrinks(category: string) {
@@ -60,12 +59,12 @@ export function useCocktail() {
     );
   }
 
-  function Drink() {
+  function getDrink() {
     const { drinkId } = useParams();
 
     const selectedDrink = drinkId as string;
 
-    const fetchDrink = async (id: string) => {
+    async function query(id: string) {
       const res = await api.get<{ drinks: DrinkDTO[] }>("lookup.php", {
         params: {
           i: id,
@@ -74,17 +73,15 @@ export function useCocktail() {
 
       const drink = res.data.drinks;
       return drink[0];
-    };
+    }
 
-    return useQuery<DrinkDTO>(
-      ["drink", selectedDrink],
-      () => fetchDrink(selectedDrink),
-      {
-        onError: (data) => console.error(data),
-        enabled: !!selectedDrink,
-      }
-    );
+    return useQuery<DrinkDTO>({
+      queryKey: ["drink", selectedDrink],
+      queryFn: () => query(selectedDrink),
+      onError: (data) => console.error(data),
+      enabled: !!selectedDrink,
+    });
   }
 
-  return { categories: Categories(), drinks: Drinks(), drink: Drink() };
+  return { getCategories, getDrinks, getDrink };
 }

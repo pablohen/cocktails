@@ -1,14 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
-import { DrinkDetailsPage } from '../pages/DrinkDetailsPage';
-import { HomePage } from '../pages/HomePage';
-import { NotFoundPage } from '../pages/NotFoundPage';
+import { Route, Routes } from "react-router-dom";
+import { DrinkDetails } from "../pages/DrinkDetails";
+import { Home } from "../pages/Home";
+import { NotFound } from "../pages/NotFound";
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/:drinkId" element={<DrinkDetailsPage />} />
-      <Route element={<NotFoundPage />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/:drinkId" element={<DrinkDetails />} />
+      <Route element={<NotFound />} />
     </Routes>
   );
 }

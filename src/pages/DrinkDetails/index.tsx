@@ -9,7 +9,7 @@ interface Params {
   drinkId: string;
 }
 
-export function DrinkDetailsPage() {
+export function DrinkDetails() {
   const { getDrink } = useCocktail();
   const { drinkId } = useParams() as unknown as Params;
 

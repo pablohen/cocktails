@@ -1,16 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { api } from "../apis/cocktail";
 import { CategoryDTO } from "../interfaces/CategoryDTO";
 import { DrinkDTO } from "../interfaces/DrinkDTO";
-import { cocktailService } from "../services/cocktail";
 import { useUtils } from "../stores/utils";
 
-export function useCocktails() {
+export function useCocktail() {
   function Categories() {
     const fetchCategories = async () => {
-      const res = await cocktailService.get<{ drinks: CategoryDTO[] }>(
-        "/list.php?c=list"
-      );
+      const res = await api.get<{ drinks: CategoryDTO[] }>("/list.php?c=list");
 
       const categories = res.data.drinks;
       return categories;
@@ -25,28 +23,22 @@ export function useCocktails() {
     const { selectedCategory, searchTerm } = useUtils();
 
     async function fetchDrinks(category: string) {
-      const res = await cocktailService.get<{ drinks: DrinkDTO[] }>(
-        "/filter.php",
-        {
-          params: {
-            c: category,
-          },
-        }
-      );
+      const res = await api.get<{ drinks: DrinkDTO[] }>("/filter.php", {
+        params: {
+          c: category,
+        },
+      });
 
       const drinks = res.data.drinks;
       return drinks;
     }
 
     async function fetchSearch(searchTerm: string) {
-      const res = await cocktailService.get<{ drinks: DrinkDTO[] }>(
-        "/search.php",
-        {
-          params: {
-            s: searchTerm,
-          },
-        }
-      );
+      const res = await api.get<{ drinks: DrinkDTO[] }>("/search.php", {
+        params: {
+          s: searchTerm,
+        },
+      });
 
       const drinks = res.data.drinks;
       return drinks;
@@ -74,14 +66,11 @@ export function useCocktails() {
     const selectedDrink = drinkId as string;
 
     const fetchDrink = async (id: string) => {
-      const res = await cocktailService.get<{ drinks: DrinkDTO[] }>(
-        "lookup.php",
-        {
-          params: {
-            i: id,
-          },
-        }
-      );
+      const res = await api.get<{ drinks: DrinkDTO[] }>("lookup.php", {
+        params: {
+          i: id,
+        },
+      });
 
       const drink = res.data.drinks;
       return drink[0];

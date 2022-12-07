@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { useCocktails } from "../../hooks/useCocktails";
+import { useCocktail } from "../../hooks/useCocktail";
 import { Subtitle } from "./Subtitle";
 import { Thumbnail } from "./Thumbnail";
 import { Title } from "./Title";
 
 export function DrinkDetailsPage() {
-  const { drink } = useCocktails();
+  const { drink } = useCocktail();
 
   const ingredients = useMemo(() => {
     if (drink.isLoading || drink.isError || !drink.data) {

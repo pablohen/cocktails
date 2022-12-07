@@ -13,7 +13,7 @@ export function Header({ title }: Props) {
   const { getCategories } = useCocktail();
   const { handleSelectedCategory, handleSearch } = useUtils();
 
-  const categories = getCategories();
+  const categoriesQuery = getCategories();
 
   return (
     <div className="bg-yellow-500 pt-4 pb-48">
@@ -26,7 +26,7 @@ export function Header({ title }: Props) {
 
       <nav className="">
         <ul className="flex justify-center items-center flex-wrap w-full px-4">
-          {categories.data?.map((category) => (
+          {categoriesQuery.data?.map((category) => (
             <li key={category.strCategory}>
               <Category
                 name={category.strCategory}

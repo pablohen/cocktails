@@ -6,15 +6,15 @@ import { Thumbnail } from "./Thumbnail";
 import { Title } from "./Title";
 
 interface Params {
-  drinkId: string;
+  id: string;
 }
 
 export function DrinkDetails() {
   const { getDrink } = useCocktail();
-  const { drinkId } = useParams() as unknown as Params;
+  const { id } = useParams() as unknown as Params;
 
   const drinkQuery = getDrink({
-    id: drinkId,
+    id,
   });
 
   const ingredients = useMemo(() => {

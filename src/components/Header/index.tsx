@@ -1,7 +1,6 @@
 import { FiCoffee } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useCocktail } from "../../hooks/useCocktail";
-import { useUtils } from "../../stores/utils";
 import { Category } from "../Category";
 import { SearchBar } from "../SearchBar";
 
@@ -10,8 +9,7 @@ interface Props {
 }
 
 export function Header({ title }: Props) {
-  const { getCategories } = useCocktail();
-  const { handleSelectedCategory, handleSearch } = useUtils();
+  const { getCategories, handleSelectedCategory, handleSearch } = useCocktail();
 
   const categoriesQuery = getCategories();
 

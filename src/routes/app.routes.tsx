@@ -7,7 +7,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/:drinkId" element={<DrinkDetails />} />
+      <Route path="/drinks/:id" element={<DrinkDetails />} />
       <Route element={<NotFound />} />
     </Routes>
   );

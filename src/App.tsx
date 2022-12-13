@@ -3,7 +3,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { Routes } from "./routes";
-import { GlobalContext } from "./stores";
 
 function App() {
   const queryClient = new QueryClient();
@@ -11,11 +10,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <GlobalContext>
-          <DefaultLayout>
-            <Routes />
-          </DefaultLayout>
-        </GlobalContext>
+        <DefaultLayout>
+          <Routes />
+        </DefaultLayout>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

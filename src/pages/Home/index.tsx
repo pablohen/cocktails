@@ -1,10 +1,8 @@
 import { Card } from "../../components/Card";
 import { useCocktail } from "../../hooks/useCocktail";
-import { useUtils } from "../../stores/utils";
 
 export function Home() {
-  const { getDrinks } = useCocktail();
-  const { handleSelectedDrink } = useUtils();
+  const { getDrinks, handleSelectedDrink } = useCocktail();
 
   const drinksQuery = getDrinks();
 

@@ -1,7 +1,6 @@
 import { FiCoffee } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { useCocktails } from "../../hooks/useCocktails";
-import { useUtils } from "../../stores/utils";
+import { useCocktail } from "../../hooks/useCocktail";
 import { Category } from "../Category";
 import { SearchBar } from "../SearchBar";
 
@@ -10,8 +9,9 @@ interface Props {
 }
 
 export function Header({ title }: Props) {
-  const { categories } = useCocktails();
-  const { handleSelectedCategory, handleSearch } = useUtils();
+  const { getCategories, handleSelectedCategory, handleSearch } = useCocktail();
+
+  const categoriesQuery = getCategories();
 
   return (
     <div className="bg-yellow-500 pt-4 pb-48">
@@ -24,7 +24,7 @@ export function Header({ title }: Props) {
 
       <nav className="">
         <ul className="flex justify-center items-center flex-wrap w-full px-4">
-          {categories.data?.map((category) => (
+          {categoriesQuery.data?.map((category) => (
             <li key={category.strCategory}>
               <Category
                 name={category.strCategory}

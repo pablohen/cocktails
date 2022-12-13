@@ -1,4 +1,4 @@
-import { useUtils } from "../../stores/utils";
+import { useCocktail } from "../../hooks/useCocktail";
 
 interface Props {
   name: string;
@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function Category({ name, onClick }: Props) {
-  const { selectedCategory } = useUtils();
+  const { selectedCategory } = useCocktail();
 
   const handleClick = () => {
     onClick(name);

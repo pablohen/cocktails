@@ -11,7 +11,7 @@ interface Props {
 
 export function Header({ title }: Props) {
   const { categories } = useCocktails();
-  const { handleSelectedCategory, handleSearch } = useUtils();
+  const { handleSelectedCategory, handleSearch, searchTerm } = useUtils();
 
   return (
     <div className="bg-yellow-500 pt-4 pb-48">
@@ -36,7 +36,7 @@ export function Header({ title }: Props) {
       </nav>
 
       <div className="flex w-full justify-center pt-6">
-        <SearchBar onSubmit={handleSearch} />
+        <SearchBar initialValue={searchTerm} onSubmit={handleSearch} />
       </div>
     </div>
   );

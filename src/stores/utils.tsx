@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, ReactNode, useContext, useCallback } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 interface Props {
   children: ReactNode;
@@ -17,24 +17,30 @@ const UtilsContext = createContext({} as UtilsContextData);
 
 export function UtilsProvider({ children }: Props) {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams] = useSearchParams();
 
-  function handleSearch(term: string) {
-    setSelectedCategory('');
-    setSearchTerm(term);
-    navigate('/');
-  }
+  const selectedCategory = searchParams.get('category') || '';
+  const searchTerm = searchParams.get('search') || '';
 
-  function handleSelectedCategory(category: string) {
-    setSearchTerm('');
-    setSelectedCategory(category);
-    navigate('/');
-  }
+  const handleSearch = useCallback((term: string) => {
+    if (term) {
+      navigate('/?search=' + encodeURIComponent(term));
+    } else {
+      navigate('/');
+    }
+  }, [navigate]);
 
-  function handleSelectedDrink(drink: string) {
+  const handleSelectedCategory = useCallback((category: string) => {
+    if (category) {
+      navigate('/?category=' + encodeURIComponent(category));
+    } else {
+      navigate('/');
+    }
+  }, [navigate]);
+
+  const handleSelectedDrink = useCallback((drink: string) => {
     navigate(`/${drink}`);
-  }
+  }, [navigate]);
 
   return (
     <UtilsContext.Provider

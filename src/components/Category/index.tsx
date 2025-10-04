@@ -8,17 +8,22 @@ interface Props {
 
 export function Category({ name, onClick }: Props) {
   const { selectedCategory } = useUtils();
+  const isSelected = name === selectedCategory;
 
   const handleClick = () => {
-    onClick(name);
+    if (isSelected) {
+      onClick('');
+    } else {
+      onClick(name);
+    }
   };
 
   return (
     <Button
       onClick={handleClick}
-      variant={name === selectedCategory ? "default" : "secondary"}
+      variant={isSelected ? "default" : "secondary"}
       className={`text-lg font-bold m-2 shadow-lg hover:shadow-xl transition-all ${
-        name === selectedCategory
+        isSelected
           ? "bg-yellow-400 hover:bg-yellow-300 text-gray-700"
           : ""
       }`}

@@ -1,3 +1,5 @@
+import { Card as ShadCard, CardContent, CardFooter } from "@/components/ui/card";
+
 interface Props {
   id: string;
   name: string;
@@ -11,20 +13,20 @@ export function Card({ id, name, image, onClick }: Props) {
   };
 
   return (
-    <button
-      type="button"
+    <ShadCard
+      className="w-64 cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 overflow-hidden"
       onClick={handleClick}
-      className="transition-all duration-400 ease-in-out hover:-translate-y-2 bg-gray-500 rounded relative"
-      style={{
-        background: `url('${image}')`,
-        width: "256px",
-        height: "256px",
-        backgroundSize: "contain",
-      }}
     >
-      <div className="bg-black opacity-80 px-4 py-2 absolute bottom-0 right-0 rounded-tl rounded-br">
+      <CardContent className="p-0">
+        <img
+          src={image}
+          alt={name}
+          className="w-full h-64 object-cover"
+        />
+      </CardContent>
+      <CardFooter className="bg-black/80 p-4">
         <span className="text-white font-bold">{name}</span>
-      </div>
-    </button>
+      </CardFooter>
+    </ShadCard>
   );
 }

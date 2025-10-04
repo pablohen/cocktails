@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import { Input } from "@/components/ui/input";
 
 interface Props {
   onSubmit: (value: string) => void;
@@ -11,20 +12,20 @@ export function SearchBar({ onSubmit }: Props) {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     onSubmit(value);
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="">
-      <div className="flex items-center bg-white dark:bg-gray-800 border dark:border-gray-900 p-2 rounded-full shadow-sm text-gray-500 focus-within:text-gray-800 dark:focus-within:text-gray-200 focus-within:shadow-md">
-        <FiSearch className="h-6" />
-        <input
+    <form onSubmit={handleSubmit} className="w-full max-w-md">
+      <div className="flex items-center gap-2 bg-white border p-2 rounded-full shadow-sm focus-within:shadow-md">
+        <FiSearch className="h-5 w-5 ml-2 text-gray-500" />
+        <Input
           type="text"
           placeholder="search..."
-          className="w-full bg-transparent outline-none px-2"
+          className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
       </div>
     </form>
   );
-};
+}

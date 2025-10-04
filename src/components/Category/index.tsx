@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useUtils } from "../../stores/utils";
 
 interface Props {
@@ -13,16 +14,16 @@ export function Category({ name, onClick }: Props) {
   };
 
   return (
-    <button
-      type="button"
+    <Button
       onClick={handleClick}
-      className={`text-lg font-bold rounded-lg ${
+      variant={name === selectedCategory ? "default" : "secondary"}
+      className={`text-lg font-bold m-2 shadow-lg hover:shadow-xl transition-all ${
         name === selectedCategory
-          ? "bg-yellow-400 hover:bg-yellow-300"
-          : "bg-gray-100 hover:bg-white"
-      }  text-gray-700 px-4 py-2 m-2 shadow-lg  hover:shadow-xl hover:text-black transition-all duration-200 ease-in-out`}
+          ? "bg-yellow-400 hover:bg-yellow-300 text-gray-700"
+          : ""
+      }`}
     >
       {name}
-    </button>
+    </Button>
   );
 }

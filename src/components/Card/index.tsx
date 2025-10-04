@@ -14,13 +14,23 @@ export function Card({ id, name, image, onClick }: Props) {
 
   return (
     <ShadCard
-      className="w-64 cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 overflow-hidden"
+      className="w-64 cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleClick();
+        }
+      }}
+      aria-label={`View details for ${name}`}
     >
       <CardContent className="p-0">
         <img
           src={image}
-          alt={name}
+          alt={`${name} cocktail`}
+          loading="lazy"
           className="w-full h-64 object-cover"
         />
       </CardContent>

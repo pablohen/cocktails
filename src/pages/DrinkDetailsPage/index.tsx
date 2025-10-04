@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { useCocktails } from "@/hooks/useCocktails";
+import { AlertCircle } from "lucide-react";
 
 function DrinkDetailsSkeleton() {
   return (
@@ -52,6 +55,28 @@ export function DrinkDetailsPage() {
     return <DrinkDetailsSkeleton />;
   }
 
+  if (drink.isError) {
+    return (
+      <div className="w-full">
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error loading drink details</AlertTitle>
+          <AlertDescription className="flex flex-col gap-2">
+            <p>We couldn't load this drink's information. Please try again.</p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => drink.refetch()}
+              className="w-fit"
+            >
+              Retry
+            </Button>
+          </AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+
   if (!drink.data) {
     return null;
   }
@@ -66,7 +91,8 @@ export function DrinkDetailsPage() {
         <div>
           <img
             src={drink.data.strDrinkThumb}
-            alt={drink.data.strDrink}
+            alt={`${drink.data.strDrink} cocktail`}
+            loading="lazy"
             className="rounded w-full h-auto max-w-[512px] max-h-[512px]"
           />
         </div>

@@ -1,7 +1,10 @@
 import { Card } from "@/components/Card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { useCocktails } from "@/hooks/useCocktails";
 import { useUtils } from "@/stores/utils";
+import { AlertCircle } from "lucide-react";
 
 function CardSkeleton() {
   return (
@@ -28,12 +31,32 @@ export function HomePage() {
         </>
       )}
 
-      {!drinks.isLoading && !drinks.data ? (
+      {drinks.isError && (
+        <div className="w-full max-w-2xl">
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error loading drinks</AlertTitle>
+            <AlertDescription className="flex flex-col gap-2">
+              <p>We couldn't load the drinks. Please try again.</p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => drinks.refetch()}
+                className="w-fit"
+              >
+                Retry
+              </Button>
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+
+      {!drinks.isLoading && !drinks.isError && !drinks.data ? (
         <p className="text-center text-muted-foreground mt-8">
           Please select a beverage category above or search for its name.
         </p>
       ) : (
-        drinks.data?.map((drink) => (
+        !drinks.isError && drinks.data?.map((drink) => (
           <Card
             key={drink.idDrink}
             id={drink.idDrink}

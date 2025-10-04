@@ -19,6 +19,9 @@ export function useCocktails() {
     return useQuery<CategoryDTO[]>({
       queryKey: ["categories"],
       queryFn: fetchCategories,
+      retry: 3,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+      staleTime: 5 * 60 * 1000, // 5 minutes
     });
   }
 
@@ -63,6 +66,9 @@ export function useCocktails() {
         return fetchDrinks(selectedCategory);
       },
       enabled: !!selectedCategory || !!searchTerm,
+      retry: 2,
+      retryDelay: 1000,
+      staleTime: 2 * 60 * 1000, // 2 minutes
     });
   }
 
@@ -89,6 +95,9 @@ export function useCocktails() {
       queryKey: ["drink", selectedDrink],
       queryFn: () => fetchDrink(selectedDrink),
       enabled: !!selectedDrink,
+      retry: 2,
+      retryDelay: 1000,
+      staleTime: 10 * 60 * 1000, // 10 minutes
     });
   }
 

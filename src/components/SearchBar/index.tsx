@@ -40,12 +40,13 @@ export function SearchBar({ initialValue = '', onSubmit }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md">
+    <form onSubmit={handleSubmit} className="w-full max-w-md" role="search">
       <div className="flex items-center gap-2 bg-white border p-2 rounded-full shadow-sm focus-within:shadow-md">
-        <FiSearch className="h-5 w-5 ml-2 text-gray-500" />
+        <FiSearch className="h-5 w-5 ml-2 text-gray-500" aria-hidden="true" />
         <Input
           type="text"
           placeholder="search..."
+          aria-label="Search for cocktails"
           className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
           value={value}
           onChange={handleChange}

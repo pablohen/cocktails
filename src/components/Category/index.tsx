@@ -22,7 +22,8 @@ export function Category({ name, onClick }: Props) {
     <Button
       onClick={handleClick}
       variant={isSelected ? "default" : "secondary"}
-      className={`text-lg font-bold m-2 shadow-lg hover:shadow-xl transition-all ${
+      size="sm"
+      className={`text-sm sm:text-base md:text-lg font-bold m-1 sm:m-2 shadow-lg hover:shadow-xl transition-all ${
         isSelected
           ? "bg-yellow-400 hover:bg-yellow-300 text-gray-700"
           : ""

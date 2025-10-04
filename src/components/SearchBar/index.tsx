@@ -1,6 +1,6 @@
 import { FormEvent, useState, useEffect, useRef } from 'react';
 import { useDebounce } from 'use-debounce';
-import { FiSearch } from 'react-icons/fi';
+import { Search } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 
 interface Props {
@@ -40,14 +40,14 @@ export function SearchBar({ initialValue = '', onSubmit }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md" role="search">
-      <div className="flex items-center gap-2 bg-white border p-2 rounded-full shadow-sm focus-within:shadow-md">
-        <FiSearch className="h-5 w-5 ml-2 text-gray-500" aria-hidden="true" />
+    <form onSubmit={handleSubmit} className="w-full max-w-md px-2 sm:px-0" role="search">
+      <div className="flex items-center gap-2 bg-white border p-1.5 sm:p-2 rounded-full shadow-sm focus-within:shadow-md">
+        <Search className="h-4 w-4 sm:h-5 sm:w-5 ml-1.5 sm:ml-2 text-gray-500" aria-hidden="true" />
         <Input
           type="text"
           placeholder="search..."
           aria-label="Search for cocktails"
-          className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 text-sm sm:text-base"
           value={value}
           onChange={handleChange}
         />

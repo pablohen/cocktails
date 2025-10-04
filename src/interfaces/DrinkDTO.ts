@@ -13,8 +13,8 @@ export interface DrinkDTO {
   strInstructionsDE: string;
   strInstructionsFR: string;
   strInstructionsIT: string;
-  'strInstructionsZH-HANS': string;
-  'strInstructionsZH-HANT': string;
+  "strInstructionsZH-HANS": string;
+  "strInstructionsZH-HANT": string;
   strDrinkThumb: string;
   strIngredient1: string;
   strIngredient2: string;

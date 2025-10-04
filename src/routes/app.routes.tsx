@@ -1,7 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
-import { DrinkDetailsPage } from '../pages/DrinkDetailsPage';
-import { HomePage } from '../pages/HomePage';
-import { NotFoundPage } from '../pages/NotFoundPage';
+import { Route, Routes } from "react-router-dom";
+import { DrinkDetailsPage } from "../pages/DrinkDetailsPage";
+import { HomePage } from "../pages/HomePage";
+import { NotFoundPage } from "../pages/NotFoundPage";
 
 export function AppRoutes() {
   return (

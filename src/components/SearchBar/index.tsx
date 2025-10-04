@@ -1,6 +1,6 @@
-import { FormEvent, useState, useEffect, useRef } from 'react';
-import { useDebounce } from 'use-debounce';
-import { Search } from 'lucide-react';
+import { Search } from "lucide-react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
+import { useDebounce } from "use-debounce";
 import { Input } from "@/components/ui/input";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   onSubmit: (value: string) => void;
 }
 
-export function SearchBar({ initialValue = '', onSubmit }: Props) {
+export function SearchBar({ initialValue = "", onSubmit }: Props) {
   const [value, setValue] = useState(initialValue);
   const [debouncedValue] = useDebounce(value, 200);
   const hasUserTyped = useRef(false);
@@ -28,7 +28,7 @@ export function SearchBar({ initialValue = '', onSubmit }: Props) {
     }
     onSubmit(debouncedValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
+  }, [debouncedValue, onSubmit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     hasUserTyped.current = true;

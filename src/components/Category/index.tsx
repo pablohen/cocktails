@@ -12,7 +12,7 @@ export function Category({ name, onClick }: Props) {
 
   const handleClick = () => {
     if (isSelected) {
-      onClick('');
+      onClick("");
     } else {
       onClick(name);
     }
@@ -24,9 +24,7 @@ export function Category({ name, onClick }: Props) {
       variant={isSelected ? "default" : "secondary"}
       size="sm"
       className={`text-sm sm:text-base md:text-lg font-bold m-1 sm:m-2 shadow-lg hover:shadow-xl transition-all ${
-        isSelected
-          ? "bg-yellow-400 hover:bg-yellow-300 text-gray-700"
-          : ""
+        isSelected ? "bg-yellow-400 hover:bg-yellow-300 text-gray-700" : ""
       }`}
     >
       {name}

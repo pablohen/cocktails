@@ -1,10 +1,10 @@
-import { useMemo, useEffect } from "react";
+import { AlertCircle } from "lucide-react";
+import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useCocktails } from "@/hooks/useCocktails";
-import { AlertCircle } from "lucide-react";
 
 function DrinkDetailsSkeleton() {
   return (
@@ -47,10 +47,20 @@ export function DrinkDetailsPage() {
       return [];
     }
 
-    return Object.entries(drink.data).filter((item) =>
-      item[0].startsWith("strIngredient")
-    );
+    return Object.entries(drink.data).filter((item) => item[0].startsWith("strIngredient"));
   }, [drink]);
+
+  const pageTitle = drink.data
+    ? `${drink.data.strDrink} - Cocktail Recipe | Cocktails & Drinks`
+    : "Cocktail Recipe | Cocktails & Drinks";
+
+  const pageDescription = drink.data
+    ? `Learn how to make ${drink.data.strDrink}. ${drink.data.strCategory} cocktail recipe with ingredients and instructions.`
+    : "Discover cocktail recipes";
+
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
 
   if (drink.isLoading) {
     return <DrinkDetailsSkeleton />;
@@ -64,12 +74,7 @@ export function DrinkDetailsPage() {
           <AlertTitle>Error loading drink details</AlertTitle>
           <AlertDescription className="flex flex-col gap-2">
             <p>We couldn't load this drink's information. Please try again.</p>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => drink.refetch()}
-              className="w-fit"
-            >
+            <Button variant="outline" size="sm" onClick={() => drink.refetch()} className="w-fit">
               Retry
             </Button>
           </AlertDescription>
@@ -82,13 +87,6 @@ export function DrinkDetailsPage() {
     return null;
   }
 
-  const pageTitle = `${drink.data.strDrink} - Cocktail Recipe | Cocktails & Drinks`;
-  const pageDescription = `Learn how to make ${drink.data.strDrink}. ${drink.data.strCategory} cocktail recipe with ingredients and instructions.`;
-
-  useEffect(() => {
-    document.title = pageTitle;
-  }, [pageTitle]);
-
   return (
     <>
       <Helmet>
@@ -99,40 +97,44 @@ export function DrinkDetailsPage() {
           {drink.data.strDrink}
         </h2>
 
-      <div className="flex flex-col sm:flex-row w-full gap-4 sm:gap-6 md:gap-8">
-        <div className="flex justify-center sm:justify-start">
-          <img
-            src={drink.data.strDrinkThumb}
-            alt={`${drink.data.strDrink} cocktail`}
-            loading="lazy"
-            className="rounded w-full h-auto max-w-[320px] sm:max-w-[400px] md:max-w-[512px]"
-          />
+        <div className="flex flex-col sm:flex-row w-full gap-4 sm:gap-6 md:gap-8">
+          <div className="flex justify-center sm:justify-start">
+            <img
+              src={drink.data.strDrinkThumb}
+              alt={`${drink.data.strDrink} cocktail`}
+              loading="lazy"
+              className="rounded w-full h-auto max-w-[320px] sm:max-w-[400px] md:max-w-[512px]"
+            />
+          </div>
+
+          <div className="flex flex-col gap-4 sm:gap-6">
+            <div>
+              <h3 className="text-lg sm:text-2xl md:text-4xl mb-1 sm:mb-2">Category</h3>
+              <p className="text-sm sm:text-base">{drink.data.strCategory}</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg sm:text-2xl md:text-4xl mb-1 sm:mb-2">Ingredients</h3>
+              {ingredients.map((ingredient) => {
+                if (!ingredient[1]) {
+                  return null;
+                }
+
+                return (
+                  <p key={ingredient[0]} className="text-sm sm:text-base">
+                    {String(ingredient[1])}
+                  </p>
+                );
+              })}
+            </div>
+
+            <div>
+              <h3 className="text-lg sm:text-2xl md:text-4xl mb-1 sm:mb-2">Instructions</h3>
+              <p className="text-sm sm:text-base leading-relaxed">{drink.data.strInstructions}</p>
+            </div>
+          </div>
         </div>
-
-        <div className="flex flex-col gap-4 sm:gap-6">
-          <div>
-            <h3 className="text-lg sm:text-2xl md:text-4xl mb-1 sm:mb-2">Category</h3>
-            <p className="text-sm sm:text-base">{drink.data.strCategory}</p>
-          </div>
-
-          <div>
-            <h3 className="text-lg sm:text-2xl md:text-4xl mb-1 sm:mb-2">Ingredients</h3>
-            {ingredients.map((ingredient) => {
-              if (!ingredient[1]) {
-                return null;
-              }
-
-              return <p key={ingredient[0]} className="text-sm sm:text-base">{String(ingredient[1])}</p>;
-            })}
-          </div>
-
-          <div>
-            <h3 className="text-lg sm:text-2xl md:text-4xl mb-1 sm:mb-2">Instructions</h3>
-            <p className="text-sm sm:text-base leading-relaxed">{drink.data.strInstructions}</p>
-          </div>
-        </div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }

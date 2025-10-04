@@ -1,4 +1,4 @@
-import { Card as ShadCard, CardContent, CardFooter } from "@/components/ui/card";
+import { CardContent, CardFooter, Card as ShadCard } from "@/components/ui/card";
 
 interface Props {
   id: string;
@@ -19,7 +19,7 @@ export function Card({ id, name, image, onClick }: Props) {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           handleClick();
         }

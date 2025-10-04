@@ -23,9 +23,13 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write ."
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.5",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "^24.6.2",
     "@types/react": "^19.2.0",

@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { UtilsProvider } from './utils';
+import type { ReactNode } from "react";
+import { UtilsProvider } from "./utils";
 
 interface Props {
   children: ReactNode;

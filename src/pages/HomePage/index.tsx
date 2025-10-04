@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Card } from "@/components/Card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -19,10 +21,30 @@ function CardSkeleton() {
 
 export function HomePage() {
   const { drinks } = useCocktails();
-  const { handleSelectedDrink } = useUtils();
+  const { handleSelectedDrink, selectedCategory, searchTerm } = useUtils();
+
+  const pageTitle = searchTerm
+    ? `Search results for "${searchTerm}" - Cocktails & Drinks`
+    : selectedCategory
+    ? `${selectedCategory} Cocktails - Cocktails & Drinks`
+    : "Cocktails & Drinks - Discover Amazing Cocktail Recipes";
+
+  const pageDescription = searchTerm
+    ? `Search results for ${searchTerm} cocktails`
+    : selectedCategory
+    ? `Browse ${selectedCategory} cocktail recipes`
+    : "Discover thousands of cocktail recipes from around the world";
+
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
 
   return (
-    <div className="flex justify-center flex-wrap gap-4">
+    <>
+      <Helmet>
+        <meta name="description" content={pageDescription} />
+      </Helmet>
+      <div className="flex justify-center flex-wrap gap-4">
       {drinks.isLoading && (
         <>
           {Array.from({ length: 6 }).map((_, i) => (
@@ -66,6 +88,7 @@ export function HomePage() {
           />
         ))
       )}
-    </div>
+      </div>
+    </>
   );
 }

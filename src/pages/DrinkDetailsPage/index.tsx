@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -81,11 +82,22 @@ export function DrinkDetailsPage() {
     return null;
   }
 
+  const pageTitle = `${drink.data.strDrink} - Cocktail Recipe | Cocktails & Drinks`;
+  const pageDescription = `Learn how to make ${drink.data.strDrink}. ${drink.data.strCategory} cocktail recipe with ingredients and instructions.`;
+
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
+
   return (
-    <main className="w-full">
-      <h2 className="text-2xl md:text-5xl text-center md:text-left mb-6">
-        {drink.data.strDrink}
-      </h2>
+    <>
+      <Helmet>
+        <meta name="description" content={pageDescription} />
+      </Helmet>
+      <main className="w-full">
+        <h2 className="text-2xl md:text-5xl text-center md:text-left mb-6">
+          {drink.data.strDrink}
+        </h2>
 
       <div className="flex flex-col sm:flex-row w-full gap-8">
         <div>
@@ -121,5 +133,6 @@ export function DrinkDetailsPage() {
         </div>
       </div>
     </main>
+    </>
   );
 }

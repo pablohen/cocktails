@@ -16,8 +16,9 @@ export function useCocktails() {
       return categories;
     };
 
-    return useQuery(["categories"], fetchCategories, {
-      onError: (data) => console.error(data),
+    return useQuery<CategoryDTO[]>({
+      queryKey: ["categories"],
+      queryFn: fetchCategories,
     });
   }
 
@@ -52,20 +53,17 @@ export function useCocktails() {
       return drinks;
     }
 
-    return useQuery<DrinkDTO[]>(
-      ["drinks", selectedCategory, searchTerm],
-      () => {
+    return useQuery<DrinkDTO[]>({
+      queryKey: ["drinks", selectedCategory, searchTerm],
+      queryFn: () => {
         if (!!searchTerm) {
           return fetchSearch(searchTerm);
         }
 
         return fetchDrinks(selectedCategory);
       },
-      {
-        onError: (data) => console.error(data),
-        enabled: !!selectedCategory || !!searchTerm,
-      }
-    );
+      enabled: !!selectedCategory || !!searchTerm,
+    });
   }
 
   function Drink() {
@@ -87,14 +85,11 @@ export function useCocktails() {
       return drink[0];
     };
 
-    return useQuery<DrinkDTO>(
-      ["drink", selectedDrink],
-      () => fetchDrink(selectedDrink),
-      {
-        onError: (data) => console.error(data),
-        enabled: !!selectedDrink,
-      }
-    );
+    return useQuery<DrinkDTO>({
+      queryKey: ["drink", selectedDrink],
+      queryFn: () => fetchDrink(selectedDrink),
+      enabled: !!selectedDrink,
+    });
   }
 
   return { categories: Categories(), drinks: Drinks(), drink: Drink() };

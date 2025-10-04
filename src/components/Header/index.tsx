@@ -1,9 +1,9 @@
 import { FiCoffee } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { useCocktails } from "../../hooks/useCocktails";
-import { useUtils } from "../../stores/utils";
-import { Category } from "../Category";
-import { SearchBar } from "../SearchBar";
+import { useCocktails } from "@/hooks/useCocktails";
+import { useUtils } from "@/stores/utils";
+import { Category } from "@/components/Category";
+import { SearchBar } from "@/components/SearchBar";
 
 interface Props {
   title: string;

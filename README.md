@@ -18,5 +18,5 @@ Exemplo do consumo de uma API e uso do Context API https://cocktails.pablohen.de
 
 ### Comentários:
 
-- Instalação das dependências via 'npm ci'
-- Iniciar pelo script 'start', conforme o que está no 'package.json'
+- Instalação das dependências via 'pnpm i'
+- Iniciar pelo script 'dev', conforme o que está no 'package.json'

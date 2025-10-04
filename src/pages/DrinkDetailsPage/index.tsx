@@ -1,9 +1,6 @@
 import { useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCocktails } from "../../hooks/useCocktails";
-import { Subtitle } from "./Subtitle";
-import { Thumbnail } from "./Thumbnail";
-import { Title } from "./Title";
+import { useCocktails } from "@/hooks/useCocktails";
 
 function DrinkDetailsSkeleton() {
   return (
@@ -61,32 +58,38 @@ export function DrinkDetailsPage() {
 
   return (
     <main className="w-full">
-      <Title value={drink.data.strDrink} />
+      <h2 className="text-2xl md:text-5xl text-center md:text-left mb-6">
+        {drink.data.strDrink}
+      </h2>
 
       <div className="flex flex-col sm:flex-row w-full gap-8">
         <div>
-          <Thumbnail
-            image={drink.data.strDrinkThumb}
-            name={drink.data.strDrink}
+          <img
+            src={drink.data.strDrinkThumb}
+            alt={drink.data.strDrink}
+            className="rounded w-full h-auto max-w-[512px] max-h-[512px]"
           />
         </div>
 
         <div className="flex flex-col gap-4">
           <div>
-            <Subtitle value="Category" />
+            <h3 className="text-xl md:text-4xl mb-2">Category</h3>
             <p>{drink.data.strCategory}</p>
           </div>
 
           <div>
-            <Subtitle value="Ingredients" />
-
+            <h3 className="text-xl md:text-4xl mb-2">Ingredients</h3>
             {ingredients.map((ingredient) => {
-              return <p key={ingredient[0]}>{ingredient[1]}</p>;
+              if (!ingredient[1]) {
+                return null;
+              }
+
+              return <p key={ingredient[0]}>{String(ingredient[1])}</p>;
             })}
           </div>
 
           <div>
-            <Subtitle value="Instructions" />
+            <h3 className="text-xl md:text-4xl mb-2">Instructions</h3>
             <p>{drink.data.strInstructions}</p>
           </div>
         </div>

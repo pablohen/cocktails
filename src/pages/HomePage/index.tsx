@@ -1,7 +1,7 @@
-import { Card } from "../../components/Card";
+import { Card } from "@/components/Card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCocktails } from "../../hooks/useCocktails";
-import { useUtils } from "../../stores/utils";
+import { useCocktails } from "@/hooks/useCocktails";
+import { useUtils } from "@/stores/utils";
 
 function CardSkeleton() {
   return (

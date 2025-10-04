@@ -24,3 +24,8 @@ yarn-error.log*
 
 # tsc
 tsconfig.tsbuildinfo
+
+# others
+dist
+.vscode
+.claude

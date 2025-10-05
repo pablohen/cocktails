@@ -23,8 +23,10 @@ export function Category({ name, onClick }: Props) {
       onClick={handleClick}
       variant={isSelected ? "default" : "secondary"}
       size="sm"
-      className={`text-sm sm:text-base md:text-lg font-bold m-1 sm:m-2 shadow-lg hover:shadow-xl transition-all ${
-        isSelected ? "bg-yellow-400 hover:bg-yellow-300 text-gray-700" : ""
+      className={`text-sm sm:text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 rounded-full ${
+        isSelected
+          ? "bg-white text-primary hover:bg-white/90 scale-105 shadow-lg"
+          : "bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm"
       }`}
     >
       {name}

@@ -10,10 +10,11 @@ import { useUtils } from "@/stores/utils";
 
 function CardSkeleton() {
   return (
-    <div className="w-64 space-y-0 overflow-hidden rounded-lg border">
+    <div className="w-64 space-y-0 overflow-hidden rounded-lg border-2 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm shadow-lg">
       <Skeleton className="h-64 w-full rounded-none" />
-      <div className="bg-black/80 p-4">
-        <Skeleton className="h-6 w-32 bg-gray-600" />
+      <div className="bg-gradient-to-br from-primary via-secondary to-accent p-4 relative">
+        <div className="absolute inset-0 bg-black/40" />
+        <Skeleton className="h-6 w-32 bg-white/30 relative z-10" />
       </div>
     </div>
   );

@@ -40,14 +40,14 @@ export function SearchBar({ initialValue = "", onSubmit }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md px-2 sm:px-0" role="search">
-      <div className="flex items-center gap-2 bg-white border p-1.5 sm:p-2 rounded-full shadow-sm focus-within:shadow-md">
-        <Search className="h-4 w-4 sm:h-5 sm:w-5 ml-1.5 sm:ml-2 text-gray-500" aria-hidden="true" />
+    <form onSubmit={handleSubmit} className="w-full max-w-xs px-2 sm:px-0" role="search">
+      <div className="flex items-center gap-1 bg-white/95 backdrop-blur-md border-2 border-white/50 py-0.5 pl-2 pr-1 rounded-full shadow-lg hover:shadow-xl focus-within:shadow-xl focus-within:border-white transition-all duration-300">
+        <Search className="h-5 w-5 text-primary" aria-hidden="true" />
         <Input
           type="text"
-          placeholder="search..."
+          placeholder="Search..."
           aria-label="Search for cocktails"
-          className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 text-sm sm:text-base"
+          className="border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 text-sm placeholder:text-muted-foreground/70 py-1.5"
           value={value}
           onChange={handleChange}
         />

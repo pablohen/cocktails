@@ -16,24 +16,29 @@ export function Header({ title }: Props) {
   const { handleSelectedCategory, handleSearch, searchTerm } = useUtils();
 
   return (
-    <div className="bg-yellow-500 pt-4 pb-36 sm:pb-44 md:pb-48">
-      <Link to="/" aria-label="Go to homepage">
-        <div className="flex flex-col w-full justify-center items-center py-4 sm:py-6 md:py-8">
-          <h1 className="text-white text-3xl sm:text-4xl md:text-5xl text-center font-bold px-4">
+    <div className="bg-gradient-to-br from-primary via-secondary to-accent pt-6 pb-40 sm:pb-48 md:pb-52 relative overflow-hidden">
+      <div className="absolute inset-0 bg-black/10" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+      <Link to="/" aria-label="Go to homepage" className="relative z-10">
+        <div className="flex flex-col w-full justify-center items-center py-6 sm:py-8 md:py-10">
+          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl text-center font-bold px-4 drop-shadow-lg">
             {title}
           </h1>
           <Coffee
-            className="text-3xl sm:text-4xl text-white mt-4 sm:mt-6 md:mt-8"
+            className="text-4xl sm:text-5xl text-white mt-6 sm:mt-8 md:mt-10 drop-shadow-lg"
+            size={56}
             aria-hidden="true"
           />
         </div>
       </Link>
 
-      <nav className="min-h-[60px]" aria-label="Category filters">
+      <nav className="min-h-[60px] relative z-10" aria-label="Category filters">
         {categories.isLoading && (
-          <div className="flex justify-center items-center flex-wrap w-full px-2 sm:px-4 gap-2">
+          <div className="flex justify-center items-center flex-wrap w-full px-2 sm:px-4 gap-2 sm:gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <Skeleton key={i} className="h-9 sm:h-10 w-20 sm:w-24 bg-white/20" />
+              <Skeleton key={i} className="h-9 sm:h-10 w-20 sm:w-24 bg-white/20 rounded-full" />
             ))}
           </div>
         )}
@@ -48,7 +53,7 @@ export function Header({ title }: Props) {
         )}
 
         {categories.data && (
-          <ul className="flex justify-center items-center flex-wrap w-full px-2 sm:px-4 gap-1 sm:gap-2">
+          <ul className="flex justify-center items-center flex-wrap w-full px-2 sm:px-4 gap-2 sm:gap-3">
             {categories.data.map((category) => (
               <li key={category.strCategory}>
                 <Category name={category.strCategory} onClick={handleSelectedCategory} />
@@ -58,7 +63,7 @@ export function Header({ title }: Props) {
         )}
       </nav>
 
-      <div className="flex w-full justify-center pt-4 sm:pt-6 px-4">
+      <div className="flex w-full justify-center pt-6 sm:pt-8 px-4 relative z-10">
         <SearchBar initialValue={searchTerm} onSubmit={handleSearch} />
       </div>
     </div>

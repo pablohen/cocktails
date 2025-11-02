@@ -8,24 +8,24 @@ import { Routes } from "./routes";
 import { GlobalContext } from "./stores";
 
 function App() {
-  const queryClient = new QueryClient();
+	const queryClient = new QueryClient();
 
-  return (
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <ThemeProvider>
-            <GlobalContext>
-              <DefaultLayout>
-                <Routes />
-              </DefaultLayout>
-            </GlobalContext>
-          </ThemeProvider>
-        </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </HelmetProvider>
-  );
+	return (
+		<HelmetProvider>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+					<ThemeProvider>
+						<GlobalContext>
+							<DefaultLayout>
+								<Routes />
+							</DefaultLayout>
+						</GlobalContext>
+					</ThemeProvider>
+				</BrowserRouter>
+				<ReactQueryDevtools initialIsOpen={false} />
+			</QueryClientProvider>
+		</HelmetProvider>
+	);
 }
 
 export default App;

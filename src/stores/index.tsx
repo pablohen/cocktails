@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 import { UtilsProvider } from "./utils";
 
 interface Props {
-  children: ReactNode;
+	children: ReactNode;
 }
 
 export function GlobalContext({ children }: Props) {
-  return <UtilsProvider>{children}</UtilsProvider>;
+	return <UtilsProvider>{children}</UtilsProvider>;
 }

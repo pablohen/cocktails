@@ -4,7 +4,7 @@ import { Category } from "@/components/Category";
 import { SearchBar } from "@/components/SearchBar";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCocktails } from "@/hooks/useCocktails";
+import { useCategories } from "@/hooks/useCategories";
 import { useUtils } from "@/stores/utils";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function Header({ title }: Props) {
-	const { categories } = useCocktails();
+	const categories = useCategories();
 	const { handleSelectedCategory, handleSearch, searchTerm } = useUtils();
 
 	return (

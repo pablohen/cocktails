@@ -5,7 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@/contexts/ThemeContext";
-import { useCocktails } from "@/hooks/useCocktails";
+import { useDrink } from "@/hooks/useDrink";
 import { extractColors } from "@/utils/colorExtractor";
 
 function DrinkDetailsSkeleton() {
@@ -47,7 +47,7 @@ function DrinkDetailsSkeleton() {
 }
 
 export function DrinkDetailsPage() {
-	const { drink } = useCocktails();
+	const drink = useDrink();
 	const { setColors } = useTheme();
 
 	const ingredients = useMemo(() => {

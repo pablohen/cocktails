@@ -5,7 +5,7 @@ import { Card } from "@/components/Card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCocktails } from "@/hooks/useCocktails";
+import { useDrinks } from "@/hooks/useDrinks";
 import { useUtils } from "@/stores/utils";
 
 function CardSkeleton() {
@@ -21,7 +21,7 @@ function CardSkeleton() {
 }
 
 export function HomePage() {
-	const { drinks } = useCocktails();
+	const drinks = useDrinks();
 	const { handleSelectedDrink, selectedCategory, searchTerm } = useUtils();
 
 	const pageTitle = searchTerm

@@ -1,10 +1,11 @@
-import { AlertCircle, Heart } from "lucide-react";
+import { AlertCircle, Check, Heart, Plus } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFavorites } from "@/contexts/FavoritesContext";
+import { useShoppingList } from "@/contexts/ShoppingListContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useDrink } from "@/hooks/useDrink";
 import { extractColors } from "@/utils/colorExtractor";
@@ -51,6 +52,7 @@ export function DrinkDetailsPage() {
 	const drink = useDrink();
 	const { setColors } = useTheme();
 	const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+	const { addIngredient, removeIngredient, isInList } = useShoppingList();
 
 	const ingredients = useMemo(() => {
 		if (drink.isLoading || drink.isError || !drink.data) {
@@ -182,13 +184,45 @@ export function DrinkDetailsPage() {
 										return null;
 									}
 
+									const ingredientName = String(ingredient[1]);
+									const inList = isInList(ingredientName);
+
 									return (
 										<li
 											key={ingredient[0]}
-											className="flex items-center gap-2 text-base text-muted-foreground sm:text-lg"
+											className="flex items-center justify-between gap-2 text-base text-muted-foreground sm:text-lg"
 										>
-											<span className="h-2 w-2 rounded-full bg-accent" />
-											{String(ingredient[1])}
+											<div className="flex items-center gap-2">
+												<span className="h-2 w-2 rounded-full bg-accent" />
+												{ingredientName}
+											</div>
+											<Button
+												variant="ghost"
+												size="icon"
+												className={`h-8 w-8 ${
+													inList
+														? "text-green-500 hover:text-green-600"
+														: "text-muted-foreground hover:text-primary"
+												}`}
+												onClick={() => {
+													if (inList) {
+														removeIngredient(ingredientName);
+													} else {
+														addIngredient(ingredientName);
+													}
+												}}
+												aria-label={
+													inList
+														? `Remove ${ingredientName} from shopping list`
+														: `Add ${ingredientName} to shopping list`
+												}
+											>
+												{inList ? (
+													<Check className="h-4 w-4" />
+												) : (
+													<Plus className="h-4 w-4" />
+												)}
+											</Button>
 										</li>
 									);
 								})}

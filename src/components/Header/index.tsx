@@ -1,10 +1,11 @@
-import { AlertCircle, Coffee, Dices, Heart } from "lucide-react";
+import { AlertCircle, Coffee, Dices, Heart, ShoppingCart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Category } from "@/components/Category";
 import { SearchBar } from "@/components/SearchBar";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useShoppingList } from "@/contexts/ShoppingListContext";
 import { useCategories } from "@/hooks/useCategories";
 import { useRandomDrink } from "@/hooks/useRandomDrink";
 import { useUtils } from "@/stores/utils";
@@ -17,6 +18,7 @@ export function Header({ title }: Props) {
 	const categories = useCategories();
 	const { handleSelectedCategory, handleSearch, searchTerm } = useUtils();
 	const { refetch, isFetching } = useRandomDrink();
+	const { ingredients } = useShoppingList();
 	const navigate = useNavigate();
 
 	const handleSurpriseMe = async () => {
@@ -51,6 +53,19 @@ export function Header({ title }: Props) {
 				aria-label="Go to favorites"
 			>
 				<Heart className="h-6 w-6 text-white" />
+			</Link>
+
+			<Link
+				to="/shopping-list"
+				className="absolute top-6 right-20 z-20 rounded-full bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/20"
+				aria-label="Go to shopping list"
+			>
+				<ShoppingCart className="h-6 w-6 text-white" />
+				{ingredients.length > 0 && (
+					<span className="-top-1 -right-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-bold text-white text-xs">
+						{ingredients.length}
+					</span>
+				)}
 			</Link>
 
 			<Button

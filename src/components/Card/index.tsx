@@ -1,8 +1,11 @@
+import { Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
 	CardContent,
 	CardFooter,
 	Card as ShadCard,
 } from "@/components/ui/card";
+import { useFavorites } from "@/contexts/FavoritesContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { extractColors } from "@/utils/colorExtractor";
 
@@ -15,6 +18,7 @@ interface Props {
 
 export function Card({ id, name, image, onClick }: Props) {
 	const { setColors } = useTheme();
+	const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
 	const handleClick = () => {
 		onClick(id);
@@ -57,6 +61,29 @@ export function Card({ id, name, image, onClick }: Props) {
 					loading="lazy"
 					className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-110"
 				/>
+				<Button
+					variant="ghost"
+					size="icon"
+					className="absolute top-2 right-2 z-20 h-8 w-8 rounded-full bg-black/20 text-white backdrop-blur-md transition-colors hover:bg-black/40 hover:text-red-500"
+					onClick={(e) => {
+						e.stopPropagation();
+						if (isFavorite(id)) {
+							removeFavorite(id);
+						} else {
+							addFavorite({
+								idDrink: id,
+								strDrink: name,
+								strDrinkThumb: image,
+							});
+						}
+					}}
+				>
+					<Heart
+						className={`h-5 w-5 transition-all ${
+							isFavorite(id) ? "fill-red-500 text-red-500" : ""
+						}`}
+					/>
+				</Button>
 			</CardContent>
 			<CardFooter className="relative bg-gradient-to-br from-primary via-secondary to-accent p-4">
 				<div className="absolute inset-0 bg-black/40" />

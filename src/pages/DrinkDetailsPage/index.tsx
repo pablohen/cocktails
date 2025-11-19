@@ -1,9 +1,10 @@
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Heart } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useFavorites } from "@/contexts/FavoritesContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useDrink } from "@/hooks/useDrink";
 import { extractColors } from "@/utils/colorExtractor";
@@ -49,6 +50,7 @@ function DrinkDetailsSkeleton() {
 export function DrinkDetailsPage() {
 	const drink = useDrink();
 	const { setColors } = useTheme();
+	const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
 	const ingredients = useMemo(() => {
 		if (drink.isLoading || drink.isError || !drink.data) {
@@ -134,6 +136,27 @@ export function DrinkDetailsPage() {
 								loading="lazy"
 								className="relative h-auto w-full max-w-[320px] rounded-2xl shadow-2xl sm:max-w-[400px] lg:max-w-[480px]"
 							/>
+							<Button
+								variant="ghost"
+								size="icon"
+								className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-black/20 text-white backdrop-blur-md transition-colors hover:bg-black/40 hover:text-red-500"
+								onClick={() => {
+									if (!drink.data) return;
+									if (isFavorite(drink.data.idDrink)) {
+										removeFavorite(drink.data.idDrink);
+									} else {
+										addFavorite(drink.data);
+									}
+								}}
+							>
+								<Heart
+									className={`h-6 w-6 transition-all ${
+										isFavorite(drink.data.idDrink)
+											? "fill-red-500 text-red-500"
+											: ""
+									}`}
+								/>
+							</Button>
 						</div>
 					</div>
 

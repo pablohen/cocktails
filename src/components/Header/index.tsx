@@ -1,4 +1,4 @@
-import { AlertCircle, Coffee } from "lucide-react";
+import { AlertCircle, Coffee, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Category } from "@/components/Category";
 import { SearchBar } from "@/components/SearchBar";
@@ -32,6 +32,14 @@ export function Header({ title }: Props) {
 						aria-hidden="true"
 					/>
 				</div>
+			</Link>
+
+			<Link
+				to="/favorites"
+				className="absolute top-6 right-6 z-20 rounded-full bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/20"
+				aria-label="Go to favorites"
+			>
+				<Heart className="h-6 w-6 text-white" />
 			</Link>
 
 			<nav className="relative z-10 min-h-[60px]" aria-label="Category filters">

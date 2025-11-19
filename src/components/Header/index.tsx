@@ -1,10 +1,12 @@
-import { AlertCircle, Coffee, Heart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { AlertCircle, Coffee, Dices, Heart } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Category } from "@/components/Category";
 import { SearchBar } from "@/components/SearchBar";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCategories } from "@/hooks/useCategories";
+import { useRandomDrink } from "@/hooks/useRandomDrink";
 import { useUtils } from "@/stores/utils";
 
 interface Props {
@@ -14,6 +16,15 @@ interface Props {
 export function Header({ title }: Props) {
 	const categories = useCategories();
 	const { handleSelectedCategory, handleSearch, searchTerm } = useUtils();
+	const { refetch, isFetching } = useRandomDrink();
+	const navigate = useNavigate();
+
+	const handleSurpriseMe = async () => {
+		const { data } = await refetch();
+		if (data) {
+			navigate(`/${data.idDrink}`);
+		}
+	};
 
 	return (
 		<div className="relative overflow-hidden bg-gradient-to-br from-primary via-secondary to-accent pt-6 pb-40 sm:pb-48 md:pb-52">
@@ -41,6 +52,19 @@ export function Header({ title }: Props) {
 			>
 				<Heart className="h-6 w-6 text-white" />
 			</Link>
+
+			<Button
+				variant="ghost"
+				size="icon"
+				className="absolute top-6 left-6 z-20 h-12 w-12 rounded-full bg-white/10 p-0 backdrop-blur-md transition-colors hover:bg-white/20"
+				onClick={handleSurpriseMe}
+				disabled={isFetching}
+				aria-label="Surprise me with a random cocktail"
+			>
+				<Dices
+					className={`h-6 w-6 text-white ${isFetching ? "animate-spin" : ""}`}
+				/>
+			</Button>
 
 			<nav className="relative z-10 min-h-[60px]" aria-label="Category filters">
 				{categories.isLoading && (

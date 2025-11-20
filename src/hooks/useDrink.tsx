@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import type { DrinkDTO } from "../interfaces/DrinkDTO";
 import { cocktailService } from "../services/cocktail";
+import type { Drink } from "../types/Drink";
 
 export function useDrink() {
 	const { drinkId } = useParams();
@@ -9,20 +9,17 @@ export function useDrink() {
 	const selectedDrink = drinkId ?? "";
 
 	const fetchDrink = async (id: string) => {
-		const res = await cocktailService.get<{ drinks: DrinkDTO[] }>(
-			"lookup.php",
-			{
-				params: {
-					i: id,
-				},
+		const res = await cocktailService.get<{ drinks: Drink[] }>("lookup.php", {
+			params: {
+				i: id,
 			},
-		);
+		});
 
 		const drink = res.data.drinks;
 		return drink[0];
 	};
 
-	return useQuery<DrinkDTO>({
+	return useQuery<Drink>({
 		queryKey: ["drink", selectedDrink],
 		queryFn: () => fetchDrink(selectedDrink),
 		enabled: !!selectedDrink,

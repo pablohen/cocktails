@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import type { CategoryDTO } from "../interfaces/CategoryDTO";
 import { cocktailService } from "../services/cocktail";
+import type { Category } from "../types/Category";
 
 export function useCategories() {
 	const fetchCategories = async () => {
-		const res = await cocktailService.get<{ drinks: CategoryDTO[] }>(
+		const res = await cocktailService.get<{ drinks: Category[] }>(
 			"/list.php?c=list",
 		);
 
@@ -12,7 +12,7 @@ export function useCategories() {
 		return categories;
 	};
 
-	return useQuery<CategoryDTO[]>({
+	return useQuery<Category[]>({
 		queryKey: ["categories"],
 		queryFn: fetchCategories,
 		retry: 3,

@@ -5,13 +5,13 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import type { DrinkDTO } from "../interfaces/DrinkDTO";
+import type { Drink } from "../types/Drink";
 
 export type FavoriteDrink = Pick<
-	DrinkDTO,
+	Drink,
 	"idDrink" | "strDrink" | "strDrinkThumb"
 > &
-	Partial<DrinkDTO>;
+	Partial<Drink>;
 
 interface FavoritesContextType {
 	favorites: FavoriteDrink[];

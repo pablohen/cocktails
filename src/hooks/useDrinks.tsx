@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { cocktailService } from "../services/cocktail";
+import { getDrinksByCategory, getDrinksBySearch } from "../services/cocktail";
 import { useUtils } from "../stores/utils";
 import type { Drink } from "../types/Drink";
 
@@ -7,22 +7,14 @@ export function useDrinks() {
 	const { selectedCategory, searchTerm } = useUtils();
 
 	async function fetchDrinks(category: string) {
-		const res = await cocktailService.get<{ drinks: Drink[] }>("/filter.php", {
-			params: {
-				c: category,
-			},
-		});
+		const res = await getDrinksByCategory(category);
 
 		const drinks = res.data.drinks;
 		return drinks;
 	}
 
 	async function fetchSearch(searchTerm: string) {
-		const res = await cocktailService.get<{ drinks: Drink[] }>("/search.php", {
-			params: {
-				s: searchTerm,
-			},
-		});
+		const res = await getDrinksBySearch(searchTerm);
 
 		const drinks = res.data.drinks;
 		return drinks;

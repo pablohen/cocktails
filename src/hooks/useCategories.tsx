@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { cocktailService } from "../services/cocktail";
+import { getCategories } from "../services/cocktail";
 import type { Category } from "../types/Category";
 
 export function useCategories() {
 	const fetchCategories = async () => {
-		const res = await cocktailService.get<{ drinks: Category[] }>(
-			"/list.php?c=list",
-		);
+		const res = await getCategories();
 
 		const categories = res.data.drinks;
 		return categories;

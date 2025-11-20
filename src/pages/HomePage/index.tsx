@@ -21,8 +21,8 @@ function CardSkeleton() {
 }
 
 export function HomePage() {
-	const drinks = useDrinks();
 	const { handleSelectedDrink, selectedCategory, searchTerm } = useUtils();
+	const { data: drinks, isLoading, isError } = useDrinks();
 
 	const pageTitle = searchTerm
 		? `Search results for "${searchTerm}" - Cocktails & Drinks`
@@ -46,12 +46,12 @@ export function HomePage() {
 				<meta name="description" content={pageDescription} />
 			</Helmet>
 			<div className="flex flex-wrap justify-center gap-4">
-				{drinks.isLoading &&
-					Array.from({ length: 6 }).map(() => (
+				{isLoading &&
+					Array.from({ length: 8 }).map(() => (
 						<CardSkeleton key={crypto.randomUUID()} />
 					))}
 
-				{drinks.isError && (
+				{isError && (
 					<div className="w-full max-w-2xl">
 						<Alert variant="destructive">
 							<AlertCircle className="h-4 w-4" />
@@ -61,7 +61,7 @@ export function HomePage() {
 								<Button
 									variant="outline"
 									size="sm"
-									onClick={() => drinks.refetch()}
+									onClick={() => window.location.reload()}
 									className="w-fit"
 								>
 									Retry
@@ -71,53 +71,61 @@ export function HomePage() {
 					</div>
 				)}
 
-				{!drinks.isLoading && !drinks.isError && !drinks.data ? (
+				{!isLoading && !isError && (!drinks || drinks.length === 0) ? (
 					<div className="flex min-h-[40vh] w-full flex-col items-center justify-center p-8 text-center">
-						<Wine className="mb-4 h-16 w-16 text-muted-foreground/50" />
-						<h3 className="mb-2 font-semibold text-2xl">No drinks selected</h3>
-						<p className="mb-6 max-w-md text-lg text-muted-foreground">
-							Start exploring by selecting a category from above or search for
-							your favorite cocktail.
-						</p>
-						<div className="flex gap-2 text-muted-foreground text-sm">
-							<Search className="mt-0.5 h-4 w-4" />
-							<span>Try searching for "Margarita" or "Mojito"</span>
-						</div>
-					</div>
-				) : !drinks.isLoading &&
-					!drinks.isError &&
-					drinks.data &&
-					drinks.data.length === 0 ? (
-					<div className="flex min-h-[40vh] w-full flex-col items-center justify-center p-8 text-center">
-						<Search className="mb-4 h-16 w-16 text-muted-foreground/50" />
-						<h3 className="mb-2 font-semibold text-2xl">No results found</h3>
-						<p className="mb-6 max-w-md text-lg text-muted-foreground">
-							{searchTerm
-								? `We couldn't find any cocktails matching "${searchTerm}". Try a different search term.`
-								: selectedCategory
-									? `No cocktails found in the ${selectedCategory} category.`
-									: "No cocktails found. Try a different search or category."}
-						</p>
-						<Button
-							onClick={() => {
-								window.location.href = "/";
-							}}
-							variant="outline"
-						>
-							Clear filters
-						</Button>
+						{searchTerm || selectedCategory ? (
+							<>
+								<Search className="mb-4 h-16 w-16 text-muted-foreground/50" />
+								<h3 className="mb-2 font-semibold text-2xl">
+									No results found
+								</h3>
+								<p className="mb-6 max-w-md text-lg text-muted-foreground">
+									{searchTerm
+										? `We couldn't find any cocktails matching "${searchTerm}". Try a different search term.`
+										: selectedCategory
+											? `No cocktails found in the ${selectedCategory} category.`
+											: "No cocktails found. Try a different search or category."}
+								</p>
+								<Button
+									onClick={() => {
+										window.location.href = "/";
+									}}
+									variant="outline"
+								>
+									Clear filters
+								</Button>
+							</>
+						) : (
+							<>
+								<Wine className="mb-4 h-16 w-16 text-muted-foreground/50" />
+								<h3 className="mb-2 font-semibold text-2xl">
+									No drinks selected
+								</h3>
+								<p className="mb-6 max-w-md text-lg text-muted-foreground">
+									Start exploring by selecting a category from above or search
+									for your favorite cocktail.
+								</p>
+								<div className="flex gap-2 text-muted-foreground text-sm">
+									<Search className="mt-0.5 h-4 w-4" />
+									<span>Try searching for "Margarita" or "Mojito"</span>
+								</div>
+							</>
+						)}
 					</div>
 				) : (
-					!drinks.isError &&
-					drinks.data?.map((drink) => (
-						<Card
-							key={drink.idDrink}
-							id={drink.idDrink}
-							name={drink.strDrink}
-							image={drink.strDrinkThumb}
-							onClick={handleSelectedDrink}
-						/>
-					))
+					<div className="w-full">
+						<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+							{drinks?.map((drink) => (
+								<Card
+									key={drink.idDrink}
+									id={drink.idDrink}
+									name={drink.strDrink}
+									image={drink.strDrinkThumb}
+									onClick={handleSelectedDrink}
+								/>
+							))}
+						</div>
+					</div>
 				)}
 			</div>
 		</>

@@ -5,6 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFavorites } from "@/contexts/FavoritesContext";
+import { useRecentlyViewed } from "@/contexts/RecentlyViewedContext";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useDrink } from "@/hooks/useDrink";
@@ -53,15 +54,16 @@ export function DrinkDetailsPage() {
 	const { setColors } = useTheme();
 	const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 	const { addIngredient, removeIngredient, isInList } = useShoppingList();
+	const { addToHistory } = useRecentlyViewed();
 
 	const ingredients = useMemo(() => {
 		if (drink.isLoading || drink.isError || !drink.data) {
 			return [];
 		}
-
-		return Object.entries(drink.data).filter((item) =>
-			item[0].startsWith("strIngredient"),
-		);
+		const ingredients: [string, string | null][] = Object.entries(drink.data)
+			.filter((key) => key[0].startsWith("strIngredient"))
+			.map((key) => [key[0], key[1] as string | null]);
+		return ingredients;
 	}, [drink]);
 
 	const pageTitle = drink.data
@@ -77,16 +79,24 @@ export function DrinkDetailsPage() {
 	}, [pageTitle]);
 
 	useEffect(() => {
-		if (drink.data?.strDrinkThumb) {
-			extractColors(drink.data.strDrinkThumb)
-				.then((colors) => setColors(colors))
-				.catch((error) => console.error("Failed to extract colors:", error));
+		if (drink.data) {
+			if (drink.data.strDrinkThumb) {
+				extractColors(drink.data.strDrinkThumb)
+					.then((colors) => setColors(colors))
+					.catch((error) => console.error("Failed to extract colors:", error));
+			}
+
+			addToHistory({
+				id: drink.data.idDrink,
+				name: drink.data.strDrink,
+				image: drink.data.strDrinkThumb,
+			});
 		}
 
 		return () => {
 			setColors(null);
 		};
-	}, [drink.data, setColors]);
+	}, [drink.data, setColors, addToHistory]);
 
 	if (drink.isLoading) {
 		return <DrinkDetailsSkeleton />;

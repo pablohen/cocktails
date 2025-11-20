@@ -4,6 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter } from "react-router-dom";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { FavoritesProvider } from "./contexts/FavoritesContext";
+import { RecentlyViewedProvider } from "./contexts/RecentlyViewedContext";
 import { ShoppingListProvider } from "./contexts/ShoppingListContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { DefaultLayout } from "./layouts/DefaultLayout";
@@ -19,15 +20,17 @@ function App() {
 				<BrowserRouter>
 					<ScrollToTop />
 					<ThemeProvider>
-						<ShoppingListProvider>
-							<FavoritesProvider>
-								<GlobalContext>
-									<DefaultLayout>
-										<Routes />
-									</DefaultLayout>
-								</GlobalContext>
-							</FavoritesProvider>
-						</ShoppingListProvider>
+						<RecentlyViewedProvider>
+							<ShoppingListProvider>
+								<FavoritesProvider>
+									<GlobalContext>
+										<DefaultLayout>
+											<Routes />
+										</DefaultLayout>
+									</GlobalContext>
+								</FavoritesProvider>
+							</ShoppingListProvider>
+						</RecentlyViewedProvider>
 					</ThemeProvider>
 				</BrowserRouter>
 				<ReactQueryDevtools initialIsOpen={false} />

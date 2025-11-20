@@ -1,4 +1,11 @@
-import { AlertCircle, Coffee, Dices, Heart, ShoppingCart } from "lucide-react";
+import {
+	AlertCircle,
+	Coffee,
+	Dices,
+	Heart,
+	History,
+	ShoppingCart,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Category } from "@/components/Category";
 import { SearchBar } from "@/components/SearchBar";
@@ -47,26 +54,36 @@ export function Header({ title }: Props) {
 				</div>
 			</Link>
 
-			<Link
-				to="/favorites"
-				className="absolute top-6 right-6 z-20 rounded-full bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/20"
-				aria-label="Go to favorites"
-			>
-				<Heart className="h-6 w-6 text-white" />
-			</Link>
+			<div className="absolute top-6 right-6 z-20 flex gap-2">
+				<Link
+					to="/favorites"
+					className="rounded-full bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/20"
+					aria-label="Go to favorites"
+				>
+					<Heart className="h-6 w-6 text-white" />
+				</Link>
 
-			<Link
-				to="/shopping-list"
-				className="absolute top-6 right-20 z-20 rounded-full bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/20"
-				aria-label="Go to shopping list"
-			>
-				<ShoppingCart className="h-6 w-6 text-white" />
-				{ingredients.length > 0 && (
-					<span className="-top-1 -right-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-bold text-white text-xs">
-						{ingredients.length}
-					</span>
-				)}
-			</Link>
+				<Link
+					to="/shopping-list"
+					className="relative rounded-full bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/20"
+					aria-label="Go to shopping list"
+				>
+					<ShoppingCart className="h-6 w-6 text-white" />
+					{ingredients.length > 0 && (
+						<span className="-top-1 -right-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-bold text-white text-xs">
+							{ingredients.length}
+						</span>
+					)}
+				</Link>
+
+				<Link
+					to="/recently-viewed"
+					className="rounded-full bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/20"
+					aria-label="Go to recently viewed"
+				>
+					<History className="h-6 w-6 text-white" />
+				</Link>
+			</div>
 
 			<Button
 				variant="ghost"

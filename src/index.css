@@ -140,6 +140,6 @@ input {
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-gradient-to-br from-amber-50 via-orange-50/30 to-yellow-50/50 text-foreground min-h-screen;
+		@apply bg-accent text-primary-foreground min-h-screen;
 	}
 }

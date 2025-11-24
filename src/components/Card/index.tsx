@@ -85,7 +85,7 @@ export function Card({ id, name, image, onClick }: Props) {
 					/>
 				</Button>
 			</CardContent>
-			<CardFooter className="relative bg-gradient-to-br from-primary via-secondary to-accent p-4">
+			<CardFooter className="relative bg-accent p-4">
 				<div className="absolute inset-0 bg-black/40" />
 				<span className="relative z-10 w-full truncate font-bold text-lg text-white drop-shadow-md">
 					{name}

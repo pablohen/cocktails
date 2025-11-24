@@ -36,11 +36,7 @@ export function Header({ title }: Props) {
 	};
 
 	return (
-		<div className="relative overflow-hidden bg-gradient-to-br from-primary via-secondary to-accent pt-6 pb-40 sm:pb-48 md:pb-52">
-			<div className="absolute inset-0 bg-black/10" />
-			<div className="-translate-y-1/2 absolute top-0 right-0 h-96 w-96 translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
-			<div className="-translate-x-1/2 absolute bottom-0 left-0 h-96 w-96 translate-y-1/2 rounded-full bg-white/10 blur-3xl" />
-
+		<div className="relative pt-6 pb-40 sm:pb-48 md:pb-52">
 			<Link to="/" aria-label="Go to homepage" className="relative z-10">
 				<div className="flex w-full flex-col items-center justify-center py-6 sm:py-8 md:py-10">
 					<h1 className="px-4 text-center font-bold text-4xl text-white drop-shadow-lg sm:text-5xl md:text-6xl">

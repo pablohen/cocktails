@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Header } from "@/components/Header";
+import { WaveBackground } from "@/components/ui/WaveBackground";
 
 interface Props {
 	children: ReactNode;
@@ -8,6 +9,7 @@ interface Props {
 export function DefaultLayout({ children }: Props) {
 	return (
 		<>
+			<WaveBackground />
 			<Header title="Cocktails & Drinks" />
 
 			<div className="-mt-40 relative z-20 flex flex-wrap gap-4 px-4 sm:px-6 md:px-8">

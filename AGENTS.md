@@ -4,7 +4,7 @@ Cocktail recipe browser consuming [TheCocktailDB](https://www.thecocktaildb.com)
 
 ## Stack
 
-- React 19, TypeScript 6, Vite 8
+- React 19, TypeScript 7, Vite 8
 - React Router 7, TanStack React Query 5
 - Tailwind CSS 4, shadcn/ui (new-york style)
 - Axios, Biome (lint/format), pnpm

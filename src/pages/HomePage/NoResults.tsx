@@ -35,11 +35,7 @@ export function NoResults({ searchTerm, selectedCategory }: NoResultsProps) {
 					<Typography variant="h5" sx={{ fontWeight: 600 }}>
 						No results found
 					</Typography>
-					<Typography
-						variant="body1"
-						color="text.secondary"
-						sx={{ maxWidth: 400 }}
-					>
+					<Typography variant="body1" color="text.secondary" sx={{ maxWidth: 400 }}>
 						{searchTerm
 							? `We couldn't find any cocktails matching "${searchTerm}". Try a different search term.`
 							: selectedCategory
@@ -53,29 +49,15 @@ export function NoResults({ searchTerm, selectedCategory }: NoResultsProps) {
 			) : (
 				<>
 					<WineBarIcon sx={{ fontSize: 64, color: "text.secondary" }} />
-					<Typography
-						variant="h5"
-						sx={{ fontWeight: 600, color: "text.secondary" }}
-					>
+					<Typography variant="h5" sx={{ fontWeight: 600, color: "text.secondary" }}>
 						No drinks selected
 					</Typography>
-					<Typography
-						variant="body1"
-						color="text.secondary"
-						sx={{ maxWidth: 400 }}
-					>
-						Start exploring by selecting a category from above or search for
-						your favorite cocktail.
+					<Typography variant="body1" color="text.secondary" sx={{ maxWidth: 400 }}>
+						Start exploring by selecting a category from above or search for your favorite cocktail.
 					</Typography>
-					<Stack
-						direction="row"
-						spacing={1}
-						sx={{ alignItems: "center", color: "text.secondary" }}
-					>
+					<Stack direction="row" spacing={1} sx={{ alignItems: "center", color: "text.secondary" }}>
 						<SearchIcon fontSize="small" />
-						<Typography variant="body2">
-							Try searching for "Margarita" or "Mojito"
-						</Typography>
+						<Typography variant="body2">Try searching for "Margarita" or "Mojito"</Typography>
 					</Stack>
 				</>
 			)}

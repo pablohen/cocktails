@@ -4,10 +4,10 @@ Cocktail recipe browser consuming [TheCocktailDB](https://www.thecocktaildb.com)
 
 ## Stack
 
-- React 19, TypeScript 7, Vite 8
+- React 19, TypeScript 7, Vite+ (Vite 8 via `@voidzero-dev/vite-plus-core`)
 - React Router 7, TanStack React Query 5
 - Material UI 9 (`@mui/material`, `@emotion/react`, `@mui/icons-material`)
-- Axios, Biome (lint/format), pnpm
+- Axios, Oxlint/Oxfmt (via Vite+), pnpm
 
 There is no backend. API calls go to `VITE_API_URL` (defaults to TheCocktailDB) via `src/services/cocktail.ts`.
 
@@ -26,12 +26,12 @@ lib/         → shared utilities (drink helpers, colorExtractor)
 
 ### State ownership
 
-| Concern | Location | Example |
-|---------|----------|---------|
-| Server/async data | `hooks/` + React Query | `useDrinks`, `useDrink` |
-| URL search/category | `contexts/UtilsContext.tsx` | `search`, `category` query params |
+| Concern                 | Location                             | Example                                   |
+| ----------------------- | ------------------------------------ | ----------------------------------------- |
+| Server/async data       | `hooks/` + React Query               | `useDrinks`, `useDrink`                   |
+| URL search/category     | `contexts/UtilsContext.tsx`          | `search`, `category` query params         |
 | Persistent client state | `contexts/` + `useLocalStorageState` | favorites, shopping list, recently viewed |
-| Dynamic theming | `contexts/ThemeContext.tsx` | `AppThemeProvider` + `useDynamicColors` |
+| Dynamic theming         | `contexts/ThemeContext.tsx`          | `AppThemeProvider` + `useDynamicColors`   |
 
 Provider nesting order is defined in `src/App.tsx` — follow the same pattern when adding providers:
 
@@ -61,26 +61,26 @@ Defined in `src/routes/app.routes.tsx`:
 
 ### Shared components
 
-| Component | Purpose |
-|-----------|---------|
-| `Card` | Drink tile (image, favorite, theme hover) |
-| `PageHeader` | List page title with icon and optional action |
-| `EmptyState` | Empty list placeholder with CTA |
-| `FavoriteButton` | Heart toggle for favorites |
-| `DetailSection` | Paper panel for detail page sections |
-| `Header` | AppBar with search, categories, and nav |
+| Component        | Purpose                                       |
+| ---------------- | --------------------------------------------- |
+| `Card`           | Drink tile (image, favorite, theme hover)     |
+| `PageHeader`     | List page title with icon and optional action |
+| `EmptyState`     | Empty list placeholder with CTA               |
+| `FavoriteButton` | Heart toggle for favorites                    |
+| `DetailSection`  | Paper panel for detail page sections          |
+| `Header`         | AppBar with search, categories, and nav       |
 
 ### lib/ utilities
 
-| File | Purpose |
-|------|---------|
-| `lib/drink.ts` | `DrinkSummary`, `toDrinkSummary`, `getDrinkIngredients` |
-| `lib/colorExtractor.ts` | Extract palette from drink images |
+| File                    | Purpose                                                 |
+| ----------------------- | ------------------------------------------------------- |
+| `lib/drink.ts`          | `DrinkSummary`, `toDrinkSummary`, `getDrinkIngredients` |
+| `lib/colorExtractor.ts` | Extract palette from drink images                       |
 
 ## Code style
 
-- Tabs for indentation, double quotes for strings (Biome)
-- Run `pnpm lint` / `pnpm lint:fix` / `pnpm format` after changes
+- Tabs for indentation, double quotes for strings (Oxfmt in `vite.config.ts`)
+- Run `vp check` after changes (format, lint, type-check); use `vp check --fix` to auto-fix
 - UI styling via MUI `sx` prop or `styled()` — no Tailwind or shadcn
 - Icons: `@mui/icons-material`
 - Use MUI components from `@mui/material` for primitives (Button, TextField, Card, etc.)
@@ -89,18 +89,18 @@ Defined in `src/routes/app.routes.tsx`:
 
 ## Build & Test
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm i` | Install dependencies |
-| `pnpm dev` | Start Vite dev server |
-| `pnpm build` | `tsc && vite build` |
-| `pnpm typecheck` | Type-check only |
-| `pnpm lint` | Biome check |
-| `pnpm lint:fix` | Auto-fix lint issues |
-| `pnpm format` | Biome format |
-| `pnpm preview` | Preview production build |
+| Command                       | Purpose                  |
+| ----------------------------- | ------------------------ |
+| `pnpm install` / `vp install` | Install dependencies     |
+| `vp dev`                      | Start Vite dev server    |
+| `vp build`                    | Build for production     |
+| `vp check --no-fmt --no-lint` | Type-check only          |
+| `vp lint`                     | Lint with Oxlint         |
+| `vp check --fix`              | Format, lint, and fix    |
+| `vp fmt`                      | Format with Oxfmt        |
+| `vp preview`                  | Preview production build |
 
-No test suite exists. Run `pnpm typecheck` and `pnpm build` (or at minimum `pnpm lint`) to verify changes.
+No test suite exists. Run `vp check` and `vp build` to verify changes.
 
 Copy `.env.example` to `.env` if API URL customization is needed.
 

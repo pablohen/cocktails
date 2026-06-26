@@ -9,15 +9,10 @@ interface ShoppingListContextType {
 	clearList: () => void;
 }
 
-const ShoppingListContext = createContext<ShoppingListContextType | undefined>(
-	undefined,
-);
+const ShoppingListContext = createContext<ShoppingListContextType | undefined>(undefined);
 
 export const ShoppingListProvider = ({ children }: { children: ReactNode }) => {
-	const [ingredients, setIngredients] = useLocalStorageState<string[]>(
-		"shoppingList",
-		[],
-	);
+	const [ingredients, setIngredients] = useLocalStorageState<string[]>("shoppingList", []);
 
 	const addIngredient = (ingredient: string) => {
 		setIngredients((prev) => {
@@ -56,9 +51,7 @@ export const ShoppingListProvider = ({ children }: { children: ReactNode }) => {
 export const useShoppingList = () => {
 	const context = useContext(ShoppingListContext);
 	if (context === undefined) {
-		throw new Error(
-			"useShoppingList must be used within a ShoppingListProvider",
-		);
+		throw new Error("useShoppingList must be used within a ShoppingListProvider");
 	}
 	return context;
 };

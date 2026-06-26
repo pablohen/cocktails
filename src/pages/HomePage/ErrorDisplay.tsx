@@ -9,19 +9,13 @@ export function ErrorDisplay() {
 			severity="error"
 			sx={{ maxWidth: 600 }}
 			action={
-				<Button
-					color="inherit"
-					size="small"
-					onClick={() => window.location.reload()}
-				>
+				<Button color="inherit" size="small" onClick={() => window.location.reload()}>
 					Retry
 				</Button>
 			}
 		>
 			<AlertTitle>Error loading drinks</AlertTitle>
-			<Typography variant="body2">
-				We couldn't load the drinks. Please try again.
-			</Typography>
+			<Typography variant="body2">We couldn't load the drinks. Please try again.</Typography>
 		</Alert>
 	);
 }

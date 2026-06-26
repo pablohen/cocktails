@@ -19,17 +19,10 @@ export function FavoritesPage() {
 		<>
 			<Helmet>
 				<title>My Favorites - Cocktails & Drinks</title>
-				<meta
-					name="description"
-					content="View your favorite cocktail recipes."
-				/>
+				<meta name="description" content="View your favorite cocktail recipes." />
 			</Helmet>
 
-			<PageHeader
-				icon={FavoriteIcon}
-				iconColor="error.main"
-				title="My Favorites"
-			/>
+			<PageHeader icon={FavoriteIcon} iconColor="error.main" title="My Favorites" />
 
 			{favorites.length === 0 ? (
 				<EmptyState

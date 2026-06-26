@@ -1,12 +1,6 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import {
-	createContext,
-	type ReactNode,
-	useContext,
-	useMemo,
-	useState,
-} from "react";
+import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import { createAppTheme, type ThemeColors } from "@/theme/createAppTheme";
 
 interface DynamicColorsContextType {
@@ -14,9 +8,7 @@ interface DynamicColorsContextType {
 	setColors: (colors: ThemeColors | null) => void;
 }
 
-const DynamicColorsContext = createContext<
-	DynamicColorsContextType | undefined
->(undefined);
+const DynamicColorsContext = createContext<DynamicColorsContextType | undefined>(undefined);
 
 export function AppThemeProvider({ children }: { children: ReactNode }) {
 	const [colors, setColors] = useState<ThemeColors | null>(null);

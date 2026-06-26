@@ -181,11 +181,7 @@ export function DrinkDetailsPage() {
 						</DetailSection>
 
 						<DetailSection title="Instructions" accent="accent">
-							<Typography
-								variant="body1"
-								color="text.secondary"
-								sx={{ lineHeight: 1.7 }}
-							>
+							<Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
 								{drink.data.strInstructions}
 							</Typography>
 						</DetailSection>

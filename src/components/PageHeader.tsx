@@ -12,17 +12,9 @@ interface Props {
 	action?: ReactNode;
 }
 
-export function PageHeader({
-	icon: Icon,
-	iconColor = "primary.main",
-	title,
-	action,
-}: Props) {
+export function PageHeader({ icon: Icon, iconColor = "primary.main", title, action }: Props) {
 	return (
-		<Stack
-			direction="row"
-			sx={{ alignItems: "center", justifyContent: "space-between", mb: 4 }}
-		>
+		<Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between", mb: 4 }}>
 			<Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
 				<Avatar sx={{ bgcolor: iconColor, width: 48, height: 48 }}>
 					<Icon />

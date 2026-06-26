@@ -21,10 +21,7 @@ export function ShoppingListPage() {
 		<>
 			<Helmet>
 				<title>Shopping List - Cocktails & Drinks</title>
-				<meta
-					name="description"
-					content="Manage your shopping list for cocktail ingredients."
-				/>
+				<meta name="description" content="Manage your shopping list for cocktail ingredients." />
 			</Helmet>
 
 			<PageHeader

@@ -1,10 +1,4 @@
-import {
-	createContext,
-	type ReactNode,
-	useCallback,
-	useContext,
-	useMemo,
-} from "react";
+import { createContext, type ReactNode, useCallback, useContext, useMemo } from "react";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 
 export interface RecentDrink {
@@ -20,19 +14,10 @@ interface RecentlyViewedContextType {
 	clearHistory: () => void;
 }
 
-const RecentlyViewedContext = createContext<
-	RecentlyViewedContextType | undefined
->(undefined);
+const RecentlyViewedContext = createContext<RecentlyViewedContextType | undefined>(undefined);
 
-export const RecentlyViewedProvider = ({
-	children,
-}: {
-	children: ReactNode;
-}) => {
-	const [recentDrinks, setRecentDrinks] = useLocalStorageState<RecentDrink[]>(
-		"recentlyViewed",
-		[],
-	);
+export const RecentlyViewedProvider = ({ children }: { children: ReactNode }) => {
+	const [recentDrinks, setRecentDrinks] = useLocalStorageState<RecentDrink[]>("recentlyViewed", []);
 
 	const addToHistory = useCallback(
 		(drink: Omit<RecentDrink, "timestamp">) => {
@@ -58,19 +43,13 @@ export const RecentlyViewedProvider = ({
 		[recentDrinks, addToHistory, clearHistory],
 	);
 
-	return (
-		<RecentlyViewedContext.Provider value={value}>
-			{children}
-		</RecentlyViewedContext.Provider>
-	);
+	return <RecentlyViewedContext.Provider value={value}>{children}</RecentlyViewedContext.Provider>;
 };
 
 export const useRecentlyViewed = () => {
 	const context = useContext(RecentlyViewedContext);
 	if (context === undefined) {
-		throw new Error(
-			"useRecentlyViewed must be used within a RecentlyViewedProvider",
-		);
+		throw new Error("useRecentlyViewed must be used within a RecentlyViewedProvider");
 	}
 	return context;
 };

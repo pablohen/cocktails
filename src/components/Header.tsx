@@ -43,7 +43,7 @@ export function Header({ title }: Props) {
 	const handleSurpriseMe = async () => {
 		const { data } = await refetch();
 		if (data) {
-			navigate(`/${data.idDrink}`);
+			void navigate(`/${data.idDrink}`);
 		}
 	};
 
@@ -88,12 +88,7 @@ export function Header({ title }: Props) {
 				</Box>
 
 				<Stack direction="row" spacing={0.5}>
-					<IconButton
-						component={Link}
-						to="/favorites"
-						color="inherit"
-						aria-label="Go to favorites"
-					>
+					<IconButton component={Link} to="/favorites" color="inherit" aria-label="Go to favorites">
 						<FavoriteIcon />
 					</IconButton>
 
@@ -126,11 +121,7 @@ export function Header({ title }: Props) {
 
 				<Box component="nav" aria-label="Category filters">
 					{categories.isLoading && (
-						<Stack
-							direction="row"
-							spacing={1}
-							sx={{ flexWrap: "wrap", justifyContent: "center" }}
-						>
+						<Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
 							{CATEGORY_SKELETON_KEYS.map((key) => (
 								<Skeleton
 									key={key}
@@ -166,10 +157,7 @@ export function Header({ title }: Props) {
 						>
 							{categories.data.map((category) => (
 								<Box component="li" key={category.strCategory}>
-									<Category
-										name={category.strCategory}
-										onClick={handleSelectedCategory}
-									/>
+									<Category name={category.strCategory} onClick={handleSelectedCategory} />
 								</Box>
 							))}
 						</Box>

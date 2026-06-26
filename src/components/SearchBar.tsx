@@ -38,11 +38,7 @@ export function SearchBar({ initialValue = "", onSubmit }: Props) {
 	}
 
 	return (
-		<Box
-			component="form"
-			onSubmit={handleSubmit}
-			sx={{ width: "100%", maxWidth: 360 }}
-		>
+		<Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", maxWidth: 360 }}>
 			<Autocomplete
 				freeSolo
 				options={[]}

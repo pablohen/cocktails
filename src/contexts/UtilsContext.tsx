@@ -25,9 +25,9 @@ export function UtilsProvider({ children }: Props) {
 	const handleSearch = useCallback(
 		(term: string) => {
 			if (term) {
-				navigate(`/?search=${encodeURIComponent(term)}`);
+				void navigate(`/?search=${encodeURIComponent(term)}`);
 			} else {
-				navigate("/");
+				void navigate("/");
 			}
 		},
 		[navigate],
@@ -36,9 +36,9 @@ export function UtilsProvider({ children }: Props) {
 	const handleSelectedCategory = useCallback(
 		(category: string) => {
 			if (category) {
-				navigate(`/?category=${encodeURIComponent(category)}`);
+				void navigate(`/?category=${encodeURIComponent(category)}`);
 			} else {
-				navigate("/");
+				void navigate("/");
 			}
 		},
 		[navigate],
@@ -46,7 +46,7 @@ export function UtilsProvider({ children }: Props) {
 
 	const handleSelectedDrink = useCallback(
 		(drink: string) => {
-			navigate(`/${drink}`);
+			void navigate(`/${drink}`);
 		},
 		[navigate],
 	);

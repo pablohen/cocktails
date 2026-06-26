@@ -8,9 +8,9 @@ Exemplo do consumo de uma API e uso do Context API https://cocktails.pablohen.de
 - React
 - Context API
 - Axios
-- React Icons
+- Material UI
 - React Query
-- Tailwind CSS
+- Vite+
 
 ## Back-end:
 
@@ -18,5 +18,5 @@ Exemplo do consumo de uma API e uso do Context API https://cocktails.pablohen.de
 
 ### Comentários:
 
-- Instalação das dependências via 'pnpm i'
-- Iniciar pelo script 'dev', conforme o que está no 'package.json'
+- Instalação das dependências via `pnpm install` ou `vp install`
+- Iniciar com `vp dev` (ou `pnpm run dev`)

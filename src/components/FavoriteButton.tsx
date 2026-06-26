@@ -39,9 +39,7 @@ export function FavoriteButton({ drink, size = "sm", sx, onClick }: Props) {
 			size={sizeMap[size]}
 			onClick={handleClick}
 			aria-label={
-				favorited
-					? `Remove ${drink.strDrink} from favorites`
-					: `Add ${drink.strDrink} to favorites`
+				favorited ? `Remove ${drink.strDrink} from favorites` : `Add ${drink.strDrink} to favorites`
 			}
 			sx={{
 				bgcolor: "rgba(0,0,0,0.4)",

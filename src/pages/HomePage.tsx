@@ -55,10 +55,7 @@ export function HomePage() {
 			{isError && <ErrorDisplay />}
 
 			{!isLoading && !isError && (!drinks || drinks.length === 0) ? (
-				<NoResults
-					searchTerm={searchTerm}
-					selectedCategory={selectedCategory}
-				/>
+				<NoResults searchTerm={searchTerm} selectedCategory={selectedCategory} />
 			) : (
 				!isLoading &&
 				!isError && (

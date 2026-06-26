@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 export function ScrollToTop() {
 	const { pathname } = useLocation();
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: false positive
+	// oxlint-disable-next-line react-hooks/exhaustive-deps -- scroll on route change only
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [pathname]);

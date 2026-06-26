@@ -19,10 +19,7 @@ export function RecentlyViewedPage() {
 		<>
 			<Helmet>
 				<title>Recently Viewed - Cocktails & Drinks</title>
-				<meta
-					name="description"
-					content="Your recently viewed cocktail recipes."
-				/>
+				<meta name="description" content="Your recently viewed cocktail recipes." />
 			</Helmet>
 
 			<PageHeader
@@ -44,11 +41,7 @@ export function RecentlyViewedPage() {
 					title="No recently viewed drinks"
 					description="You haven't viewed any cocktails yet. Start exploring to see your history here."
 					action={
-						<Button
-							onClick={() => navigate("/")}
-							startIcon={<SearchIcon />}
-							sx={{ mt: 2 }}
-						>
+						<Button onClick={() => navigate("/")} startIcon={<SearchIcon />} sx={{ mt: 2 }}>
 							Browse Cocktails
 						</Button>
 					}

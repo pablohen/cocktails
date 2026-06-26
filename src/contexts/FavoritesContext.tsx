@@ -2,11 +2,7 @@ import { createContext, type ReactNode, useContext } from "react";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 import type { Drink } from "@/types/Drink";
 
-export type FavoriteDrink = Pick<
-	Drink,
-	"idDrink" | "strDrink" | "strDrinkThumb"
-> &
-	Partial<Drink>;
+export type FavoriteDrink = Pick<Drink, "idDrink" | "strDrink" | "strDrinkThumb"> & Partial<Drink>;
 
 interface FavoritesContextType {
 	favorites: FavoriteDrink[];
@@ -15,15 +11,10 @@ interface FavoritesContextType {
 	isFavorite: (id: string) => boolean;
 }
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(
-	undefined,
-);
+const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-	const [favorites, setFavorites] = useLocalStorageState<FavoriteDrink[]>(
-		"favorites",
-		[],
-	);
+	const [favorites, setFavorites] = useLocalStorageState<FavoriteDrink[]>("favorites", []);
 
 	const addFavorite = (drink: FavoriteDrink) => {
 		setFavorites((prev) => {
@@ -41,9 +32,7 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	return (
-		<FavoritesContext.Provider
-			value={{ favorites, addFavorite, removeFavorite, isFavorite }}
-		>
+		<FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
 			{children}
 		</FavoritesContext.Provider>
 	);

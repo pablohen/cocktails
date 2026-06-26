@@ -2,8 +2,7 @@ import axios from "axios";
 import type { Category } from "@/types/Category";
 import type { Drink } from "@/types/Drink";
 
-const API_URL =
-	import.meta.env.VITE_API_URL || "https://www.thecocktaildb.com/api/json/v1/1";
+const API_URL = import.meta.env.VITE_API_URL || "https://www.thecocktaildb.com/api/json/v1/1";
 
 const cocktailApi = axios.create({
 	baseURL: API_URL,

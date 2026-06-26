@@ -30,13 +30,9 @@ export function NotFoundPage() {
 				<Typography variant="h4" sx={{ fontWeight: 600 }}>
 					Page Not Found
 				</Typography>
-				<Typography
-					variant="body1"
-					color="text.secondary"
-					sx={{ maxWidth: 400, mb: 2 }}
-				>
-					Sorry, we couldn't find the cocktail or page you're looking for. It
-					might have been removed or the URL might be incorrect.
+				<Typography variant="body1" color="text.secondary" sx={{ maxWidth: 400, mb: 2 }}>
+					Sorry, we couldn't find the cocktail or page you're looking for. It might have been
+					removed or the URL might be incorrect.
 				</Typography>
 				<Stack direction="row" spacing={2}>
 					<Button

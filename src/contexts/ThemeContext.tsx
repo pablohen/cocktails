@@ -1,62 +1,41 @@
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import {
 	createContext,
 	type ReactNode,
 	useContext,
-	useEffect,
+	useMemo,
 	useState,
 } from "react";
+import { createAppTheme, type ThemeColors } from "@/theme/createAppTheme";
 
-interface ThemeColors {
-	primary: string;
-	secondary: string;
-	accent: string;
-}
-
-interface ThemeContextType {
+interface DynamicColorsContextType {
 	colors: ThemeColors | null;
 	setColors: (colors: ThemeColors | null) => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const DynamicColorsContext = createContext<
+	DynamicColorsContextType | undefined
+>(undefined);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export function AppThemeProvider({ children }: { children: ReactNode }) {
 	const [colors, setColors] = useState<ThemeColors | null>(null);
-
-	useEffect(() => {
-		const body = document.body;
-		if (colors) {
-			document.documentElement.style.setProperty(
-				"--dynamic-primary",
-				colors.primary,
-			);
-			document.documentElement.style.setProperty(
-				"--dynamic-secondary",
-				colors.secondary,
-			);
-			document.documentElement.style.setProperty(
-				"--dynamic-accent",
-				colors.accent,
-			);
-			body.setAttribute("data-dynamic-theme", "true");
-		} else {
-			document.documentElement.style.removeProperty("--dynamic-primary");
-			document.documentElement.style.removeProperty("--dynamic-secondary");
-			document.documentElement.style.removeProperty("--dynamic-accent");
-			body.removeAttribute("data-dynamic-theme");
-		}
-	}, [colors]);
+	const theme = useMemo(() => createAppTheme(colors), [colors]);
 
 	return (
-		<ThemeContext.Provider value={{ colors, setColors }}>
-			{children}
-		</ThemeContext.Provider>
+		<DynamicColorsContext.Provider value={{ colors, setColors }}>
+			<MuiThemeProvider theme={theme}>
+				<CssBaseline />
+				{children}
+			</MuiThemeProvider>
+		</DynamicColorsContext.Provider>
 	);
 }
 
-export function useTheme() {
-	const context = useContext(ThemeContext);
+export function useDynamicColors() {
+	const context = useContext(DynamicColorsContext);
 	if (context === undefined) {
-		throw new Error("useTheme must be used within a ThemeProvider");
+		throw new Error("useDynamicColors must be used within AppThemeProvider");
 	}
 	return context;
 }

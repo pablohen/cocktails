@@ -6,7 +6,7 @@ Cocktail recipe browser consuming [TheCocktailDB](https://www.thecocktaildb.com)
 
 - React 19, TypeScript 7, Vite 8
 - React Router 7, TanStack React Query 5
-- Tailwind CSS 4, shadcn/ui (new-york style)
+- Material UI 9 (`@mui/material`, `@emotion/react`, `@mui/icons-material`)
 - Axios, Biome (lint/format), pnpm
 
 There is no backend. API calls go to `VITE_API_URL` (defaults to TheCocktailDB) via `src/services/cocktail.ts`.
@@ -14,14 +14,14 @@ There is no backend. API calls go to `VITE_API_URL` (defaults to TheCocktailDB) 
 ## Architecture
 
 ```
-pages/          → route-level screens
-components/     → shared UI (folder per component)
-components/ui/  → shadcn primitives
-hooks/          → React Query wrappers + useLocalStorageState
-services/       → Axios API client
-contexts/       → localStorage-backed client state + URL params
-types/          → API shape types
-lib/            → shared utilities (cn, drink helpers, colorExtractor)
+pages/       → route-level screens
+components/  → shared UI (folder per component)
+theme/       → MUI createTheme + palette augmentation
+hooks/       → React Query wrappers + useLocalStorageState
+services/    → Axios API client
+contexts/    → localStorage-backed client state + URL params
+types/       → API shape types
+lib/         → shared utilities (drink helpers, colorExtractor)
 ```
 
 ### State ownership
@@ -31,11 +31,11 @@ lib/            → shared utilities (cn, drink helpers, colorExtractor)
 | Server/async data | `hooks/` + React Query | `useDrinks`, `useDrink` |
 | URL search/category | `contexts/UtilsContext.tsx` | `search`, `category` query params |
 | Persistent client state | `contexts/` + `useLocalStorageState` | favorites, shopping list, recently viewed |
-| Dynamic theming | `contexts/ThemeContext.tsx` | CSS vars from image colors |
+| Dynamic theming | `contexts/ThemeContext.tsx` | `AppThemeProvider` + `useDynamicColors` |
 
 Provider nesting order is defined in `src/App.tsx` — follow the same pattern when adding providers:
 
-`HelmetProvider` → `QueryClientProvider` → `BrowserRouter` → `ThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `UtilsProvider` → `DefaultLayout` → `Routes`
+`HelmetProvider` → `QueryClientProvider` → `BrowserRouter` → `AppThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `UtilsProvider` → `DefaultLayout` → `Routes`
 
 ### Routes
 
@@ -50,9 +50,10 @@ Defined in `src/routes/app.routes.tsx`:
 
 ## Directory conventions
 
-- **Pages:** `src/pages/<PageName>/index.tsx` with optional `components/` subfolder
-- **Shared components:** `src/components/<Name>/index.tsx`, named exports (`export function Card`)
-- **shadcn primitives:** `src/components/ui/` — add via shadcn CLI, do not hand-roll duplicates
+- **Pages:** `src/pages/<PageName>.tsx`, with optional `src/pages/<PageName>/` subfolder for page-only components
+- **Shared components:** `src/components/<Name>.tsx`, named exports (`export function Card`)
+- **Layouts:** `src/layouts/<Name>.tsx`
+- **MUI theming:** `src/theme/createAppTheme.ts` — static palette + dynamic overrides from image colors
 - **Hooks:** `src/hooks/use*.tsx`
 - **Contexts:** `src/contexts/*Context.tsx` with `*Provider` + `use*` hook; throw if used outside provider
 - **Types:** `src/types/` — mirror API shapes
@@ -66,14 +67,13 @@ Defined in `src/routes/app.routes.tsx`:
 | `PageHeader` | List page title with icon and optional action |
 | `EmptyState` | Empty list placeholder with CTA |
 | `FavoriteButton` | Heart toggle for favorites |
-| `DetailSection` | shadcn Card panel for detail page sections |
-| `WaveBackground` | Animated wave background (not a shadcn primitive) |
+| `DetailSection` | Paper panel for detail page sections |
+| `Header` | AppBar with search, categories, and nav |
 
 ### lib/ utilities
 
 | File | Purpose |
 |------|---------|
-| `lib/utils.ts` | `cn()` class merging |
 | `lib/drink.ts` | `DrinkSummary`, `toDrinkSummary`, `getDrinkIngredients` |
 | `lib/colorExtractor.ts` | Extract palette from drink images |
 
@@ -81,9 +81,9 @@ Defined in `src/routes/app.routes.tsx`:
 
 - Tabs for indentation, double quotes for strings (Biome)
 - Run `pnpm lint` / `pnpm lint:fix` / `pnpm format` after changes
-- Tailwind classes sorted via Biome (`cn`, `clsx`, `cva`)
-- Icons: `lucide-react`
-- Use `cn()` from `src/lib/utils.ts` for class merging
+- UI styling via MUI `sx` prop or `styled()` — no Tailwind or shadcn
+- Icons: `@mui/icons-material`
+- Use MUI components from `@mui/material` for primitives (Button, TextField, Card, etc.)
 - Imports at top of file (no inline imports)
 - Exhaustive `switch` with `never` in default for union types
 
@@ -140,7 +140,7 @@ Rules:
 
 - Add API calls in `services/cocktail.ts`, wrap with React Query hooks in `hooks/`
 - Use existing contexts for favorites, shopping list, and recently viewed — don't duplicate localStorage logic
-- Use shadcn/ui components from `components/ui/` for new UI primitives
+- Use MUI components from `@mui/material` for new UI primitives
 - Keep changes scoped; match surrounding code style
 - Split work into atomic conventional commits when asked to commit
 
@@ -148,7 +148,7 @@ Rules:
 
 - Add a backend or new data layer without explicit request
 - Put server-fetching logic directly in page components
-- Create parallel Card/Button primitives when shadcn equivalents exist
+- Hand-roll Button/Card/TextField primitives when MUI equivalents exist
 - Commit unless explicitly asked
 - Bundle unrelated changes into a single commit
 - Add tests unless explicitly requested
@@ -159,7 +159,8 @@ Rules:
 - `src/routes/app.routes.tsx` — routes
 - `src/services/cocktail.ts` — API client
 - `src/hooks/useDrinks.tsx` — query hook pattern
-- `src/components/Card/index.tsx` — component pattern
+- `src/components/Card.tsx` — component pattern
 - `src/contexts/FavoritesContext.tsx` — context pattern
 - `src/contexts/UtilsContext.tsx` — URL param state pattern
+- `src/theme/createAppTheme.ts` — MUI theme factory
 - `src/lib/drink.ts` — drink shape helpers

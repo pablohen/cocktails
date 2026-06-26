@@ -16,25 +16,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"preset": "recommended",
-			"nursery": {
-				"useSortedClasses": {
-					"level": "warn",
-					"options": {
-						"attributes": ["classList"],
-						"functions": ["clsx", "cva", "tw", "cn"]
-					}
-				}
-			}
-		}
-	},
-	"css": {
-		"parser": {
-			"cssModules": false,
-			"tailwindDirectives": true
-		},
-		"linter": {
-			"enabled": true
+			"preset": "recommended"
 		}
 	},
 	"javascript": {

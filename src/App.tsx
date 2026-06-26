@@ -7,10 +7,10 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { FavoritesProvider } from "./contexts/FavoritesContext";
 import { RecentlyViewedProvider } from "./contexts/RecentlyViewedContext";
 import { ShoppingListProvider } from "./contexts/ShoppingListContext";
-import { ThemeProvider } from "./contexts/ThemeContext";
+import { AppThemeProvider } from "./contexts/ThemeContext";
 import { UtilsProvider } from "./contexts/UtilsContext";
 import { DefaultLayout } from "./layouts/DefaultLayout";
-import { Routes } from "./routes";
+import { Routes } from "./routes/Routes";
 
 function App() {
 	const [queryClient] = useState(() => new QueryClient());
@@ -20,7 +20,7 @@ function App() {
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
 					<ScrollToTop />
-					<ThemeProvider>
+					<AppThemeProvider>
 						<RecentlyViewedProvider>
 							<ShoppingListProvider>
 								<FavoritesProvider>
@@ -32,7 +32,7 @@ function App() {
 								</FavoritesProvider>
 							</ShoppingListProvider>
 						</RecentlyViewedProvider>
-					</ThemeProvider>
+					</AppThemeProvider>
 				</BrowserRouter>
 				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryClientProvider>

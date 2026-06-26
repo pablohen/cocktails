@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter } from "react-router-dom";
 import { ScrollToTop } from "./components/ScrollToTop";
@@ -7,12 +8,12 @@ import { FavoritesProvider } from "./contexts/FavoritesContext";
 import { RecentlyViewedProvider } from "./contexts/RecentlyViewedContext";
 import { ShoppingListProvider } from "./contexts/ShoppingListContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { UtilsProvider } from "./contexts/UtilsContext";
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { Routes } from "./routes";
-import { GlobalContext } from "./stores";
 
 function App() {
-	const queryClient = new QueryClient();
+	const [queryClient] = useState(() => new QueryClient());
 
 	return (
 		<HelmetProvider>
@@ -23,11 +24,11 @@ function App() {
 						<RecentlyViewedProvider>
 							<ShoppingListProvider>
 								<FavoritesProvider>
-									<GlobalContext>
+									<UtilsProvider>
 										<DefaultLayout>
 											<Routes />
 										</DefaultLayout>
-									</GlobalContext>
+									</UtilsProvider>
 								</FavoritesProvider>
 							</ShoppingListProvider>
 						</RecentlyViewedProvider>

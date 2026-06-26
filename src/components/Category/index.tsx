@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useUtils } from "@/stores/utils";
+import { useUtils } from "@/contexts/UtilsContext";
 
 interface Props {
 	name: string;

@@ -1,11 +1,6 @@
-import {
-	createContext,
-	type ReactNode,
-	useContext,
-	useEffect,
-	useState,
-} from "react";
-import type { Drink } from "../types/Drink";
+import { createContext, type ReactNode, useContext } from "react";
+import { useLocalStorageState } from "@/hooks/useLocalStorageState";
+import type { Drink } from "@/types/Drink";
 
 export type FavoriteDrink = Pick<
 	Drink,
@@ -25,14 +20,10 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(
 );
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-	const [favorites, setFavorites] = useState<FavoriteDrink[]>(() => {
-		const storedFavorites = localStorage.getItem("favorites");
-		return storedFavorites ? JSON.parse(storedFavorites) : [];
-	});
-
-	useEffect(() => {
-		localStorage.setItem("favorites", JSON.stringify(favorites));
-	}, [favorites]);
+	const [favorites, setFavorites] = useLocalStorageState<FavoriteDrink[]>(
+		"favorites",
+		[],
+	);
 
 	const addFavorite = (drink: FavoriteDrink) => {
 		setFavorites((prev) => {

@@ -17,12 +17,11 @@ There is no backend. API calls go to `VITE_API_URL` (defaults to TheCocktailDB) 
 pages/          → route-level screens
 components/     → shared UI (folder per component)
 components/ui/  → shadcn primitives
-hooks/          → React Query wrappers
+hooks/          → React Query wrappers + useLocalStorageState
 services/       → Axios API client
-contexts/       → localStorage-backed client state
-stores/         → URL params and global UI state
+contexts/       → localStorage-backed client state + URL params
 types/          → API shape types
-lib/            → shared utilities (cn)
+lib/            → shared utilities (cn, drink helpers, colorExtractor)
 ```
 
 ### State ownership
@@ -30,13 +29,13 @@ lib/            → shared utilities (cn)
 | Concern | Location | Example |
 |---------|----------|---------|
 | Server/async data | `hooks/` + React Query | `useDrinks`, `useDrink` |
-| URL search/category | `stores/utils.tsx` | `search`, `category` query params |
-| Persistent client state | `contexts/` + localStorage | favorites, shopping list, recently viewed |
+| URL search/category | `contexts/UtilsContext.tsx` | `search`, `category` query params |
+| Persistent client state | `contexts/` + `useLocalStorageState` | favorites, shopping list, recently viewed |
 | Dynamic theming | `contexts/ThemeContext.tsx` | CSS vars from image colors |
 
 Provider nesting order is defined in `src/App.tsx` — follow the same pattern when adding providers:
 
-`HelmetProvider` → `QueryClientProvider` → `BrowserRouter` → `ThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `GlobalContext` → `DefaultLayout` → `Routes`
+`HelmetProvider` → `QueryClientProvider` → `BrowserRouter` → `ThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `UtilsProvider` → `DefaultLayout` → `Routes`
 
 ### Routes
 
@@ -58,6 +57,25 @@ Defined in `src/routes/app.routes.tsx`:
 - **Contexts:** `src/contexts/*Context.tsx` with `*Provider` + `use*` hook; throw if used outside provider
 - **Types:** `src/types/` — mirror API shapes
 - **Imports:** prefer `@/` alias (configured in `vite.config.ts` and `tsconfig.json`)
+
+### Shared components
+
+| Component | Purpose |
+|-----------|---------|
+| `Card` | Drink tile (image, favorite, theme hover) |
+| `PageHeader` | List page title with icon and optional action |
+| `EmptyState` | Empty list placeholder with CTA |
+| `FavoriteButton` | Heart toggle for favorites |
+| `DetailSection` | shadcn Card panel for detail page sections |
+| `WaveBackground` | Animated wave background (not a shadcn primitive) |
+
+### lib/ utilities
+
+| File | Purpose |
+|------|---------|
+| `lib/utils.ts` | `cn()` class merging |
+| `lib/drink.ts` | `DrinkSummary`, `toDrinkSummary`, `getDrinkIngredients` |
+| `lib/colorExtractor.ts` | Extract palette from drink images |
 
 ## Code style
 
@@ -143,3 +161,5 @@ Rules:
 - `src/hooks/useDrinks.tsx` — query hook pattern
 - `src/components/Card/index.tsx` — component pattern
 - `src/contexts/FavoritesContext.tsx` — context pattern
+- `src/contexts/UtilsContext.tsx` — URL param state pattern
+- `src/lib/drink.ts` — drink shape helpers

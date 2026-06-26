@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getDrinkById } from "../services/cocktail";
-import type { Drink } from "../types/Drink";
+import { getDrinkById } from "@/services/cocktail";
+import type { Drink } from "@/types/Drink";
 
 export function useDrink() {
 	const { drinkId } = useParams();

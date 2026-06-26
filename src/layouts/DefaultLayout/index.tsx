@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Header } from "@/components/Header";
-import { WaveBackground } from "@/components/ui/WaveBackground";
+import { WaveBackground } from "@/components/WaveBackground";
 
 interface Props {
 	children: ReactNode;

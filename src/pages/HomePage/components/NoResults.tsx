@@ -1,5 +1,6 @@
 import { Search, Wine } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useUtils } from "@/contexts/UtilsContext";
 
 interface NoResultsProps {
 	searchTerm: string;
@@ -7,6 +8,13 @@ interface NoResultsProps {
 }
 
 export function NoResults({ searchTerm, selectedCategory }: NoResultsProps) {
+	const { handleSearch, handleSelectedCategory } = useUtils();
+
+	const handleClearFilters = () => {
+		handleSearch("");
+		handleSelectedCategory("");
+	};
+
 	return (
 		<div className="flex min-h-[40vh] w-full flex-col items-center justify-center p-8 text-center">
 			{searchTerm || selectedCategory ? (
@@ -20,12 +28,7 @@ export function NoResults({ searchTerm, selectedCategory }: NoResultsProps) {
 								? `No cocktails found in the ${selectedCategory} category.`
 								: "No cocktails found. Try a different search or category."}
 					</p>
-					<Button
-						onClick={() => {
-							window.location.href = "/";
-						}}
-						variant="outline"
-					>
+					<Button onClick={handleClearFilters} variant="outline">
 						Clear filters
 					</Button>
 				</>

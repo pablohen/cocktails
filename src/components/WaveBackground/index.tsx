@@ -10,7 +10,7 @@ export function WaveBackground() {
 	if (!mounted) return null;
 
 	return (
-		<div className="overflow-h pointer-events-none pointer-events-none fixed inset-0 z-0 text-white">
+		<div className="pointer-events-none fixed inset-0 z-0 overflow-hidden text-white">
 			<svg
 				className="absolute bottom-0 left-0 h-[50vh] min-h-[300px] w-full"
 				viewBox="0 24 150 28"

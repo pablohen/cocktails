@@ -1,10 +1,15 @@
 import { ShoppingCart, Trash2 } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
+import { DetailSection } from "@/components/DetailSection";
+import { EmptyState } from "@/components/EmptyState";
+import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
 
 export function ShoppingListPage() {
 	const { ingredients, removeIngredient, clearList } = useShoppingList();
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -15,48 +20,38 @@ export function ShoppingListPage() {
 					content="Manage your shopping list for cocktail ingredients."
 				/>
 			</Helmet>
-			<main className="w-full">
-				<div className="mb-8 flex items-center justify-between">
-					<div className="flex items-center gap-3">
-						<div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-600 shadow-lg">
-							<ShoppingCart className="h-6 w-6 text-white" />
-						</div>
-						<h1 className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text font-bold text-3xl text-transparent sm:text-4xl md:text-5xl">
-							Shopping List
-						</h1>
-					</div>
-					{ingredients.length > 0 && (
-						<Button
-							variant="destructive"
-							onClick={clearList}
-							className="flex items-center gap-2"
-						>
-							<Trash2 className="h-4 w-4" />
-							Clear List
-						</Button>
-					)}
-				</div>
+			<div className="w-full">
+				<PageHeader
+					icon={ShoppingCart}
+					iconClassName="bg-gradient-to-br from-green-500 to-emerald-600"
+					title="Shopping List"
+					action={
+						ingredients.length > 0 ? (
+							<Button
+								variant="destructive"
+								onClick={clearList}
+								className="flex items-center gap-2"
+							>
+								<Trash2 className="h-4 w-4" />
+								Clear List
+							</Button>
+						) : undefined
+					}
+				/>
 
 				{ingredients.length === 0 ? (
-					<div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-						<div className="rounded-full bg-muted p-6">
-							<ShoppingCart className="h-12 w-12 text-muted-foreground" />
-						</div>
-						<h2 className="font-bold text-2xl">Your list is empty</h2>
-						<p className="max-w-md text-muted-foreground">
-							Add ingredients from cocktail recipes to your shopping list.
-						</p>
-						<Button
-							onClick={() => {
-								window.location.href = "/";
-							}}
-							className="mt-4"
-						>
-							Browse Cocktails
-						</Button>
-					</div>
+					<EmptyState
+						icon={ShoppingCart}
+						title="Your list is empty"
+						description="Add ingredients from cocktail recipes to your shopping list."
+						action={
+							<Button onClick={() => navigate("/")} className="mt-4">
+								Browse Cocktails
+							</Button>
+						}
+					/>
 				) : (
-					<div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/80 p-6 shadow-lg">
+					<DetailSection title="Ingredients" accent="secondary">
 						<ul className="divide-y divide-border">
 							{ingredients.map((ingredient) => (
 								<li
@@ -76,9 +71,9 @@ export function ShoppingListPage() {
 								</li>
 							))}
 						</ul>
-					</div>
+					</DetailSection>
 				)}
-			</main>
+			</div>
 		</>
 	);
 }

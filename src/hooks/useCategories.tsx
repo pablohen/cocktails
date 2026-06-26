@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCategories } from "../services/cocktail";
-import type { Category } from "../types/Category";
+import { getCategories } from "@/services/cocktail";
+import type { Category } from "@/types/Category";
 
 export function useCategories() {
 	const fetchCategories = async () => {

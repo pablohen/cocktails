@@ -13,9 +13,18 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
+import { useUtils } from "@/contexts/UtilsContext";
 import { useCategories } from "@/hooks/useCategories";
 import { useRandomDrink } from "@/hooks/useRandomDrink";
-import { useUtils } from "@/stores/utils";
+
+const CATEGORY_SKELETON_KEYS = [
+	"category-skeleton-1",
+	"category-skeleton-2",
+	"category-skeleton-3",
+	"category-skeleton-4",
+	"category-skeleton-5",
+	"category-skeleton-6",
+] as const;
 
 interface Props {
 	title: string;
@@ -97,9 +106,9 @@ export function Header({ title }: Props) {
 			<nav className="relative z-10 min-h-[60px]" aria-label="Category filters">
 				{categories.isLoading && (
 					<div className="flex w-full flex-wrap items-center justify-center gap-2 px-2 sm:gap-3 sm:px-4">
-						{Array.from({ length: 6 }).map(() => (
+						{CATEGORY_SKELETON_KEYS.map((key) => (
 							<Skeleton
-								key={crypto.randomUUID()}
+								key={key}
 								className="h-9 w-20 rounded-full bg-white/20 sm:h-10 sm:w-24"
 							/>
 						))}

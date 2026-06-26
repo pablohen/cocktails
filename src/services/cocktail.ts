@@ -33,22 +33,6 @@ export async function getRandomDrink() {
 	return await cocktailApi.get<{ drinks: Drink[] }>("random.php");
 }
 
-export async function getDrinksByIngredient(ingredient: string) {
-	return await cocktailApi.get<{ drinks: Drink[] }>("filter.php", {
-		params: {
-			i: ingredient,
-		},
-	});
-}
-
-export async function getDrinksByAlcoholic(alcoholic: string) {
-	return await cocktailApi.get<{ drinks: Drink[] }>("filter.php", {
-		params: {
-			a: alcoholic,
-		},
-	});
-}
-
 export async function getDrinksBySearch(searchTerm: string) {
 	return await cocktailApi.get<{ drinks: Drink[] }>("search.php", {
 		params: {

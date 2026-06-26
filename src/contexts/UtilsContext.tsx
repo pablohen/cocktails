@@ -13,7 +13,7 @@ interface UtilsContextData {
 	handleSelectedDrink: (drink: string) => void;
 }
 
-const UtilsContext = createContext({} as UtilsContextData);
+const UtilsContext = createContext<UtilsContextData | undefined>(undefined);
 
 export function UtilsProvider({ children }: Props) {
 	const navigate = useNavigate();
@@ -68,6 +68,8 @@ export function UtilsProvider({ children }: Props) {
 
 export function useUtils() {
 	const context = useContext(UtilsContext);
-
+	if (context === undefined) {
+		throw new Error("useUtils must be used within a UtilsProvider");
+	}
 	return context;
 }

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDrinksByCategory, getDrinksBySearch } from "../services/cocktail";
-import { useUtils } from "../stores/utils";
-import type { Drink } from "../types/Drink";
+import { useUtils } from "@/contexts/UtilsContext";
+import { getDrinksByCategory, getDrinksBySearch } from "@/services/cocktail";
+import type { Drink } from "@/types/Drink";
 
 export function useDrinks() {
 	const { selectedCategory, searchTerm } = useUtils();

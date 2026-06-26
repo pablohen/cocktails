@@ -1,58 +1,22 @@
-import { AlertCircle, Check, Heart, Plus } from "lucide-react";
+import { AlertCircle, Check, Plus } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
+import { DetailSection } from "@/components/DetailSection";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useFavorites } from "@/contexts/FavoritesContext";
 import { useRecentlyViewed } from "@/contexts/RecentlyViewedContext";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useDrink } from "@/hooks/useDrink";
-import { extractColors } from "@/utils/colorExtractor";
-
-function DrinkDetailsSkeleton() {
-	return (
-		<main className="w-full">
-			<Skeleton className="mb-6 h-12 w-64 rounded-xl sm:mb-8" />
-
-			<div className="flex w-full flex-col gap-6 sm:gap-8 md:gap-12 lg:flex-row">
-				<div className="flex flex-shrink-0 justify-center lg:justify-start">
-					<div className="relative">
-						<div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-secondary to-accent opacity-50 blur-lg" />
-						<Skeleton className="relative aspect-square h-auto w-full max-w-[320px] rounded-2xl sm:max-w-[400px] lg:max-w-[480px]" />
-					</div>
-				</div>
-
-				<div className="flex flex-1 flex-col gap-6 sm:gap-8">
-					<div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/80 p-6 shadow-lg">
-						<Skeleton className="mb-3 h-8 w-32 rounded-lg" />
-						<Skeleton className="ml-3 h-6 w-48 rounded-lg" />
-					</div>
-
-					<div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/80 p-6 shadow-lg">
-						<Skeleton className="mb-4 h-8 w-32 rounded-lg" />
-						<div className="ml-3 space-y-2">
-							<Skeleton className="h-6 w-40 rounded-lg" />
-							<Skeleton className="h-6 w-36 rounded-lg" />
-							<Skeleton className="h-6 w-44 rounded-lg" />
-						</div>
-					</div>
-
-					<div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/80 p-6 shadow-lg">
-						<Skeleton className="mb-4 h-8 w-32 rounded-lg" />
-						<Skeleton className="ml-3 h-24 w-full rounded-lg" />
-					</div>
-				</div>
-			</div>
-		</main>
-	);
-}
+import { extractColors } from "@/lib/colorExtractor";
+import { getDrinkIngredients } from "@/lib/drink";
+import { cn } from "@/lib/utils";
+import { DrinkDetailsSkeleton } from "./components/DrinkDetailsSkeleton";
 
 export function DrinkDetailsPage() {
 	const drink = useDrink();
 	const { setColors } = useTheme();
-	const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 	const { addIngredient, removeIngredient, isInList } = useShoppingList();
 	const { addToHistory } = useRecentlyViewed();
 
@@ -60,10 +24,7 @@ export function DrinkDetailsPage() {
 		if (drink.isLoading || drink.isError || !drink.data) {
 			return [];
 		}
-		const ingredients: [string, string | null][] = Object.entries(drink.data)
-			.filter((key) => key[0].startsWith("strIngredient"))
-			.map((key) => [key[0], key[1] as string | null]);
-		return ingredients;
+		return getDrinkIngredients(drink.data);
 	}, [drink]);
 
 	const pageTitle = drink.data
@@ -73,10 +34,6 @@ export function DrinkDetailsPage() {
 	const pageDescription = drink.data
 		? `Learn how to make ${drink.data.strDrink}. ${drink.data.strCategory} cocktail recipe with ingredients and instructions.`
 		: "Discover cocktail recipes";
-
-	useEffect(() => {
-		document.title = pageTitle;
-	}, [pageTitle]);
 
 	useEffect(() => {
 		if (drink.data) {
@@ -131,9 +88,10 @@ export function DrinkDetailsPage() {
 	return (
 		<>
 			<Helmet>
+				<title>{pageTitle}</title>
 				<meta name="description" content={pageDescription} />
 			</Helmet>
-			<main className="w-full">
+			<div className="w-full">
 				<h2 className="mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-center font-bold text-3xl text-transparent sm:mb-8 sm:text-4xl md:text-left md:text-6xl">
 					{drink.data.strDrink}
 				</h2>
@@ -148,58 +106,29 @@ export function DrinkDetailsPage() {
 								loading="lazy"
 								className="relative h-auto w-full max-w-[320px] rounded-2xl shadow-2xl sm:max-w-[400px] lg:max-w-[480px]"
 							/>
-							<Button
-								variant="ghost"
-								size="icon"
-								className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-black/20 text-white backdrop-blur-md transition-colors hover:bg-black/40 hover:text-red-500"
-								onClick={() => {
-									if (!drink.data) return;
-									if (isFavorite(drink.data.idDrink)) {
-										removeFavorite(drink.data.idDrink);
-									} else {
-										addFavorite(drink.data);
-									}
-								}}
-							>
-								<Heart
-									className={`h-6 w-6 transition-all ${
-										isFavorite(drink.data.idDrink)
-											? "fill-red-500 text-red-500"
-											: ""
-									}`}
-								/>
-							</Button>
+							<FavoriteButton
+								drink={drink.data}
+								size="md"
+								className="absolute top-4 right-4 z-20"
+							/>
 						</div>
 					</div>
 
 					<div className="flex flex-1 flex-col gap-6 sm:gap-8">
-						<div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/80 p-6 shadow-lg">
-							<h3 className="mb-3 flex items-center gap-2 font-bold text-primary text-xl sm:text-2xl md:text-3xl">
-								<span className="h-8 w-1 rounded-full bg-gradient-to-b from-primary to-secondary" />
-								Category
-							</h3>
-							<p className="ml-3 text-base text-muted-foreground sm:text-lg">
+						<DetailSection title="Category" accent="primary">
+							<p className="text-base text-muted-foreground sm:text-lg">
 								{drink.data.strCategory}
 							</p>
-						</div>
+						</DetailSection>
 
-						<div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/80 p-6 shadow-lg">
-							<h3 className="mb-4 flex items-center gap-2 font-bold text-secondary text-xl sm:text-2xl md:text-3xl">
-								<span className="h-8 w-1 rounded-full bg-gradient-to-b from-secondary to-accent" />
-								Ingredients
-							</h3>
-							<ul className="ml-3 space-y-2">
-								{ingredients.map((ingredient) => {
-									if (!ingredient[1]) {
-										return null;
-									}
-
-									const ingredientName = String(ingredient[1]);
+						<DetailSection title="Ingredients" accent="secondary">
+							<ul className="space-y-2">
+								{ingredients.map((ingredientName) => {
 									const inList = isInList(ingredientName);
 
 									return (
 										<li
-											key={ingredient[0]}
+											key={ingredientName}
 											className="flex items-center justify-between gap-2 text-base text-muted-foreground sm:text-lg"
 										>
 											<div className="flex items-center gap-2">
@@ -209,11 +138,12 @@ export function DrinkDetailsPage() {
 											<Button
 												variant="ghost"
 												size="icon"
-												className={`h-8 w-8 ${
+												className={cn(
+													"h-8 w-8",
 													inList
 														? "text-green-500 hover:text-green-600"
-														: "text-muted-foreground hover:text-primary"
-												}`}
+														: "text-muted-foreground hover:text-primary",
+												)}
 												onClick={() => {
 													if (inList) {
 														removeIngredient(ingredientName);
@@ -237,20 +167,16 @@ export function DrinkDetailsPage() {
 									);
 								})}
 							</ul>
-						</div>
+						</DetailSection>
 
-						<div className="rounded-2xl border border-border bg-gradient-to-br from-card to-card/80 p-6 shadow-lg">
-							<h3 className="mb-4 flex items-center gap-2 font-bold text-accent text-xl sm:text-2xl md:text-3xl">
-								<span className="h-8 w-1 rounded-full bg-gradient-to-b from-accent to-primary" />
-								Instructions
-							</h3>
-							<p className="ml-3 text-base text-muted-foreground leading-relaxed sm:text-lg">
+						<DetailSection title="Instructions" accent="accent">
+							<p className="text-base text-muted-foreground leading-relaxed sm:text-lg">
 								{drink.data.strInstructions}
 							</p>
-						</div>
+						</DetailSection>
 					</div>
 				</div>
-			</main>
+			</div>
 		</>
 	);
 }

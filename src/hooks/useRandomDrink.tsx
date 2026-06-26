@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRandomDrink } from "../services/cocktail";
-import type { Drink } from "../types/Drink";
+import { getRandomDrink } from "@/services/cocktail";
+import type { Drink } from "@/types/Drink";
 
 export function useRandomDrink() {
 	const fetchRandomDrink = async () => {

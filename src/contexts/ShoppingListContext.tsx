@@ -1,10 +1,5 @@
-import {
-	createContext,
-	type ReactNode,
-	useContext,
-	useEffect,
-	useState,
-} from "react";
+import { createContext, type ReactNode, useContext } from "react";
+import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 
 interface ShoppingListContextType {
 	ingredients: string[];
@@ -19,14 +14,10 @@ const ShoppingListContext = createContext<ShoppingListContextType | undefined>(
 );
 
 export const ShoppingListProvider = ({ children }: { children: ReactNode }) => {
-	const [ingredients, setIngredients] = useState<string[]>(() => {
-		const storedList = localStorage.getItem("shoppingList");
-		return storedList ? JSON.parse(storedList) : [];
-	});
-
-	useEffect(() => {
-		localStorage.setItem("shoppingList", JSON.stringify(ingredients));
-	}, [ingredients]);
+	const [ingredients, setIngredients] = useLocalStorageState<string[]>(
+		"shoppingList",
+		[],
+	);
 
 	const addIngredient = (ingredient: string) => {
 		setIngredients((prev) => {

@@ -3,10 +3,9 @@ import {
 	type ReactNode,
 	useCallback,
 	useContext,
-	useEffect,
 	useMemo,
-	useState,
 } from "react";
+import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 
 export interface RecentDrink {
 	id: string;
@@ -30,26 +29,25 @@ export const RecentlyViewedProvider = ({
 }: {
 	children: ReactNode;
 }) => {
-	const [recentDrinks, setRecentDrinks] = useState<RecentDrink[]>(() => {
-		const storedHistory = localStorage.getItem("recentlyViewed");
-		return storedHistory ? JSON.parse(storedHistory) : [];
-	});
+	const [recentDrinks, setRecentDrinks] = useLocalStorageState<RecentDrink[]>(
+		"recentlyViewed",
+		[],
+	);
 
-	useEffect(() => {
-		localStorage.setItem("recentlyViewed", JSON.stringify(recentDrinks));
-	}, [recentDrinks]);
-
-	const addToHistory = useCallback((drink: Omit<RecentDrink, "timestamp">) => {
-		setRecentDrinks((prev) => {
-			const newDrink = { ...drink, timestamp: Date.now() };
-			const filtered = prev.filter((item) => item.id !== drink.id);
-			return [newDrink, ...filtered].slice(0, 10);
-		});
-	}, []);
+	const addToHistory = useCallback(
+		(drink: Omit<RecentDrink, "timestamp">) => {
+			setRecentDrinks((prev) => {
+				const newDrink = { ...drink, timestamp: Date.now() };
+				const filtered = prev.filter((item) => item.id !== drink.id);
+				return [newDrink, ...filtered].slice(0, 10);
+			});
+		},
+		[setRecentDrinks],
+	);
 
 	const clearHistory = useCallback(() => {
 		setRecentDrinks([]);
-	}, []);
+	}, [setRecentDrinks]);
 
 	const value = useMemo(
 		() => ({

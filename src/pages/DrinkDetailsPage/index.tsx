@@ -19,7 +19,7 @@ function DrinkDetailsSkeleton() {
 			<div className="flex w-full flex-col gap-6 sm:gap-8 md:gap-12 lg:flex-row">
 				<div className="flex flex-shrink-0 justify-center lg:justify-start">
 					<div className="relative">
-						<div className="-inset-1 absolute rounded-2xl bg-gradient-to-r from-primary via-secondary to-accent opacity-50 blur-lg" />
+						<div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-secondary to-accent opacity-50 blur-lg" />
 						<Skeleton className="relative aspect-square h-auto w-full max-w-[320px] rounded-2xl sm:max-w-[400px] lg:max-w-[480px]" />
 					</div>
 				</div>
@@ -141,7 +141,7 @@ export function DrinkDetailsPage() {
 				<div className="flex w-full flex-col gap-6 sm:gap-8 md:gap-12 lg:flex-row">
 					<div className="flex flex-shrink-0 justify-center lg:justify-start">
 						<div className="group relative">
-							<div className="-inset-1 absolute rounded-2xl bg-gradient-to-r from-primary via-secondary to-accent opacity-50 blur-lg transition duration-300 group-hover:opacity-75" />
+							<div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-secondary to-accent opacity-50 blur-lg transition duration-300 group-hover:opacity-75" />
 							<img
 								src={drink.data.strDrinkThumb}
 								alt={`${drink.data.strDrink} cocktail`}

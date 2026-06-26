@@ -39,7 +39,7 @@ export function Card({ id, name, image, onClick }: Props) {
 
 	return (
 		<ShadCard
-			className="group hover:-translate-y-3 mb-4 cursor-pointer break-inside-avoid overflow-hidden border-2 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-primary/30 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+			className="group mb-4 cursor-pointer break-inside-avoid overflow-hidden border-2 bg-gradient-to-br from-card to-card/80 backdrop-blur-sm transition-all duration-300 ease-in-out hover:-translate-y-3 hover:border-primary/30 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 			onClick={handleClick}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}

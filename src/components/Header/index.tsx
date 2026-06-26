@@ -66,7 +66,7 @@ export function Header({ title }: Props) {
 				>
 					<ShoppingCart className="h-6 w-6 text-white" />
 					{ingredients.length > 0 && (
-						<span className="-top-1 -right-1 absolute flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-bold text-white text-xs">
+						<span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 font-bold text-white text-xs">
 							{ingredients.length}
 						</span>
 					)}

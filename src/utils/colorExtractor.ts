@@ -1,6 +1,4 @@
-import ColorThief from "colorthief";
-
-const colorThief = new ColorThief();
+import { getPaletteSync } from "colorthief";
 
 export async function extractColors(imageUrl: string): Promise<{
 	primary: string;
@@ -13,16 +11,16 @@ export async function extractColors(imageUrl: string): Promise<{
 
 		img.onload = () => {
 			try {
-				const palette = colorThief.getPalette(img, 3);
-
-				const rgbToHex = (r: number, g: number, b: number) => {
-					return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-				};
+				const palette = getPaletteSync(img, { colorCount: 3 });
+				if (!palette || palette.length < 3) {
+					reject(new Error("Failed to extract colors"));
+					return;
+				}
 
 				resolve({
-					primary: rgbToHex(...palette[0]),
-					secondary: rgbToHex(...palette[1]),
-					accent: rgbToHex(...palette[2]),
+					primary: palette[0].hex(),
+					secondary: palette[1].hex(),
+					accent: palette[2].hex(),
 				});
 			} catch (error) {
 				reject(error);

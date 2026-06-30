@@ -21,11 +21,11 @@ importers:
         specifier: ^9.1.2
         version: 9.1.2(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@tanstack/react-query':
-        specifier: ^5.101.1
-        version: 5.101.1(react@19.2.7)
+        specifier: ^5.101.2
+        version: 5.101.2(react@19.2.7)
       '@tanstack/react-query-devtools':
-        specifier: ^5.101.1
-        version: 5.101.1(@tanstack/react-query@5.101.1(react@19.2.7))(react@19.2.7)
+        specifier: ^5.101.2
+        version: 5.101.2(@tanstack/react-query@5.101.2(react@19.2.7))(react@19.2.7)
       axios:
         specifier: ^1.18.1
         version: 1.18.1
@@ -42,8 +42,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(react@19.2.7)
       react-router-dom:
-        specifier: ^7.18.0
-        version: 7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: ^7.18.1
+        version: 7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       use-debounce:
         specifier: ^10.1.1
         version: 10.1.1(react@19.2.7)
@@ -67,7 +67,7 @@ importers:
         specifier: npm:@voidzero-dev/vite-plus-core@latest
         version: '@voidzero-dev/vite-plus-core@0.2.1(@types/node@26.0.1)(typescript@7.0.1-rc)'
       vite-plus:
-        specifier: latest
+        specifier: ^0.2.1
         version: 0.2.1(@types/node@26.0.1)(@voidzero-dev/vite-plus-core@0.2.1(@types/node@26.0.1)(typescript@7.0.1-rc))(typescript@7.0.1-rc)
 
 packages:
@@ -559,20 +559,20 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@tanstack/query-core@5.101.1':
-    resolution: {integrity: sha512-Y6Y92dkXtNqx67m2pMSxUsA3zOCwv862JexZRP8/EPwvKXMPu9m8rv43spiXWzOUIggQ3SQApttALStzhA8B4g==}
+  '@tanstack/query-core@5.101.2':
+    resolution: {integrity: sha512-hH5MLoJhF7KaIGd7q3xTXGXvslI+GYlM1Z/35aSHHWaCJWB7XvTSHYuV3eM7tw+aE0mT/xMro4M4Q9rCGHT0lw==}
 
-  '@tanstack/query-devtools@5.101.1':
-    resolution: {integrity: sha512-37RQ9U2PxlXQiv1era2t+uHgVhmiyvxqTMu30+KoVf0rufiucu6rpGRKFJk61Wh5OAZFKqCQd6lxTzFWfLZiuQ==}
+  '@tanstack/query-devtools@5.101.2':
+    resolution: {integrity: sha512-o+wHcqgN7Pp0s8v1i0UGq/ZrrEKrxdIiMQmKRdYb2w7NPtylYSJ4+wg/tIn71m9DLstwUwdEGAvROdly6HXP6w==}
 
-  '@tanstack/react-query-devtools@5.101.1':
-    resolution: {integrity: sha512-OXFR9XKdEslraq3cpl3kCUeNvTIq/xGWEZiFZdn2bLB/q4WxSALMEDKYZ5yYjMQytsfnQxwQYqV4qtVEf0nuog==}
+  '@tanstack/react-query-devtools@5.101.2':
+    resolution: {integrity: sha512-eU7HctdA9gDjqoERoEdzLbw9DiqnBDfh5+Hu0u26gjqoHJezOpQAuiesDL2VvkU+2cPV76zgv0tMZsOrI4LjnQ==}
     peerDependencies:
-      '@tanstack/react-query': ^5.101.1
+      '@tanstack/react-query': ^5.101.2
       react: ^18 || ^19
 
-  '@tanstack/react-query@5.101.1':
-    resolution: {integrity: sha512-ZnONUuQKJe1bJMStXUL1s5uKN9FcfC28j5cK+iDZcdSHtUv1wtin1cGc/Oewhf2Oc4eKY7lggtpvT/AbMmhHew==}
+  '@tanstack/react-query@5.101.2':
+    resolution: {integrity: sha512-seDkr6kzGzX1okaaTtZPtgA688CDPlXUz1C6xSg0ESqn04Vuc8tlrYms1s3de+znBqhPVxFRfpAfUf+6XvfPWg==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -1343,15 +1343,15 @@ packages:
   react-is@19.2.7:
     resolution: {integrity: sha512-kZFnouyVv7eP/Phmrlo9FK+zcAdriZJvzxXHF1Sl1P377WSGe2G/JxVolhTrB/jeV47lKImhNUsijjHAAbcl/A==}
 
-  react-router-dom@7.18.0:
-    resolution: {integrity: sha512-Fi0yY6kgtKae/Th2xibdWK0KSdYZ4B53Gyf6wRtomOKWgpNm7H7+DyfDhncdz9FKbpS+1jmDhg3F4WoGJ+yFOA==}
+  react-router-dom@7.18.1:
+    resolution: {integrity: sha512-KaZh+X/6UtEp28x51AUYZDMg9NGoz2ja3dNHa+ta/tk40vCzKhQ/RypCWBMLbmDr6//E24Vv5uPsrqXFozdkAg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  react-router@7.18.0:
-    resolution: {integrity: sha512-pTTGt8J+ji1NOmYnjzT+bAJy/1zD+Jp4ziO6cL7T3ZLvXKtusO7BpFqlRXitqpcPVqllsIXFHRMt+2/k3Xn6HQ==}
+  react-router@7.18.1:
+    resolution: {integrity: sha512-GDLgg3i3uM0aeJO3Fm+TCS+sDQ7gu12T6x0qdTEzcwqEfleci7JwugVNIF3U//0FWKnJT7ptG+20B2jfDqnZAg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -1918,19 +1918,19 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@tanstack/query-core@5.101.1': {}
+  '@tanstack/query-core@5.101.2': {}
 
-  '@tanstack/query-devtools@5.101.1': {}
+  '@tanstack/query-devtools@5.101.2': {}
 
-  '@tanstack/react-query-devtools@5.101.1(@tanstack/react-query@5.101.1(react@19.2.7))(react@19.2.7)':
+  '@tanstack/react-query-devtools@5.101.2(@tanstack/react-query@5.101.2(react@19.2.7))(react@19.2.7)':
     dependencies:
-      '@tanstack/query-devtools': 5.101.1
-      '@tanstack/react-query': 5.101.1(react@19.2.7)
+      '@tanstack/query-devtools': 5.101.2
+      '@tanstack/react-query': 5.101.2(react@19.2.7)
       react: 19.2.7
 
-  '@tanstack/react-query@5.101.1(react@19.2.7)':
+  '@tanstack/react-query@5.101.2(react@19.2.7)':
     dependencies:
-      '@tanstack/query-core': 5.101.1
+      '@tanstack/query-core': 5.101.2
       react: 19.2.7
 
   '@testing-library/dom@10.4.1':
@@ -2551,13 +2551,13 @@ snapshots:
 
   react-is@19.2.7: {}
 
-  react-router-dom@7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  react-router-dom@7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-      react-router: 7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      react-router: 7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
 
-  react-router@7.18.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  react-router@7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       cookie: 1.1.1
       react: 19.2.7

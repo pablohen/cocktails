@@ -20,7 +20,7 @@ const CARD_SKELETON_KEYS = [
 
 export function HomePage() {
 	const { selectedCategory, searchTerm } = useDrinkFilters();
-	const { data: drinks, isLoading, isError } = useDrinks();
+	const { data: drinks, isLoading, isError, refetch } = useDrinks();
 
 	const pageTitle = searchTerm
 		? `Search results for "${searchTerm}" - Cocktails & Drinks`
@@ -49,7 +49,7 @@ export function HomePage() {
 				</Grid>
 			)}
 
-			{isError && <ErrorDisplay />}
+			{isError && <ErrorDisplay onRetry={refetch} />}
 
 			{!isLoading &&
 				!isError &&

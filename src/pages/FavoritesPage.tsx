@@ -7,12 +7,10 @@ import { Card } from "@/components/Card";
 import { EmptyState } from "@/components/EmptyState";
 import { PageHeader } from "@/components/PageHeader";
 import { useFavorites } from "@/contexts/FavoritesContext";
-import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { toDrinkSummary } from "@/lib/drink";
 
 export function FavoritesPage() {
 	const { favorites } = useFavorites();
-	const { handleSelectedDrink } = useDrinkFilters();
 	const navigate = useNavigate();
 
 	return (
@@ -41,12 +39,7 @@ export function FavoritesPage() {
 						const summary = toDrinkSummary(drink);
 						return (
 							<Grid key={summary.id} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-								<Card
-									id={summary.id}
-									name={summary.name}
-									image={summary.image}
-									onClick={handleSelectedDrink}
-								/>
+								<Card id={summary.id} name={summary.name} image={summary.image} />
 							</Grid>
 						);
 					})}

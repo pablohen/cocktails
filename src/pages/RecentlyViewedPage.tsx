@@ -8,11 +8,9 @@ import { Card } from "@/components/Card";
 import { EmptyState } from "@/components/EmptyState";
 import { PageHeader } from "@/components/PageHeader";
 import { useRecentlyViewed } from "@/contexts/RecentlyViewedContext";
-import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 
 export function RecentlyViewedPage() {
 	const { recentDrinks, clearHistory } = useRecentlyViewed();
-	const { handleSelectedDrink } = useDrinkFilters();
 	const navigate = useNavigate();
 
 	return (
@@ -50,12 +48,7 @@ export function RecentlyViewedPage() {
 				<Grid container spacing={3}>
 					{recentDrinks.map((drink) => (
 						<Grid key={drink.id} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-							<Card
-								id={drink.id}
-								name={drink.name}
-								image={drink.image}
-								onClick={handleSelectedDrink}
-							/>
+							<Card id={drink.id} name={drink.name} image={drink.image} />
 						</Grid>
 					))}
 				</Grid>

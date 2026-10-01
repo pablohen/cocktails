@@ -20,7 +20,7 @@ const CARD_SKELETON_KEYS = [
 ] as const;
 
 export function HomePage() {
-	const { handleSelectedDrink, selectedCategory, searchTerm } = useDrinkFilters();
+	const { selectedCategory, searchTerm } = useDrinkFilters();
 	const { data: drinks, isLoading, isError } = useDrinks();
 
 	const pageTitle = searchTerm
@@ -64,12 +64,7 @@ export function HomePage() {
 							const summary = toDrinkSummary(drink);
 							return (
 								<Grid key={summary.id} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-									<Card
-										id={summary.id}
-										name={summary.name}
-										image={summary.image}
-										onClick={handleSelectedDrink}
-									/>
+									<Card id={summary.id} name={summary.name} image={summary.image} />
 								</Grid>
 							);
 						})}

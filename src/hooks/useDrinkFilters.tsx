@@ -30,18 +30,5 @@ export function useDrinkFilters() {
 		[navigate],
 	);
 
-	const handleSelectedDrink = useCallback(
-		(drink: string) => {
-			void navigate(`/${drink}`);
-		},
-		[navigate],
-	);
-
-	return {
-		selectedCategory,
-		searchTerm,
-		handleSearch,
-		handleSelectedCategory,
-		handleSelectedDrink,
-	};
+	return { selectedCategory, searchTerm, handleSearch, handleSelectedCategory };
 }

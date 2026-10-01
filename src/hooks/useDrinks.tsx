@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useUtils } from "@/contexts/UtilsContext";
+import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { getDrinksByCategory, getDrinksBySearch } from "@/services/cocktail";
 import type { DrinkListItem } from "@/types/Drink";
 
 export function useDrinks() {
-	const { selectedCategory, searchTerm } = useUtils();
+	const { selectedCategory, searchTerm } = useDrinkFilters();
 
 	return useQuery<DrinkListItem[]>({
 		queryKey: ["drinks", selectedCategory, searchTerm],

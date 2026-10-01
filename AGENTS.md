@@ -29,13 +29,13 @@ lib/         → shared utilities (drink helpers, colorExtractor)
 | Concern                 | Location                             | Example                                   |
 | ----------------------- | ------------------------------------ | ----------------------------------------- |
 | Server/async data       | `hooks/` + React Query               | `useDrinks`, `useDrink`                   |
-| URL search/category     | `contexts/UtilsContext.tsx`          | `search`, `category` query params         |
+| URL search/category     | `hooks/useDrinkFilters.tsx`          | `search`, `category` query params         |
 | Persistent client state | `contexts/` + `useLocalStorageState` | favorites, shopping list, recently viewed |
 | Dynamic theming         | `contexts/ThemeContext.tsx`          | `AppThemeProvider` + `useDynamicColors`   |
 
 Provider nesting order is defined in `src/App.tsx` — follow the same pattern when adding providers:
 
-`HelmetProvider` → `QueryClientProvider` → `BrowserRouter` → `AppThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `UtilsProvider` → `DefaultLayout` → `Routes`
+`HelmetProvider` → `QueryClientProvider` → `BrowserRouter` → `AppThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `DefaultLayout` → `Routes`
 
 ### Routes
 
@@ -161,6 +161,6 @@ Rules:
 - `src/hooks/useDrinks.tsx` — query hook pattern
 - `src/components/Card.tsx` — component pattern
 - `src/contexts/FavoritesContext.tsx` — context pattern
-- `src/contexts/UtilsContext.tsx` — URL param state pattern
+- `src/hooks/useDrinkFilters.tsx` — URL param state pattern
 - `src/theme/createAppTheme.ts` — MUI theme factory
 - `src/lib/drink.ts` — drink shape helpers

@@ -7,12 +7,12 @@ import { Card } from "@/components/Card";
 import { EmptyState } from "@/components/EmptyState";
 import { PageHeader } from "@/components/PageHeader";
 import { useFavorites } from "@/contexts/FavoritesContext";
-import { useUtils } from "@/contexts/UtilsContext";
+import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { toDrinkSummary } from "@/lib/drink";
 
 export function FavoritesPage() {
 	const { favorites } = useFavorites();
-	const { handleSelectedDrink } = useUtils();
+	const { handleSelectedDrink } = useDrinkFilters();
 	const navigate = useNavigate();
 
 	return (

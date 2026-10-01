@@ -8,11 +8,11 @@ import { Card } from "@/components/Card";
 import { EmptyState } from "@/components/EmptyState";
 import { PageHeader } from "@/components/PageHeader";
 import { useRecentlyViewed } from "@/contexts/RecentlyViewedContext";
-import { useUtils } from "@/contexts/UtilsContext";
+import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 
 export function RecentlyViewedPage() {
 	const { recentDrinks, clearHistory } = useRecentlyViewed();
-	const { handleSelectedDrink } = useUtils();
+	const { handleSelectedDrink } = useDrinkFilters();
 	const navigate = useNavigate();
 
 	return (

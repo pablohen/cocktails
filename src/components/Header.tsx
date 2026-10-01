@@ -16,8 +16,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Category } from "@/components/Category";
 import { SearchBar } from "@/components/SearchBar";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
-import { useUtils } from "@/contexts/UtilsContext";
 import { useCategories } from "@/hooks/useCategories";
+import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { useRandomDrink } from "@/hooks/useRandomDrink";
 
 const CATEGORY_SKELETON_KEYS = [
@@ -35,7 +35,7 @@ interface Props {
 
 export function Header({ title }: Props) {
 	const categories = useCategories();
-	const { handleSelectedCategory, handleSearch, searchTerm } = useUtils();
+	const { handleSelectedCategory, handleSearch, searchTerm } = useDrinkFilters();
 	const { refetch, isFetching } = useRandomDrink();
 	const { ingredients } = useShoppingList();
 	const navigate = useNavigate();

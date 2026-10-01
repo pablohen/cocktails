@@ -1,5 +1,5 @@
 import Chip from "@mui/material/Chip";
-import { useUtils } from "@/contexts/UtilsContext";
+import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 
 interface Props {
 	name: string;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function Category({ name, onClick }: Props) {
-	const { selectedCategory } = useUtils();
+	const { selectedCategory } = useDrinkFilters();
 	const isSelected = name === selectedCategory;
 
 	const handleClick = () => {

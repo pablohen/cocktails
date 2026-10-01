@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { Helmet } from "react-helmet-async";
 import { Card } from "@/components/Card";
-import { useUtils } from "@/contexts/UtilsContext";
+import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { useDrinks } from "@/hooks/useDrinks";
 import { toDrinkSummary } from "@/lib/drink";
 import { CardSkeleton } from "./HomePage/CardSkeleton";
@@ -20,7 +20,7 @@ const CARD_SKELETON_KEYS = [
 ] as const;
 
 export function HomePage() {
-	const { handleSelectedDrink, selectedCategory, searchTerm } = useUtils();
+	const { handleSelectedDrink, selectedCategory, searchTerm } = useDrinkFilters();
 	const { data: drinks, isLoading, isError } = useDrinks();
 
 	const pageTitle = searchTerm

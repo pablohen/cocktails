@@ -4,6 +4,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useRef } from "react";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { useDynamicColors } from "@/contexts/ThemeContext";
 import { extractColors } from "@/lib/colorExtractor";
@@ -17,21 +18,24 @@ interface Props {
 
 export function Card({ id, name, image, onClick }: Props) {
 	const { setColors } = useDynamicColors();
+	const isHovered = useRef(false);
 
 	const handleClick = () => {
 		onClick(id);
 	};
 
 	const handleMouseEnter = async () => {
+		isHovered.current = true;
 		try {
 			const colors = await extractColors(image);
-			setColors(colors);
+			if (isHovered.current) setColors(colors);
 		} catch (error) {
 			console.error("Failed to extract colors:", error);
 		}
 	};
 
 	const handleMouseLeave = () => {
+		isHovered.current = false;
 		setColors(null);
 	};
 

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useUtils } from "@/contexts/UtilsContext";
+import { toDrinkList } from "@/lib/drink";
 import { getDrinksByCategory, getDrinksBySearch } from "@/services/cocktail";
 import type { Drink } from "@/types/Drink";
 
@@ -9,15 +10,13 @@ export function useDrinks() {
 	async function fetchDrinks(category: string) {
 		const res = await getDrinksByCategory(category);
 
-		const drinks = res.data.drinks;
-		return drinks;
+		return toDrinkList(res.data.drinks);
 	}
 
 	async function fetchSearch(searchTerm: string) {
 		const res = await getDrinksBySearch(searchTerm);
 
-		const drinks = res.data.drinks;
-		return drinks;
+		return toDrinkList(res.data.drinks);
 	}
 
 	return useQuery<Drink[]>({

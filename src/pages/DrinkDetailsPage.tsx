@@ -21,6 +21,7 @@ import { useDynamicColors } from "@/contexts/ThemeContext";
 import { useDrink } from "@/hooks/useDrink";
 import { extractColors } from "@/lib/colorExtractor";
 import { getDrinkIngredients } from "@/lib/drink";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 import { DrinkDetailsSkeleton } from "./DrinkDetailsPage/DrinkDetailsSkeleton";
 
 export function DrinkDetailsPage() {
@@ -45,10 +46,14 @@ export function DrinkDetailsPage() {
 		: "Discover cocktail recipes";
 
 	useEffect(() => {
+		let cancelled = false;
+
 		if (drink.data) {
 			if (drink.data.strDrinkThumb) {
 				extractColors(drink.data.strDrinkThumb)
-					.then((colors) => setColors(colors))
+					.then((colors) => {
+						if (!cancelled) setColors(colors);
+					})
 					.catch((error) => console.error("Failed to extract colors:", error));
 			}
 
@@ -60,6 +65,7 @@ export function DrinkDetailsPage() {
 		}
 
 		return () => {
+			cancelled = true;
 			setColors(null);
 		};
 	}, [drink.data, setColors, addToHistory]);
@@ -85,7 +91,7 @@ export function DrinkDetailsPage() {
 	}
 
 	if (!drink.data) {
-		return null;
+		return <NotFoundPage />;
 	}
 
 	return (

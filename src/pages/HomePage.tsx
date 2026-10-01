@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { Helmet } from "react-helmet-async";
-import { Card } from "@/components/Card";
+import { DrinkGrid } from "@/components/DrinkGrid";
 import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { useDrinks } from "@/hooks/useDrinks";
 import { toDrinkSummary } from "@/lib/drink";
@@ -54,23 +54,13 @@ export function HomePage() {
 
 			{isError && <ErrorDisplay />}
 
-			{!isLoading && !isError && (!drinks || drinks.length === 0) ? (
-				<NoResults searchTerm={searchTerm} selectedCategory={selectedCategory} />
-			) : (
-				!isLoading &&
-				!isError && (
-					<Grid container spacing={3}>
-						{drinks?.map((drink) => {
-							const summary = toDrinkSummary(drink);
-							return (
-								<Grid key={summary.id} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-									<Card id={summary.id} name={summary.name} image={summary.image} />
-								</Grid>
-							);
-						})}
-					</Grid>
-				)
-			)}
+			{!isLoading &&
+				!isError &&
+				(drinks?.length ? (
+					<DrinkGrid drinks={drinks.map(toDrinkSummary)} />
+				) : (
+					<NoResults searchTerm={searchTerm} selectedCategory={selectedCategory} />
+				))}
 		</>
 	);
 }

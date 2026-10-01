@@ -64,6 +64,7 @@ Defined in `src/routes/app.routes.tsx`:
 | Component        | Purpose                                       |
 | ---------------- | --------------------------------------------- |
 | `Card`           | Drink tile (image, favorite, theme hover)     |
+| `DrinkGrid`      | Responsive grid of `Card`s                    |
 | `PageHeader`     | List page title with icon and optional action |
 | `EmptyState`     | Empty list placeholder with CTA               |
 | `FavoriteButton` | Heart toggle for favorites                    |

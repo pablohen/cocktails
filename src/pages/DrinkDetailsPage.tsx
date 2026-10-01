@@ -21,6 +21,7 @@ import { useDynamicColors } from "@/contexts/ThemeContext";
 import { useDrink } from "@/hooks/useDrink";
 import { extractColors } from "@/lib/colorExtractor";
 import { getDrinkIngredients } from "@/lib/drink";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 import { DrinkDetailsSkeleton } from "./DrinkDetailsPage/DrinkDetailsSkeleton";
 
 export function DrinkDetailsPage() {
@@ -85,7 +86,7 @@ export function DrinkDetailsPage() {
 	}
 
 	if (!drink.data) {
-		return null;
+		return <NotFoundPage />;
 	}
 
 	return (

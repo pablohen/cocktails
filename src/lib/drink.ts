@@ -1,4 +1,4 @@
-import type { Drink } from "@/types/Drink";
+import type { Drink, DrinkListItem } from "@/types/Drink";
 
 export type DrinkSummary = {
 	id: string;
@@ -6,9 +6,7 @@ export type DrinkSummary = {
 	image: string;
 };
 
-export function toDrinkSummary(
-	drink: Pick<Drink, "idDrink" | "strDrink" | "strDrinkThumb">,
-): DrinkSummary {
+export function toDrinkSummary(drink: DrinkListItem): DrinkSummary {
 	return {
 		id: drink.idDrink,
 		name: drink.strDrink,
@@ -38,8 +36,4 @@ export function getDrinkIngredients(drink: Drink): string[] {
 	return INGREDIENT_KEYS.map((key) => drink[key]).filter(
 		(ingredient): ingredient is string => !!ingredient,
 	);
-}
-
-export function toDrinkList<T>(drinks: T[] | null | string): T[] {
-	return Array.isArray(drinks) ? drinks : [];
 }

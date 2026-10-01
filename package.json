@@ -34,7 +34,7 @@
 		"@vitejs/plugin-react": "^6.0.3",
 		"typescript": "7.0.2",
 		"vite": "npm:@voidzero-dev/vite-plus-core@latest",
-		"vite-plus": "^0.2.4"
+		"vite-plus": "^1.0.0"
 	},
 	"packageManager": "pnpm@9.15.9"
 }

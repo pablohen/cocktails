@@ -46,10 +46,14 @@ export function DrinkDetailsPage() {
 		: "Discover cocktail recipes";
 
 	useEffect(() => {
+		let cancelled = false;
+
 		if (drink.data) {
 			if (drink.data.strDrinkThumb) {
 				extractColors(drink.data.strDrinkThumb)
-					.then((colors) => setColors(colors))
+					.then((colors) => {
+						if (!cancelled) setColors(colors);
+					})
 					.catch((error) => console.error("Failed to extract colors:", error));
 			}
 
@@ -61,6 +65,7 @@ export function DrinkDetailsPage() {
 		}
 
 		return () => {
+			cancelled = true;
 			setColors(null);
 		};
 	}, [drink.data, setColors, addToHistory]);

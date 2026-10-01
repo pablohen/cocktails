@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 
 export function useLocalStorageState<T>(key: string, initialValue: T) {
 	const [value, setValue] = useState<T>(() => {
-		const stored = localStorage.getItem(key);
-		return stored ? (JSON.parse(stored) as T) : initialValue;
+		try {
+			const stored = localStorage.getItem(key);
+			return stored ? (JSON.parse(stored) as T) : initialValue;
+		} catch {
+			return initialValue;
+		}
 	});
 
 	useEffect(() => {
-		localStorage.setItem(key, JSON.stringify(value));
+		try {
+			localStorage.setItem(key, JSON.stringify(value));
+		} catch {
+			// Quota exceeded or storage disabled
+		}
 	}, [key, value]);
 
 	return [value, setValue] as const;

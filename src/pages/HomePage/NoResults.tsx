@@ -3,7 +3,7 @@ import WineBarIcon from "@mui/icons-material/WineBar";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useUtils } from "@/contexts/UtilsContext";
+import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 
 interface NoResultsProps {
 	searchTerm: string;
@@ -11,7 +11,7 @@ interface NoResultsProps {
 }
 
 export function NoResults({ searchTerm, selectedCategory }: NoResultsProps) {
-	const { handleSearch, handleSelectedCategory } = useUtils();
+	const { handleSearch, handleSelectedCategory } = useDrinkFilters();
 
 	const handleClearFilters = () => {
 		handleSearch("");

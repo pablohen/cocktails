@@ -1,18 +1,15 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import { Card } from "@/components/Card";
+import { DrinkGrid } from "@/components/DrinkGrid";
 import { EmptyState } from "@/components/EmptyState";
 import { PageHeader } from "@/components/PageHeader";
 import { useFavorites } from "@/contexts/FavoritesContext";
-import { useUtils } from "@/contexts/UtilsContext";
 import { toDrinkSummary } from "@/lib/drink";
 
 export function FavoritesPage() {
 	const { favorites } = useFavorites();
-	const { handleSelectedDrink } = useUtils();
 	const navigate = useNavigate();
 
 	return (
@@ -36,21 +33,7 @@ export function FavoritesPage() {
 					}
 				/>
 			) : (
-				<Grid container spacing={3}>
-					{favorites.map((drink) => {
-						const summary = toDrinkSummary(drink);
-						return (
-							<Grid key={summary.id} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-								<Card
-									id={summary.id}
-									name={summary.name}
-									image={summary.image}
-									onClick={handleSelectedDrink}
-								/>
-							</Grid>
-						);
-					})}
-				</Grid>
+				<DrinkGrid drinks={favorites.map(toDrinkSummary)} />
 			)}
 		</>
 	);

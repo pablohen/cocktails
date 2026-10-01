@@ -1,18 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "@/services/cocktail";
-import type { Category } from "@/types/Category";
 
 export function useCategories() {
-	const fetchCategories = async () => {
-		const res = await getCategories();
-
-		const categories = res.data.drinks;
-		return categories;
-	};
-
-	return useQuery<Category[]>({
+	return useQuery({
 		queryKey: ["categories"],
-		queryFn: fetchCategories,
+		queryFn: getCategories,
 		retry: 3,
 		retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
 		staleTime: 5 * 60 * 1000, // 5 minutes

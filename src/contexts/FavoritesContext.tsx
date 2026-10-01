@@ -1,8 +1,8 @@
 import { createContext, type ReactNode, useContext } from "react";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
-import type { Drink } from "@/types/Drink";
+import type { Drink, DrinkListItem } from "@/types/Drink";
 
-export type FavoriteDrink = Pick<Drink, "idDrink" | "strDrink" | "strDrinkThumb"> & Partial<Drink>;
+export type FavoriteDrink = DrinkListItem & Partial<Drink>;
 
 interface FavoritesContextType {
 	favorites: FavoriteDrink[];

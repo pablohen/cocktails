@@ -4,12 +4,10 @@ import IconButton from "@mui/material/IconButton";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { MouseEvent } from "react";
 import { useFavorites } from "@/contexts/FavoritesContext";
-import type { Drink } from "@/types/Drink";
-
-type FavoriteDrink = Pick<Drink, "idDrink" | "strDrink" | "strDrinkThumb">;
+import type { DrinkListItem } from "@/types/Drink";
 
 interface Props {
-	drink: FavoriteDrink;
+	drink: DrinkListItem;
 	size?: "sm" | "md";
 	sx?: SxProps<Theme>;
 	onClick?: (e: MouseEvent) => void;

@@ -51,3 +51,5 @@ export interface Drink {
 	strCreativeCommonsConfirmed: string | null;
 	dateModified: string | null;
 }
+
+export type DrinkListItem = Pick<Drink, "idDrink" | "strDrink" | "strDrinkThumb">;

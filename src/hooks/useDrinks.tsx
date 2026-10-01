@@ -1,32 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { useUtils } from "@/contexts/UtilsContext";
-import { toDrinkList } from "@/lib/drink";
 import { getDrinksByCategory, getDrinksBySearch } from "@/services/cocktail";
-import type { Drink } from "@/types/Drink";
+import type { DrinkListItem } from "@/types/Drink";
 
 export function useDrinks() {
 	const { selectedCategory, searchTerm } = useUtils();
 
-	async function fetchDrinks(category: string) {
-		const res = await getDrinksByCategory(category);
-
-		return toDrinkList(res.data.drinks);
-	}
-
-	async function fetchSearch(searchTerm: string) {
-		const res = await getDrinksBySearch(searchTerm);
-
-		return toDrinkList(res.data.drinks);
-	}
-
-	return useQuery<Drink[]>({
+	return useQuery<DrinkListItem[]>({
 		queryKey: ["drinks", selectedCategory, searchTerm],
 		queryFn: () => {
 			if (searchTerm) {
-				return fetchSearch(searchTerm);
+				return getDrinksBySearch(searchTerm);
 			}
 
-			return fetchDrinks(selectedCategory);
+			return getDrinksByCategory(selectedCategory);
 		},
 		enabled: !!selectedCategory || !!searchTerm,
 		retry: 2,

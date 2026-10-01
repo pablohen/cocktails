@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { toDrinkList } from "@/lib/drink";
 import { getDrinkById } from "@/services/cocktail";
 import type { Drink } from "@/types/Drink";
 
@@ -11,11 +12,10 @@ export function useDrink() {
 	const fetchDrink = async (id: string) => {
 		const res = await getDrinkById(id);
 
-		const drink = res.data.drinks;
-		return drink[0];
+		return toDrinkList(res.data.drinks)[0] ?? null;
 	};
 
-	return useQuery<Drink>({
+	return useQuery<Drink | null>({
 		queryKey: ["drink", selectedDrink],
 		queryFn: () => fetchDrink(selectedDrink),
 		enabled: !!selectedDrink,

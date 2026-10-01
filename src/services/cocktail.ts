@@ -8,12 +8,15 @@ const cocktailApi = axios.create({
 	baseURL: API_URL,
 });
 
+// `null` when nothing matches, "no data found" for an unknown filter
+type DrinksResponse = { drinks: Drink[] | null | string };
+
 export async function getCategories() {
 	return await cocktailApi.get<{ drinks: Category[] }>("list.php?c=list");
 }
 
 export async function getDrinksByCategory(category: string) {
-	return await cocktailApi.get<{ drinks: Drink[] }>("filter.php", {
+	return await cocktailApi.get<DrinksResponse>("filter.php", {
 		params: {
 			c: category,
 		},
@@ -21,7 +24,7 @@ export async function getDrinksByCategory(category: string) {
 }
 
 export async function getDrinkById(id: string) {
-	return await cocktailApi.get<{ drinks: Drink[] }>("lookup.php", {
+	return await cocktailApi.get<DrinksResponse>("lookup.php", {
 		params: {
 			i: id,
 		},
@@ -29,11 +32,11 @@ export async function getDrinkById(id: string) {
 }
 
 export async function getRandomDrink() {
-	return await cocktailApi.get<{ drinks: Drink[] }>("random.php");
+	return await cocktailApi.get<DrinksResponse>("random.php");
 }
 
 export async function getDrinksBySearch(searchTerm: string) {
-	return await cocktailApi.get<{ drinks: Drink[] }>("search.php", {
+	return await cocktailApi.get<DrinksResponse>("search.php", {
 		params: {
 			s: searchTerm,
 		},

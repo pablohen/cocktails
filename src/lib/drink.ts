@@ -39,3 +39,7 @@ export function getDrinkIngredients(drink: Drink): string[] {
 		(ingredient): ingredient is string => !!ingredient,
 	);
 }
+
+export function toDrinkList<T>(drinks: T[] | null | string): T[] {
+	return Array.isArray(drinks) ? drinks : [];
+}

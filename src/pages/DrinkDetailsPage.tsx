@@ -11,7 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { DetailSection } from "@/components/DetailSection";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { useRecentlyViewed } from "@/contexts/RecentlyViewedContext";
@@ -28,21 +28,6 @@ export function DrinkDetailsPage() {
 	const { setColors } = useDynamicColors();
 	const { addIngredient, removeIngredient, isInList } = useShoppingList();
 	const { addToHistory } = useRecentlyViewed();
-
-	const ingredients = useMemo(() => {
-		if (drink.isLoading || drink.isError || !drink.data) {
-			return [];
-		}
-		return getDrinkIngredients(drink.data);
-	}, [drink]);
-
-	const pageTitle = drink.data
-		? `${drink.data.strDrink} - Cocktail Recipe | Cocktails & Drinks`
-		: "Cocktail Recipe | Cocktails & Drinks";
-
-	const pageDescription = drink.data
-		? `Learn how to make ${drink.data.strDrink}. ${drink.data.strCategory} cocktail recipe with ingredients and instructions.`
-		: "Discover cocktail recipes";
 
 	useEffect(() => {
 		let cancelled = false;
@@ -92,6 +77,10 @@ export function DrinkDetailsPage() {
 	if (!drink.data) {
 		return <NotFoundPage />;
 	}
+
+	const ingredients = getDrinkIngredients(drink.data);
+	const pageTitle = `${drink.data.strDrink} - Cocktail Recipe | Cocktails & Drinks`;
+	const pageDescription = `Learn how to make ${drink.data.strDrink}. ${drink.data.strCategory} cocktail recipe with ingredients and instructions.`;
 
 	return (
 		<>

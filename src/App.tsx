@@ -8,7 +8,7 @@ import { RecentlyViewedProvider } from "./contexts/RecentlyViewedContext";
 import { ShoppingListProvider } from "./contexts/ShoppingListContext";
 import { AppThemeProvider } from "./contexts/ThemeContext";
 import { DefaultLayout } from "./layouts/DefaultLayout";
-import { Routes } from "./routes/Routes";
+import { AppRoutes } from "./routes/app.routes";
 
 function App() {
 	const [queryClient] = useState(() => new QueryClient());
@@ -22,7 +22,7 @@ function App() {
 						<ShoppingListProvider>
 							<FavoritesProvider>
 								<DefaultLayout>
-									<Routes />
+									<AppRoutes />
 								</DefaultLayout>
 							</FavoritesProvider>
 						</ShoppingListProvider>

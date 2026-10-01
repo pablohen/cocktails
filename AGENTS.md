@@ -35,7 +35,7 @@ lib/         → shared utilities (drink helpers, colorExtractor)
 
 Provider nesting order is defined in `src/App.tsx` — follow the same pattern when adding providers:
 
-`QueryClientProvider` → `BrowserRouter` → `AppThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `DefaultLayout` → `Routes`
+`QueryClientProvider` → `BrowserRouter` → `AppThemeProvider` → `RecentlyViewedProvider` → `ShoppingListProvider` → `FavoritesProvider` → `DefaultLayout` → `AppRoutes`
 
 ### Routes
 

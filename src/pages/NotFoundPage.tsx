@@ -1,13 +1,10 @@
 import HomeIcon from "@mui/icons-material/Home";
-import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function NotFoundPage() {
-	const navigate = useNavigate();
-
 	return (
 		<>
 			<title>404 - Page Not Found | Cocktails & Drinks</title>
@@ -31,24 +28,9 @@ export function NotFoundPage() {
 					Sorry, we couldn't find the cocktail or page you're looking for. It might have been
 					removed or the URL might be incorrect.
 				</Typography>
-				<Stack direction="row" spacing={2}>
-					<Button
-						variant="contained"
-						size="large"
-						startIcon={<HomeIcon />}
-						onClick={() => navigate("/")}
-					>
-						Go Home
-					</Button>
-					<Button
-						variant="outlined"
-						size="large"
-						startIcon={<SearchIcon />}
-						onClick={() => navigate("/")}
-					>
-						Search Cocktails
-					</Button>
-				</Stack>
+				<Button component={Link} to="/" variant="contained" size="large" startIcon={<HomeIcon />}>
+					Go Home
+				</Button>
 			</Stack>
 		</>
 	);

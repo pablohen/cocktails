@@ -6,7 +6,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { DetailSection } from "@/components/DetailSection";
 import { EmptyState } from "@/components/EmptyState";
@@ -19,10 +18,8 @@ export function ShoppingListPage() {
 
 	return (
 		<>
-			<Helmet>
-				<title>Shopping List - Cocktails & Drinks</title>
-				<meta name="description" content="Manage your shopping list for cocktail ingredients." />
-			</Helmet>
+			<title>Shopping List - Cocktails & Drinks</title>
+			<meta name="description" content="Manage your shopping list for cocktail ingredients." />
 
 			<PageHeader
 				icon={ShoppingCartIcon}

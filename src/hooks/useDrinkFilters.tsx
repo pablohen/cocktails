@@ -30,5 +30,9 @@ export function useDrinkFilters() {
 		[navigate],
 	);
 
-	return { selectedCategory, searchTerm, handleSearch, handleSelectedCategory };
+	const clearFilters = useCallback(() => {
+		void navigate("/");
+	}, [navigate]);
+
+	return { selectedCategory, searchTerm, handleSearch, handleSelectedCategory, clearFilters };
 }

@@ -11,12 +11,7 @@ interface NoResultsProps {
 }
 
 export function NoResults({ searchTerm, selectedCategory }: NoResultsProps) {
-	const { handleSearch, handleSelectedCategory } = useDrinkFilters();
-
-	const handleClearFilters = () => {
-		handleSearch("");
-		handleSelectedCategory("");
-	};
+	const { clearFilters } = useDrinkFilters();
 
 	return (
 		<Stack
@@ -42,7 +37,7 @@ export function NoResults({ searchTerm, selectedCategory }: NoResultsProps) {
 								? `No cocktails found in the ${selectedCategory} category.`
 								: "No cocktails found. Try a different search or category."}
 					</Typography>
-					<Button variant="outlined" onClick={handleClearFilters}>
+					<Button variant="outlined" onClick={clearFilters}>
 						Clear filters
 					</Button>
 				</>

@@ -1,5 +1,4 @@
 import Grid from "@mui/material/Grid";
-import { Helmet } from "react-helmet-async";
 import { DrinkGrid } from "@/components/DrinkGrid";
 import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { useDrinks } from "@/hooks/useDrinks";
@@ -21,7 +20,7 @@ const CARD_SKELETON_KEYS = [
 
 export function HomePage() {
 	const { selectedCategory, searchTerm } = useDrinkFilters();
-	const { data: drinks, isLoading, isError } = useDrinks();
+	const { data: drinks, isLoading, isError, refetch } = useDrinks();
 
 	const pageTitle = searchTerm
 		? `Search results for "${searchTerm}" - Cocktails & Drinks`
@@ -37,10 +36,8 @@ export function HomePage() {
 
 	return (
 		<>
-			<Helmet>
-				<title>{pageTitle}</title>
-				<meta name="description" content={pageDescription} />
-			</Helmet>
+			<title>{pageTitle}</title>
+			<meta name="description" content={pageDescription} />
 
 			{isLoading && (
 				<Grid container spacing={3}>
@@ -52,7 +49,7 @@ export function HomePage() {
 				</Grid>
 			)}
 
-			{isError && <ErrorDisplay />}
+			{isError && <ErrorDisplay onRetry={refetch} />}
 
 			{!isLoading &&
 				!isError &&

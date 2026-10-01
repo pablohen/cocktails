@@ -3,13 +3,17 @@ import AlertTitle from "@mui/material/AlertTitle";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export function ErrorDisplay() {
+interface Props {
+	onRetry: () => void;
+}
+
+export function ErrorDisplay({ onRetry }: Props) {
 	return (
 		<Alert
 			severity="error"
 			sx={{ maxWidth: 600 }}
 			action={
-				<Button color="inherit" size="small" onClick={() => window.location.reload()}>
+				<Button color="inherit" size="small" onClick={() => onRetry()}>
 					Retry
 				</Button>
 			}

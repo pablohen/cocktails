@@ -1,7 +1,6 @@
 import HistoryIcon from "@mui/icons-material/History";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
-import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { DrinkGrid } from "@/components/DrinkGrid";
 import { EmptyState } from "@/components/EmptyState";
@@ -14,10 +13,8 @@ export function RecentlyViewedPage() {
 
 	return (
 		<>
-			<Helmet>
-				<title>Recently Viewed - Cocktails & Drinks</title>
-				<meta name="description" content="Your recently viewed cocktail recipes." />
-			</Helmet>
+			<title>Recently Viewed - Cocktails & Drinks</title>
+			<meta name="description" content="Your recently viewed cocktail recipes." />
 
 			<PageHeader
 				icon={HistoryIcon}

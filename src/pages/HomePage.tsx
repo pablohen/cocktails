@@ -1,5 +1,4 @@
 import Grid from "@mui/material/Grid";
-import { Helmet } from "react-helmet-async";
 import { DrinkGrid } from "@/components/DrinkGrid";
 import { useDrinkFilters } from "@/hooks/useDrinkFilters";
 import { useDrinks } from "@/hooks/useDrinks";
@@ -37,10 +36,8 @@ export function HomePage() {
 
 	return (
 		<>
-			<Helmet>
-				<title>{pageTitle}</title>
-				<meta name="description" content={pageDescription} />
-			</Helmet>
+			<title>{pageTitle}</title>
+			<meta name="description" content={pageDescription} />
 
 			{isLoading && (
 				<Grid container spacing={3}>

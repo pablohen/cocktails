@@ -1,6 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
-import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { DrinkGrid } from "@/components/DrinkGrid";
 import { EmptyState } from "@/components/EmptyState";
@@ -14,10 +13,8 @@ export function FavoritesPage() {
 
 	return (
 		<>
-			<Helmet>
-				<title>My Favorites - Cocktails & Drinks</title>
-				<meta name="description" content="View your favorite cocktail recipes." />
-			</Helmet>
+			<title>My Favorites - Cocktails & Drinks</title>
+			<meta name="description" content="View your favorite cocktail recipes." />
 
 			<PageHeader icon={FavoriteIcon} iconColor="error.main" title="My Favorites" />
 

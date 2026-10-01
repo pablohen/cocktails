@@ -12,7 +12,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useEffect, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
 import { DetailSection } from "@/components/DetailSection";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { useRecentlyViewed } from "@/contexts/RecentlyViewedContext";
@@ -96,10 +95,8 @@ export function DrinkDetailsPage() {
 
 	return (
 		<>
-			<Helmet>
-				<title>{pageTitle}</title>
-				<meta name="description" content={pageDescription} />
-			</Helmet>
+			<title>{pageTitle}</title>
+			<meta name="description" content={pageDescription} />
 
 			<Typography
 				variant="h3"

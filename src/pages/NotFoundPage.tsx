@@ -3,7 +3,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 export function NotFoundPage() {
@@ -11,9 +10,7 @@ export function NotFoundPage() {
 
 	return (
 		<>
-			<Helmet>
-				<title>404 - Page Not Found | Cocktails & Drinks</title>
-			</Helmet>
+			<title>404 - Page Not Found | Cocktails & Drinks</title>
 			<Stack
 				spacing={2}
 				sx={{

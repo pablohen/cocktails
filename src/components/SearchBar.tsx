@@ -30,7 +30,6 @@ export function SearchBar({ initialValue = "", onSubmit }: Props) {
 			return;
 		}
 		onSubmit(debouncedValue);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedValue, onSubmit]);
 
 	function handleSubmit(e: FormEvent) {

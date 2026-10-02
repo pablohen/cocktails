@@ -23,6 +23,14 @@ export async function getDrinksByCategory(category: string) {
 	});
 }
 
+export async function getDrinksByAlcoholic(alcoholic: string) {
+	return await cocktailApi.get<DrinksResponse>("filter.php", {
+		params: {
+			a: alcoholic,
+		},
+	});
+}
+
 export async function getDrinkById(id: string) {
 	return await cocktailApi.get<DrinksResponse>("lookup.php", {
 		params: {

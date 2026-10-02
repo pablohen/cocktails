@@ -38,7 +38,7 @@ export function SearchBar({ initialValue = "", onSubmit }: Props) {
 	}
 
 	return (
-		<Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", maxWidth: 360 }}>
+		<Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
 			<Autocomplete
 				freeSolo
 				options={[]}
@@ -53,7 +53,7 @@ export function SearchBar({ initialValue = "", onSubmit }: Props) {
 					<TextField
 						{...params}
 						size="small"
-						placeholder="Search..."
+						placeholder="Search drinks"
 						aria-label="Search for cocktails"
 						slotProps={{
 							...params.slotProps,

@@ -3,42 +3,48 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import HistoryIcon from "@mui/icons-material/History";
 import LocalCafeIcon from "@mui/icons-material/LocalCafe";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Alert from "@mui/material/Alert";
 import AppBar from "@mui/material/AppBar";
 import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
+import { useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Category } from "@/components/Category";
 import { SearchBar } from "@/components/SearchBar";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
 import { useUtils } from "@/contexts/UtilsContext";
-import { useCategories } from "@/hooks/useCategories";
 import { useRandomDrink } from "@/hooks/useRandomDrink";
-
-const CATEGORY_SKELETON_KEYS = [
-	"category-skeleton-1",
-	"category-skeleton-2",
-	"category-skeleton-3",
-	"category-skeleton-4",
-	"category-skeleton-5",
-	"category-skeleton-6",
-] as const;
 
 interface Props {
 	title: string;
 }
 
+const barButtonSx = {
+	borderRadius: 999,
+	borderColor: "rgba(255,255,255,0.5)",
+	fontWeight: 600,
+	"&:hover": { borderColor: "common.white", bgcolor: "rgba(255,255,255,0.14)" },
+} as const;
+
 export function Header({ title }: Props) {
-	const categories = useCategories();
-	const { handleSelectedCategory, handleSearch, searchTerm } = useUtils();
+	const { filters, updateFilters } = useUtils();
 	const { refetch, isFetching } = useRandomDrink();
 	const { ingredients } = useShoppingList();
 	const navigate = useNavigate();
+	const theme = useTheme();
+	const isCompact = useMediaQuery(theme.breakpoints.down("sm"));
+
+	const handleSearch = useCallback(
+		(search: string) => {
+			updateFilters({ search, refine: "" });
+		},
+		[updateFilters],
+	);
 
 	const handleSurpriseMe = async () => {
 		const { data } = await refetch();
@@ -47,27 +53,21 @@ export function Header({ title }: Props) {
 		}
 	};
 
+	const diceIcon = (
+		<CasinoIcon
+			sx={{
+				animation: isFetching ? "spin 1s linear infinite" : "none",
+				"@keyframes spin": {
+					"0%": { transform: "rotate(0deg)" },
+					"100%": { transform: "rotate(360deg)" },
+				},
+			}}
+		/>
+	);
+
 	return (
 		<AppBar position="sticky" color="primary">
-			<Toolbar sx={{ flexWrap: "wrap", gap: 2, py: 1 }}>
-				<IconButton
-					color="inherit"
-					onClick={handleSurpriseMe}
-					disabled={isFetching}
-					aria-label="Surprise me with a random cocktail"
-					sx={{ mr: 1 }}
-				>
-					<CasinoIcon
-						sx={{
-							animation: isFetching ? "spin 1s linear infinite" : "none",
-							"@keyframes spin": {
-								"0%": { transform: "rotate(0deg)" },
-								"100%": { transform: "rotate(360deg)" },
-							},
-						}}
-					/>
-				</IconButton>
-
+			<Toolbar sx={{ flexWrap: "wrap", columnGap: 2, rowGap: 1, py: 1.25 }}>
 				<Box
 					component={Link}
 					to="/"
@@ -78,19 +78,65 @@ export function Header({ title }: Props) {
 						gap: 1,
 						color: "inherit",
 						textDecoration: "none",
-						flexGrow: 1,
+						mr: "auto",
 					}}
 				>
 					<LocalCafeIcon />
-					<Typography variant="h6" sx={{ fontWeight: 700 }}>
+					<Typography variant="h6" sx={{ fontWeight: 800, whiteSpace: "nowrap" }}>
 						{title}
 					</Typography>
 				</Box>
 
-				<Stack direction="row" spacing={0.5}>
-					<IconButton component={Link} to="/favorites" color="inherit" aria-label="Go to favorites">
-						<FavoriteIcon />
-					</IconButton>
+				<Box sx={{ order: { xs: 3, md: 0 }, flex: "1 1 280px", maxWidth: { md: 460 } }}>
+					<SearchBar initialValue={filters.search} onSubmit={handleSearch} />
+				</Box>
+
+				<Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+					{isCompact ? (
+						<>
+							<IconButton
+								component={Link}
+								to="/favorites"
+								color="inherit"
+								aria-label="Go to favorites"
+							>
+								<FavoriteIcon />
+							</IconButton>
+							<IconButton
+								color="inherit"
+								onClick={handleSurpriseMe}
+								disabled={isFetching}
+								aria-label="Surprise me with a random cocktail"
+							>
+								{diceIcon}
+							</IconButton>
+						</>
+					) : (
+						<>
+							<Button
+								component={Link}
+								to="/favorites"
+								color="inherit"
+								variant="outlined"
+								startIcon={<FavoriteIcon />}
+								aria-label="Go to favorites"
+								sx={barButtonSx}
+							>
+								Favorites
+							</Button>
+							<Button
+								color="inherit"
+								variant="outlined"
+								startIcon={diceIcon}
+								onClick={handleSurpriseMe}
+								disabled={isFetching}
+								aria-label="Surprise me with a random cocktail"
+								sx={barButtonSx}
+							>
+								Surprise me
+							</Button>
+						</>
+					)}
 
 					<IconButton
 						component={Link}
@@ -113,57 +159,6 @@ export function Header({ title }: Props) {
 					</IconButton>
 				</Stack>
 			</Toolbar>
-
-			<Box sx={{ px: 2, pb: 2 }}>
-				<Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-					<SearchBar initialValue={searchTerm} onSubmit={handleSearch} />
-				</Box>
-
-				<Box component="nav" aria-label="Category filters">
-					{categories.isLoading && (
-						<Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
-							{CATEGORY_SKELETON_KEYS.map((key) => (
-								<Skeleton
-									key={key}
-									variant="rounded"
-									width={96}
-									height={32}
-									sx={{ borderRadius: 16, bgcolor: "rgba(255,255,255,0.2)" }}
-								/>
-							))}
-						</Stack>
-					)}
-
-					{categories.isError && (
-						<Box sx={{ display: "flex", justifyContent: "center" }}>
-							<Alert severity="error" sx={{ maxWidth: 400 }}>
-								Failed to load categories
-							</Alert>
-						</Box>
-					)}
-
-					{categories.data && (
-						<Box
-							component="ul"
-							sx={{
-								display: "flex",
-								flexWrap: "wrap",
-								justifyContent: "center",
-								gap: 1,
-								listStyle: "none",
-								m: 0,
-								p: 0,
-							}}
-						>
-							{categories.data.map((category) => (
-								<Box component="li" key={category.strCategory}>
-									<Category name={category.strCategory} onClick={handleSelectedCategory} />
-								</Box>
-							))}
-						</Box>
-					)}
-				</Box>
-			</Box>
 		</AppBar>
 	);
 }

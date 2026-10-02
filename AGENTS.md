@@ -29,7 +29,7 @@ lib/         → shared utilities (drink helpers, colorExtractor)
 | Concern                 | Location                             | Example                                   |
 | ----------------------- | ------------------------------------ | ----------------------------------------- |
 | Server/async data       | `hooks/` + React Query               | `useDrinks`, `useDrink`                   |
-| URL search/category     | `contexts/UtilsContext.tsx`          | `search`, `category` query params         |
+| URL filters             | `contexts/UtilsContext.tsx`          | `search`, `category`, `alcoholic` params  |
 | Persistent client state | `contexts/` + `useLocalStorageState` | favorites, shopping list, recently viewed |
 | Dynamic theming         | `contexts/ThemeContext.tsx`          | `AppThemeProvider` + `useDynamicColors`   |
 
@@ -67,8 +67,10 @@ Defined in `src/routes/app.routes.tsx`:
 | `PageHeader`     | List page title with icon and optional action |
 | `EmptyState`     | Empty list placeholder with CTA               |
 | `FavoriteButton` | Heart toggle for favorites                    |
+| `DrinkGrid`      | Responsive auto-fill grid for drink cards     |
+| `PhotoPill`      | Pill button with round photo or icon          |
 | `DetailSection`  | Paper panel for detail page sections          |
-| `Header`         | AppBar with search, categories, and nav       |
+| `Header`         | AppBar with search, favorites, random, nav    |
 
 ### lib/ utilities
 

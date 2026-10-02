@@ -5,7 +5,7 @@ import Skeleton from "@mui/material/Skeleton";
 export function CardSkeleton() {
 	return (
 		<Card>
-			<Skeleton variant="rectangular" height={256} />
+			<Skeleton variant="rectangular" sx={{ aspectRatio: "1", height: "auto" }} />
 			<CardContent>
 				<Skeleton variant="text" width="60%" height={28} />
 			</CardContent>

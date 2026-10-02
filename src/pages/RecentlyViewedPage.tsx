@@ -1,10 +1,10 @@
 import HistoryIcon from "@mui/icons-material/History";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/Card";
+import { DrinkGrid } from "@/components/DrinkGrid";
 import { EmptyState } from "@/components/EmptyState";
 import { PageHeader } from "@/components/PageHeader";
 import { useRecentlyViewed } from "@/contexts/RecentlyViewedContext";
@@ -47,18 +47,17 @@ export function RecentlyViewedPage() {
 					}
 				/>
 			) : (
-				<Grid container spacing={3}>
+				<DrinkGrid>
 					{recentDrinks.map((drink) => (
-						<Grid key={drink.id} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-							<Card
-								id={drink.id}
-								name={drink.name}
-								image={drink.image}
-								onClick={handleSelectedDrink}
-							/>
-						</Grid>
+						<Card
+							key={drink.id}
+							id={drink.id}
+							name={drink.name}
+							image={drink.image}
+							onClick={handleSelectedDrink}
+						/>
 					))}
-				</Grid>
+				</DrinkGrid>
 			)}
 		</>
 	);

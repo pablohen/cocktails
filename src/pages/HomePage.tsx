@@ -1,11 +1,12 @@
-import Grid from "@mui/material/Grid";
 import { Helmet } from "react-helmet-async";
 import { Card } from "@/components/Card";
+import { DrinkGrid } from "@/components/DrinkGrid";
 import { useUtils } from "@/contexts/UtilsContext";
 import { useDrinks } from "@/hooks/useDrinks";
 import { toDrinkSummary } from "@/lib/drink";
 import { CardSkeleton } from "./HomePage/CardSkeleton";
 import { ErrorDisplay } from "./HomePage/ErrorDisplay";
+import { FilterBar } from "./HomePage/FilterBar";
 import { NoResults } from "./HomePage/NoResults";
 
 const CARD_SKELETON_KEYS = [
@@ -20,8 +21,9 @@ const CARD_SKELETON_KEYS = [
 ] as const;
 
 export function HomePage() {
-	const { handleSelectedDrink, selectedCategory, searchTerm } = useUtils();
-	const { data: drinks, isLoading, isError } = useDrinks();
+	const { handleSelectedDrink, filters } = useUtils();
+	const { data: drinks, searchResults, isLoading, isError, refetch } = useDrinks();
+	const { search: searchTerm, category: selectedCategory } = filters;
 
 	const pageTitle = searchTerm
 		? `Search results for "${searchTerm}" - Cocktails & Drinks`
@@ -42,38 +44,40 @@ export function HomePage() {
 				<meta name="description" content={pageDescription} />
 			</Helmet>
 
+			<FilterBar
+				count={isLoading || isError ? null : drinks.length}
+				searchResults={searchResults}
+			/>
+
 			{isLoading && (
-				<Grid container spacing={3}>
+				<DrinkGrid>
 					{CARD_SKELETON_KEYS.map((key) => (
-						<Grid key={key} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-							<CardSkeleton />
-						</Grid>
+						<CardSkeleton key={key} />
 					))}
-				</Grid>
+				</DrinkGrid>
 			)}
 
-			{isError && <ErrorDisplay />}
+			{isError && <ErrorDisplay onRetry={refetch} />}
 
-			{!isLoading && !isError && (!drinks || drinks.length === 0) ? (
-				<NoResults searchTerm={searchTerm} selectedCategory={selectedCategory} />
+			{!isLoading && !isError && drinks.length === 0 ? (
+				<NoResults filters={filters} />
 			) : (
 				!isLoading &&
 				!isError && (
-					<Grid container spacing={3}>
-						{drinks?.map((drink) => {
+					<DrinkGrid>
+						{drinks.map((drink) => {
 							const summary = toDrinkSummary(drink);
 							return (
-								<Grid key={summary.id} size={{ xs: 12, sm: 6, lg: 4, xl: 3 }}>
-									<Card
-										id={summary.id}
-										name={summary.name}
-										image={summary.image}
-										onClick={handleSelectedDrink}
-									/>
-								</Grid>
+								<Card
+									key={summary.id}
+									id={summary.id}
+									name={summary.name}
+									image={summary.image}
+									onClick={handleSelectedDrink}
+								/>
 							);
 						})}
-					</Grid>
+					</DrinkGrid>
 				)
 			)}
 		</>

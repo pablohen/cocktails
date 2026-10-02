@@ -45,6 +45,7 @@ export function Card({ id, name, image, onClick }: Props) {
 				height: "100%",
 				display: "flex",
 				flexDirection: "column",
+				boxShadow: 1,
 				transition: "transform 0.2s, box-shadow 0.2s",
 				"&:hover": {
 					transform: "translateY(-4px)",
@@ -58,18 +59,26 @@ export function Card({ id, name, image, onClick }: Props) {
 				<Box sx={{ position: "relative" }}>
 					<CardMedia
 						component="img"
-						height={256}
 						image={image}
 						alt={`${name} cocktail`}
 						loading="lazy"
+						sx={{ aspectRatio: "1", objectFit: "cover" }}
 					/>
 					<FavoriteButton
 						drink={{ idDrink: id, strDrink: name, strDrinkThumb: image }}
 						sx={{ position: "absolute", top: 8, right: 8 }}
 					/>
 				</Box>
-				<CardContent>
-					<Typography variant="h6" noWrap sx={{ fontWeight: 700 }}>
+				<CardContent sx={{ py: 1.5 }}>
+					<Typography
+						variant="subtitle1"
+						noWrap
+						sx={(theme) => ({
+							fontFamily: theme.typography.h6.fontFamily,
+							fontWeight: 700,
+							fontSize: "1.08rem",
+						})}
+					>
 						{name}
 					</Typography>
 				</CardContent>
